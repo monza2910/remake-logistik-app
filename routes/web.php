@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
     Route::resource('article', ArticlesController::class);
+    Route::post('/postimg', [ArticlesController::class,'upload'])->name('article.upload');
     
     Route::get('/user/trash',[UserController::class, 'showTrash'])->name('user.trash');
     Route::get('/user/restore/{id}',[UserController::class, 'restore'])->name('user.restore');

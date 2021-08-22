@@ -48,7 +48,7 @@
                         <tr>
                             <td><?php echo e($index + 1); ?></td> 
                             <td>
-                                <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>"  class="img-fluid" width="200px" alt="Preview image">
+                                <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>"  class="img-fluid" height="50px" width="100px" alt="Preview image">
                             </td>
                             <td><?php echo e($article->title); ?></td>
                             <td><?php echo e($article->slug); ?></td>

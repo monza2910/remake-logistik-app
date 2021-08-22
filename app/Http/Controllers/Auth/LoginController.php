@@ -31,10 +31,10 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if (auth()->user()->role == ['admin','super-admin','petugas']) {
-            return '/admin/dashboard';
+        if (Auth()->user()->role == ['admin','super-admin','petugas']) {
+            return '/';
         }else {
-            return '/home';
+            return '/admin/dashboard';
         }
     }
     /**

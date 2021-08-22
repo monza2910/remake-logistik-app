@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group">
                     <label>Content</label>
-                    <textarea class="form-control" name="content" rows="3">{{old('content')}}</textarea>
+                    <textarea class="form-control" id="content" name="content" rows="3">{{old('content')}}</textarea>
                     @error('content')
                     <small class="text-danger">{{$message}}</small>
                     @enderror

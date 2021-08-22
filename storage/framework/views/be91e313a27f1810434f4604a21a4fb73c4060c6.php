@@ -85,7 +85,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
                     <label>Content</label>
-                    <textarea class="form-control" name="content" rows="3"><?php echo e(old('content')); ?></textarea>
+                    <textarea class="form-control" id="editor" name="content" rows="3"><?php echo e(old('content')); ?></textarea>
                     <?php $__errorArgs = ['content'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

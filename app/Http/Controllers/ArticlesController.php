@@ -21,11 +21,32 @@ class ArticlesController extends Controller
         return view('dashboard-admin.article.index',compact('articles'));
     }
 
+    public function upload(Request $request){
+        if ($request->hasFile('upload')) {
+            $originName     = $request->file('upload')->getClientOriginalName();
+            $fileName       = pathinfo($originName,PATHINFO_FILENAME);
+            $extension     = $request->file('upload')->getClientOriginalExtension();
+            $fileName       = $fileName.'_'.time().'.'.$extension;
+
+            $request->file('upload')->move(public_path('images/articles'),$fileName);
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('images/articles/'.$fileName);
+            $msg = 'Image upload susccesfuly';
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url','$msg')</script>";
+
+            @header('Content-type : text/html; charset-utf-8;');
+            echo $response;
+
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         $tags = Tags::orderBy('id','desc')->get();
