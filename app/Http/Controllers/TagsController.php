@@ -48,7 +48,7 @@ class TagsController extends Controller
             'name'  => $request->name,
             'slug'  => $slug
         ]);
-        return redirect('/tags')->with('success','Tag Wa Added');
+        return redirect()->route('tags.index')->with('success','Tag Wa Added');
     }
 
     /**
@@ -73,7 +73,7 @@ class TagsController extends Controller
         
         $tag = TagsModel::find($id);
         if ($tag == null) {
-            return redirect('/tags')->with('danger','Tag Not Found');
+            return redirect()->route('tags.index')->with('danger','Tag Not Found');
         }else {
             return view('dashboard-admin.tags.edit',compact('tag'));
         }
@@ -99,7 +99,8 @@ class TagsController extends Controller
             'name'  => $request->name, 
             'slug'  => $slug
         ]);
-        return redirect('/tags')->with('success','Tag Was Updated');
+        return redirect()->route('tags.index')->with('success','Tag Was updated');
+
     }
 
     /**
@@ -112,6 +113,7 @@ class TagsController extends Controller
     {
         $tag = TagsModel::find($id);
         $tag->delete();
-        return redirect('/tags')->with('deleted','Tags Was Deleted');
+        return redirect()->route('tags.index')->with('success','Tag Was Deleted');
+
     }
 }

@@ -34,11 +34,11 @@
 
           <li class="menu-header">Content</li>
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="far fa-file"></i><span>Post</span></a>
+            <a href="#" class="nav-link has-dropdown"><i class="far fa-file"></i><span>Articles</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="index-0.html">Create Post</a></li>
-              <li><a class="nav-link" href="index.html">List Post</a></li>
-              <li><a class="nav-link" href="index.html">Deleted Post</a></li>
+              <li><a class="nav-link" href="{{route('article.create')}}">Create Article</a></li>
+              <li><a class="nav-link" href="{{route('article.index')}}">List Article</a></li>
+              <li><a class="nav-link" href="">Deleted Article</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown {{'category' == request()->path()||'category.create' == request()->path() ? 'active' : ''}}">

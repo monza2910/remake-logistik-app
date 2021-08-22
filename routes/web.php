@@ -16,6 +16,7 @@ use App\Http\Controllers\OutletsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactusController;
+use App\Http\Controllers\ArticlesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('outlet', OutletsController::class);
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
+    Route::resource('article', ArticlesController::class);
     
     Route::get('/user/trash',[UserController::class, 'showTrash'])->name('user.trash');
     Route::get('/user/restore/{id}',[UserController::class, 'restore'])->name('user.restore');
