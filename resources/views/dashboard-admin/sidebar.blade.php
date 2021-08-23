@@ -9,12 +9,12 @@
       <ul class="sidebar-menu">
           
           <li class="menu-header">Dashboard</li>
-          <li class="nav-item dropdown {{'dashboard' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/dashboard' == request()->path() ? 'active' : ''}}">
             <a href="{{route('dashboard.index')}}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
           </li>
 
           <li class="menu-header">Navigation</li>
-          <li class="nav-item dropdown  {{'slider' == request()->path()||'slider.create' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown  {{'admin/slider' == request()->path()||'admin/slider/create' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown "><i class="far fa-images"></i><span>Slider</span></a>
             <ul class="dropdown-menu ">
               <li><a class="nav-link " href="{{route('slider.create')}}">Create Slider</a></li>
@@ -42,14 +42,14 @@
               <li><a class="nav-link" href="{{route('article.trash')}}">Deleted Article</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown {{'category' == request()->path()||'category.create' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/category' == request()->path()||'admin/category/create' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard-list"></i><span>Category</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('category.create')}}"></i>Create Category</a></li>
               <li><a class="nav-link" href="{{route('category.index')}}">List Category</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown {{'tags' == request()->path()||'tags.create' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/tags' == request()->path()||'admin/tags/create' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-tags"></i><span>Tags</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('tags.create')}}">Create Tag</a></li>
@@ -58,13 +58,13 @@
           </li>
 
           <li class="menu-header">Product & Services</li>
-          <li class="nav-item dropdown {{'outlet' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/outlet' == request()->path() ? 'active' : ''}}">
             <a href="{{route('outlet.index')}}" class="nav-link"><i class="fas fa-store"></i><span>Outlets</span></a>
           </li>
-          <li class="nav-item dropdown {{'variant' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/variant' == request()->path() ? 'active' : ''}}">
             <a href="{{route('variant.index')}}" class="nav-link"><i class="fas fa-receipt"></i><span>Variant Service</span></a>
           </li>
-          <li class="nav-item dropdown {{'origin' == request()->path()||'destination' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/origin' == request()->path()||'admin/destination' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marked"></i><span>Origin & Destination</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('origin.index')}}">Origin</a></li>
@@ -72,7 +72,7 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown {{'rate' == request()->path()||'rate.create' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/rate' == request()->path()||'admin/rate/create' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Service</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('rate.create')}}">Create Price</a></li>
@@ -88,7 +88,7 @@
           </li>
           
           <li class="menu-header">Membership</li>
-          <li class="nav-item dropdown {{'user' == request()->path()||'user.crate' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/user' == request()->path()||'admin/user/crate' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>User</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('user.create')}}">Create users</a></li>
@@ -97,21 +97,21 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown {{'role' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item dropdown {{'admin/role' == request()->path() ? 'active' : ''}}">
             <a href="{{route('role.index')}}" class="nav-link"><i class="fas fa-crosshairs"></i><span>Roles</span></a>
           </li>
-          <li class="nav-item {{'partner' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item {{'admin/partner' == request()->path() ? 'active' : ''}}">
             <a href="{{route('partner.index')}}" class="nav-link "><i class="far fa-handshake"></i><span>List Partners</span></a>
           </li>
 
           <li class="menu-header">Interaction</li>
-          <li class="nav-item {{'testimonial' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item {{'admin/testimonial' == request()->path() ? 'active' : ''}}">
             <a href="{{route('testimonial.index')}}" class="nav-link "><i class="fas fa-star"></i><span>Testimoni</span></a>
           </li>
           <li class="nav-item ">
             <a href="#" class="nav-link "><i class="far fa-comments"></i> <span>Comments</span></a>
           </li>
-          <li class="nav-item {{'contact' == request()->path() ? 'active' : ''}}">
+          <li class="nav-item {{'admin/contact' == request()->path() ? 'active' : ''}}">
             <a href="{{route('contact.index')}}" class="nav-link "><i class="fas fa-headset"></i> <span>Contact Us</span></a>
           </li>
 

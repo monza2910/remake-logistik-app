@@ -2,7 +2,7 @@
 @extends('dashboard-admin.home')
 
 @section('title')
-    article
+    Article
 @endsection
 
 @section('title-page')
