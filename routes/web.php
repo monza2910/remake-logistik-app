@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('outlet', OutletsController::class);
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
+
+    Route::get('/article/trash',[ArticlesController::class, 'showTrash'])->name('article.trash');
+    Route::get('/article/restore/{id}',[ArticlesController::class, 'restore'])->name('article.restore');
+    Route::delete('/article/kill/{id}',[ArticlesController::class, 'kill'])->name('article.kill');
     Route::resource('article', ArticlesController::class);
     Route::post('/postimg', [ArticlesController::class,'upload'])->name('article.upload');
     

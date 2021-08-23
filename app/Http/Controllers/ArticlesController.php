@@ -175,7 +175,7 @@ class ArticlesController extends Controller
                 $article->tags()->sync($request->tags);
                 $article->update($articles);
     
-                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+                return redirect()->route('article.index')->with('success','You have successfully updated Article.');
     
             }else {
                 $slug = Str::slug($request->title);
@@ -191,7 +191,7 @@ class ArticlesController extends Controller
                 $article->tags()->sync($request->tags);
                 $article->update($articles);
     
-                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+                return redirect()->route('article.index')->with('success','You have successfully updated Article.');
             }
         }else {
             
@@ -208,7 +208,7 @@ class ArticlesController extends Controller
                 $article->tags()->sync($request->tags);
                 $article->update($articles);
 
-                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+                return redirect()->route('article.index')->with('success','You have successfully updated Article.');
     
             }else {
                 $slug = Str::slug($request->title);
@@ -223,7 +223,7 @@ class ArticlesController extends Controller
                 $article->tags()->sync($request->tags);
                 $article->update($articles);
     
-                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+                return redirect()->route('article.index')->with('success','You have successfully updated Article.');
             }
         }
 
@@ -238,6 +238,31 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Articles::findorFail($id);
+        $article->delete();
+        return redirect()->route('article.index')->with('success','Article Was Deleted');
+
+    }
+    
+    public function showTrash()
+    {
+        $articles = Articles::onlyTrashed()->get();
+        return view('dashboard-admin.article.trash',compact('articles'));
+    }
+    
+    public function restore($id)
+    {
+        $article = Articles::withTrashed()->where('id',$id)->first();
+        $article->restore();
+        return redirect()->back()->with('success','Article Was Restored !!');
+        
+    }
+    
+    public function kill($id)
+    {
+        $article = Articles::withTrashed()->where('id',$id)->first();
+        $article->forceDelete();
+        return redirect()->back()->with('success','Article Was Deleted');
+    
     }
 }

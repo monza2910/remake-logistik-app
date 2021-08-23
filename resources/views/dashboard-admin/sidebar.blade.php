@@ -28,17 +28,18 @@
               <li><a class="nav-link" href="index.html">List Banner</a></li>
             </ul>
           </li> --}}
-          <li class="nav-item {{'buttons' == request()->path() ? 'active' : ''}}">
+          {{-- <li class="nav-item {{'buttons' == request()->path() ? 'active' : ''}}"> --}}
+          <li class="nav-item {{(request()->path() == 'admin/buttons') ? 'active' : ''}}">
             <a href="{{route('buttons.index')}}" class="nav-link "><i class="far fa-compass"></i><span>Button</span></a>
           </li>
 
           <li class="menu-header">Content</li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown  {{'admin/article' == request()->path()||'admin/article/create' == request()->path()||'admin/article/trash' == request()->path() ? 'active' : ''}} ">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file"></i><span>Articles</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="{{route('article.create')}}">Create Article</a></li>
               <li><a class="nav-link" href="{{route('article.index')}}">List Article</a></li>
-              <li><a class="nav-link" href="">Deleted Article</a></li>
+              <li><a class="nav-link" href="{{route('article.trash')}}">Deleted Article</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown {{'category' == request()->path()||'category.create' == request()->path() ? 'active' : ''}}">

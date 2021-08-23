@@ -22,17 +22,18 @@
             </ul>
           </li>
           
-          <li class="nav-item <?php echo e('buttons' == request()->path() ? 'active' : ''); ?>">
+          
+          <li class="nav-item <?php echo e((request()->path() == 'admin/buttons') ? 'active' : ''); ?>">
             <a href="<?php echo e(route('buttons.index')); ?>" class="nav-link "><i class="far fa-compass"></i><span>Button</span></a>
           </li>
 
           <li class="menu-header">Content</li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown  <?php echo e('admin/article' == request()->path()||'admin/article/create' == request()->path()||'admin/article/trash' == request()->path() ? 'active' : ''); ?> ">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file"></i><span>Articles</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="<?php echo e(route('article.create')); ?>">Create Article</a></li>
               <li><a class="nav-link" href="<?php echo e(route('article.index')); ?>">List Article</a></li>
-              <li><a class="nav-link" href="">Deleted Article</a></li>
+              <li><a class="nav-link" href="<?php echo e(route('article.trash')); ?>">Deleted Article</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown <?php echo e('category' == request()->path()||'category.create' == request()->path() ? 'active' : ''); ?>">
