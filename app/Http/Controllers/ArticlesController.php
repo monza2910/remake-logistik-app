@@ -128,7 +128,11 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article    = Articles::findorFail($id);
+        $cat_id     = $article['category_id'];
+        $tags = Tags::orderBy('id','desc')->get();
+        $categorys = Category::where('id','!=',$cat_id)->get();
+        return view('dashboard-admin.article.edit',compact('categorys','tags','article'));
     }
 
     /**
@@ -140,7 +144,90 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userid = Auth::user()->id;
+        $request->validate([
+            'title' => 'required|min:5|max:100',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'required',
+            'status' => 'required',       
+        ]);
+
+
+        $article    = Articles::findorFail($id);
+        
+        if ($request->has('thumbnail')) {
+            $image = time().'.'.$request->thumbnail->extension();  
+            $imageName = md5($image).'.'.$request->thumbnail->extension();
+         
+            $request->thumbnail->move(public_path('images/thumbnail'), $imageName);
+            
+            if ($request->slug != null) {
+                $slug = Str::slug($request->slug);
+                $articles = [
+                    'title'         => $request->title,
+                    'thumbnail'     => $imageName,
+                    'category_id'   => $request->category_id,
+                    'user_id'       => $userid,
+                    'status'        => $request->status,
+                    'content'       => $request->content,
+                    'slug'          => $slug
+                ];
+                $article->tags()->sync($request->tags);
+                $article->update($articles);
+    
+                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+    
+            }else {
+                $slug = Str::slug($request->title);
+                $articles = [
+                    'title'         => $request->title,
+                    'thumbnail'     => $imageName,
+                    'category_id'   => $request->category_id,
+                    'user_id'       => $userid,
+                    'status'        => $request->status,
+                    'content'       => $request->content,
+                    'slug'          => $slug
+                ];
+                $article->tags()->sync($request->tags);
+                $article->update($articles);
+    
+                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+            }
+        }else {
+            
+            if ($request->slug != null) {
+                $slug = Str::slug($request->slug);
+                $articles = [
+                    'title'         => $request->title,
+                    'category_id'   => $request->category_id,
+                    'user_id'       => $userid,
+                    'status'        => $request->status,
+                    'content'       => $request->content,
+                    'slug'          => $slug
+                ];
+                $article->tags()->sync($request->tags);
+                $article->update($articles);
+
+                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+    
+            }else {
+                $slug = Str::slug($request->title);
+                $articles = [
+                    'title'         => $request->title,
+                    'category_id'   => $request->category_id,
+                    'user_id'       => $userid,
+                    'status'        => $request->status,
+                    'content'       => $request->content,
+                    'slug'          => $slug
+                ];
+                $article->tags()->sync($request->tags);
+                $article->update($articles);
+    
+                return redirect()->route('article.index')->with('success','You have successfully added Article.');
+            }
+        }
+
+    
     }
 
     /**

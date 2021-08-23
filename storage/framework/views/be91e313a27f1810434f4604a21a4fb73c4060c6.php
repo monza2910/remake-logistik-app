@@ -85,7 +85,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
                     <label>Content</label>
-                    <textarea class="form-control" id="editor" name="content" rows="3"><?php echo e(old('content')); ?></textarea>
+                    <textarea class="form-control" id="content" name="content" rows="3"><?php echo e(old('content')); ?></textarea>
                     <?php $__errorArgs = ['content'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -117,4 +117,15 @@ unset($__errorArgs, $__bag); ?>
 
 </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startPush('scripts'); ?>
+    <script >
+      
+    CKEDITOR.replace( 'content',{
+      filebrowserUploadUrl      : "<?php echo e(route('article.upload',['_token' => csrf_token()])); ?>",
+      filebrowserUploadMethod   : "form",
+
+    } );
+    
+  </script>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('dashboard-admin.home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/dashboard-admin/article/create.blade.php ENDPATH**/ ?>

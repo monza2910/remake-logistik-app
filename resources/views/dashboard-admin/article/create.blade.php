@@ -91,3 +91,14 @@
 
 </div>
 @endsection
+@push('scripts')
+    <script >
+      
+    CKEDITOR.replace( 'content',{
+      filebrowserUploadUrl      : "{{route('article.upload',['_token' => csrf_token()])}}",
+      filebrowserUploadMethod   : "form",
+
+    } );
+    
+  </script>
+@endpush

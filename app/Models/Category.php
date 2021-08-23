@@ -12,7 +12,7 @@ class Category extends Model
     protected $table = 'categorys';
     protected $fillable = ['name','slug'];
 
-    public function user(){
-        return $this->hasMany(User::class);
+    public function article(){
+        return $this->hasMany(Articles::class);
     }
 }

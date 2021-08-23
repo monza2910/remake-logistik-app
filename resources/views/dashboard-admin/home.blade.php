@@ -57,16 +57,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script src="{{asset('assets/js/stisla.js')}}"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-
-    <script >
-      
-      CKEDITOR.replace( 'content',{
-        filebrowserUploadUrl      : "{{route('article.upload',['_token' => csrf_token()])}}",
-        filebrowserUploadMethod   : "form",
-
-      } );
-      
-    </script>
+    @stack('scripts')
     <script type="text/javascript">
       function readURL(input) {
           if (input.files && input.files[0]) {
