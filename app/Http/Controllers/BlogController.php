@@ -9,6 +9,7 @@ use App\Models\Partners;
 use App\Models\Articles;
 use App\Models\Origins;
 use App\Models\Contactus as Contacts;
+use App\Models\Ourteam ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,7 +27,8 @@ class BlogController extends Controller
         $partners = Partners::orderBy('id','DESC')->get();
         $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
         $origins  = Origins::distinct()->get(['city']);
-        return view('blog.index',compact('sliders','testimonials','partners','articles','origins'));
+        $teams  = Ourteam::orderBy('id','DESC')->get();
+        return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams'));
     }
 
     public function showArticle(){

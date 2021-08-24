@@ -407,16 +407,19 @@
         </div>
         <div>
           <!-- Copas Loop From Here -->
+          <?php $__currentLoopData = $teams; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $team): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              
           <div class="team-card">
             <!-- Foto Profil -->
-            <img src="" alt="" />
+            <img src="/images/team/<?php echo e($team->image); ?>" alt="" />
             <div>
               <!-- Nama Orang -->
-              <span id="name">Fella Aulia Rizkita</span>
+              <span id="name"><?php echo e($team->name); ?></span>
               <!-- Title/Jabatan -->
-              <span id="title">Calon Pacar CEO</span>
+              <span id="title"><?php echo e($team->jabatan); ?></span>
             </div>
           </div>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           <!-- Copas Loop From Here -->
         </div>
       </div>

@@ -82,6 +82,17 @@
           </li>
           
           <li class="menu-header">Membership</li>
+         
+
+          <li class="nav-item dropdown <?php echo e('admin/role' == request()->path() ? 'active' : ''); ?>">
+            <a href="<?php echo e(route('role.index')); ?>" class="nav-link"><i class="fas fa-crosshairs"></i><span>Roles</span></a>
+          </li>
+          <li class="nav-item <?php echo e('admin/partner' == request()->path() ? 'active' : ''); ?>">
+            <a href="<?php echo e(route('partner.index')); ?>" class="nav-link "><i class="far fa-handshake"></i><span>List Partners</span></a>
+          </li>
+          <li class="nav-item <?php echo e('admin/team' == request()->path() ? 'active' : ''); ?>">
+            <a href="<?php echo e(route('team.index')); ?>" class="nav-link "><i class="far fa-handshake"></i><span>List Team</span></a>
+          </li>
           <li class="nav-item dropdown <?php echo e('admin/user' == request()->path()||'admin/user/crate' == request()->path() ? 'active' : ''); ?>">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>User</span></a>
             <ul class="dropdown-menu">
@@ -89,13 +100,6 @@
               <li><a class="nav-link" href="<?php echo e(route('user.index')); ?>">List Users</a></li>
               <li><a class="nav-link" href="<?php echo e(route('user.trash')); ?>">Deleted Users</a></li>
             </ul>
-          </li>
-
-          <li class="nav-item dropdown <?php echo e('admin/role' == request()->path() ? 'active' : ''); ?>">
-            <a href="<?php echo e(route('role.index')); ?>" class="nav-link"><i class="fas fa-crosshairs"></i><span>Roles</span></a>
-          </li>
-          <li class="nav-item <?php echo e('admin/partner' == request()->path() ? 'active' : ''); ?>">
-            <a href="<?php echo e(route('partner.index')); ?>" class="nav-link "><i class="far fa-handshake"></i><span>List Partners</span></a>
           </li>
 
           <li class="menu-header">Interaction</li>

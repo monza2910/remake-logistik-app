@@ -408,16 +408,19 @@
         </div>
         <div>
           <!-- Copas Loop From Here -->
+          @foreach ($teams as $team)
+              
           <div class="team-card">
             <!-- Foto Profil -->
-            <img src="" alt="" />
+            <img src="/images/team/{{$team->image}}" alt="" />
             <div>
               <!-- Nama Orang -->
-              <span id="name">Fella Aulia Rizkita</span>
+              <span id="name">{{$team->name}}</span>
               <!-- Title/Jabatan -->
-              <span id="title">Calon Pacar CEO</span>
+              <span id="title">{{$team->jabatan}}</span>
             </div>
           </div>
+          @endforeach
           <!-- Copas Loop From Here -->
         </div>
       </div>

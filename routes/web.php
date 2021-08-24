@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\OurTeamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('origin', OriginsController::class);
     Route::resource('destination', DestinationsController::class);
     Route::resource('partner', PartnersController::class);
+    Route::resource('team', OurTeamController::class);
     Route::resource('rate', ShippingratesController::class);
     Route::resource('variant', VariantservicesController::class);
     Route::resource('outlet', OutletsController::class);
