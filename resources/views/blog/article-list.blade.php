@@ -17,9 +17,9 @@
           <li><a id="closeBtn">X</a></li>
           <li><a href="{{route('blog.index')}}">Home</a></li>
           <li><a href="{{route('blog.showarticle')}}" id="active">Article</a></li>
-          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="{{route('blog.contactus')}}">Contact Us</a></li>
         </ul>
-        <a href="login.html" id="right">Login</a>
+        <a href="{{route('login')}}" id="right">Login</a>
       </div>
     </nav>
 
@@ -63,19 +63,19 @@
     <div class="footer">
       <div class="footer-content">
         <ul>
-          <li id="title">Link</li>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="contactus.html">Hubungi Kami</a></li>
-        </ul>
-        <ul>
-          <li id="title">Auth</li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="register.html">Register</a></li>
-        </ul>
-        <ul>
-          <li id="title">Blog</li>
-          <li><a href="article-lists.html">Berita Terbaru</a></li>
-        </ul>
+            <li id="title">Link</li>
+            <li><a href="{{route('blog.index')}}">Home</a></li>
+            <li><a href="contactus.html">Hubungi Kami</a></li>
+          </ul>
+          <ul>
+            <li id="title">Auth</li>
+            <li><a href="{{route('login')}}">Login</a></li>
+            {{-- <li><a href="register.html">Register</a></li> --}}
+          </ul>
+          <ul>
+            <li id="title">Blog</li>
+            <li><a href="{{route('blog.showarticle')}}">Berita Terbaru</a></li>
+          </ul>
         <ul id="address">
           <li class="flex flex-inline flex-inline-top">
             <i class="fi fi-map-marker-alt fi-circle-small fi-circle-blue"></i>

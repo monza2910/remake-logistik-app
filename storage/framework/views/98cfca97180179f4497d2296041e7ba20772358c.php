@@ -20,9 +20,9 @@
           <li><a id="closeBtn">X</a></li>
           <li><a href="<?php echo e(route('blog.index')); ?>" id="active">Home</a></li>
           <li><a href="<?php echo e(route('blog.showarticle')); ?>">Article</a></li>
-          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="<?php echo e(route('blog.contactus')); ?>">Contact Us</a></li>
         </ul>
-        <a href="login.html" id="right">Login</a>
+        <a href="<?php echo e(route('login')); ?>" id="right">Login</a>
       </div>
     </nav>
 
@@ -237,24 +237,11 @@
         <!-- <<<<<< -->
         <div id="Lokasi" class="tabcontent" style="display: none">
           <div class="grid col col-2 grid-res">
+            <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="card card-white card-text-small">
-              <span class="card-title">Kab. Malang</span>
+              <span class="card-title"><?php echo e($origin->city); ?></span>
             </div>
-            <div class="card card-white card-text-small">
-              <span class="card-title">Kab. Blitar</span>
-            </div>
-            <div class="card card-white card-text-small">
-              <span class="card-title">D.I Yogyakarta</span>
-            </div>
-            <div class="card card-white card-text-small">
-              <span class="card-title">Kab. Semarang</span>
-            </div>
-            <div class="card card-white card-text-small">
-              <span class="card-title">USSR</span>
-            </div>
-            <div class="card card-white card-text-small">
-              <span class="card-title">Germany</span>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </div>
         </div>
       </div>
@@ -298,7 +285,7 @@
       <div class="image-flex flex flex-row">
           <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         
-          <a href="#">
+          <a href="<?php echo e($partner->website); ?>">
               <img src="/partners/<?php echo e($partner->image); ?>" alt="perusahaan" />
           </a>
 
@@ -440,17 +427,17 @@
       <div class="footer-content">
         <ul>
           <li id="title">Link</li>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="contactus.html">Hubungi Kami</a></li>
+          <li><a href="<?php echo e(route('blog.index')); ?>">Home</a></li>
+          <li><a href="<?php echo e(route('blog.contactus')); ?>">Hubungi Kami</a></li>
         </ul>
         <ul>
           <li id="title">Auth</li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="register.html">Register</a></li>
+          <li><a href="<?php echo e(route('login')); ?>">Login</a></li>
+          
         </ul>
         <ul>
           <li id="title">Blog</li>
-          <li><a href="article-lists.html">Berita Terbaru</a></li>
+          <li><a href="<?php echo e(route('blog.showarticle')); ?>">Berita Terbaru</a></li>
         </ul>
         <ul id="address">
           <li class="flex flex-inline flex-inline-top">

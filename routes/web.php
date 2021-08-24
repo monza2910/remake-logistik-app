@@ -35,6 +35,8 @@ use App\Http\Controllers\BlogController;
 Auth::routes();
 Route::get('/',[BlogController::class, 'index'])->name('blog.index');
 Route::get('/article',[BlogController::class, 'showArticle'])->name('blog.showarticle');
+Route::get('/contact-us',[BlogController::class, 'contactus'])->name('blog.contactus');
+Route::post('/contact-us/post',[BlogController::class, 'storecontactus'])->name('blog.storecontactus');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin']],function(){

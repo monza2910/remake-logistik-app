@@ -2,7 +2,7 @@
 
 
 <?php $__env->startSection('title'); ?>
-    article
+    Article
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('title-page'); ?>
@@ -75,8 +75,8 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label >Category</label>
                     <select class="form-control selectpicker" data-live-search="true" name="category_id">
-                        <?php if($article->category->name): ?>
-                        <option value="<?php echo e($article->category->name); ?>" selected><?php echo e($article->category->name); ?></option>
+                        <?php if($article->category->name != null): ?>
+                        <option value="<?php echo e($article->category->id); ?>" selected><?php echo e($article->category->name); ?></option>
                         <?php else: ?>
                         <option value="" selected>Select Category</option>
                         <?php endif; ?>

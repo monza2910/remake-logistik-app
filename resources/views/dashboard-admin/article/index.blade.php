@@ -37,14 +37,14 @@
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Category</th>
-                            <th>Tags</th>
+                            <th>Status</th>
                             <th>Author</th>
                             <th>Created At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($articles as $result => $article)    
+                        @foreach ($articles as $index => $article)    
                         <tr>
                             <td>{{$index + 1}}</td> 
                             <td>
@@ -59,13 +59,20 @@
                                    
                                 @endif
                             </td>
-                            <td>@foreach ($article->tags as $tag)
+                            <td>
+                                @if ($article->status == 0)
+                                    Draft
+                                @else
+                                    Active
+                                @endif
+                            </td>
+                            {{-- <td>@foreach ($article->tags as $tag)
                                 <ul>
                                     <li>
                                         {{$tag->name}}
                                     </li>
                                 </ul>
-                            @endforeach</td>
+                            @endforeach</td> --}}
                             <td>{{$article->user->name.' ('.$article->user->role->name.')'}}</td>
                             <td>{{$article->created_at}}</td>
                             <td >

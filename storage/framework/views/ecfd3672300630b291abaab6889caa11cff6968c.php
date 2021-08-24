@@ -2,7 +2,7 @@
 
 
 <?php $__env->startSection('title'); ?>
-    articles
+    Articles
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('title-page'); ?>
@@ -37,7 +37,7 @@
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Category</th>
-                            <th>Tags</th>
+                            <th>Status</th>
                             <th>Author</th>
                             <th>Created At</th>
                             <th>Action</th>
@@ -52,15 +52,21 @@
                             </td>
                             <td><?php echo e($article->title); ?></td>
                             <td><?php echo e($article->slug); ?></td>
-                            <td><?php echo e($article->category->name); ?></td>
-                            <td><?php $__currentLoopData = $article->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <ul>
-                                    <li>
-                                        <?php echo e($tag->name); ?>
-
-                                    </li>
-                                </ul>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></td>
+                            <td>
+                                <?php if($article->category->name != null): ?>
+                                    <?php echo e($article->category->name); ?> 
+                                <?php else: ?>
+                                   
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($article->status == 0): ?>
+                                    Draft
+                                <?php else: ?>
+                                    Active
+                                <?php endif; ?>
+                            </td>
+                            
                             <td><?php echo e($article->user->name.' ('.$article->user->role->name.')'); ?></td>
                             <td><?php echo e($article->created_at); ?></td>
                             <td >
