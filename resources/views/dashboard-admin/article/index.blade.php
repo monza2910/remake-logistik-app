@@ -44,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($articles as $index => $article)    
+                        @foreach ($articles as $result => $article)    
                         <tr>
                             <td>{{$index + 1}}</td> 
                             <td>
@@ -52,7 +52,13 @@
                             </td>
                             <td>{{$article->title}}</td>
                             <td>{{$article->slug}}</td>
-                            <td>{{$article->category->name}}</td>
+                            <td>
+                                @if ($article->category->name != null)
+                                    {{$article->category->name}} 
+                                @else
+                                   
+                                @endif
+                            </td>
                             <td>@foreach ($article->tags as $tag)
                                 <ul>
                                     <li>

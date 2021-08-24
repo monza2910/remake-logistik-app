@@ -17,6 +17,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,11 +29,12 @@ use App\Http\Controllers\ArticlesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('blog.index');
+// });
 Auth::routes();
-
+Route::get('/',[BlogController::class, 'index'])->name('blog.index');
+Route::get('/article',[BlogController::class, 'showArticle'])->name('blog.showarticle');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin']],function(){

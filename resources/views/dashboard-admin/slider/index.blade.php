@@ -37,6 +37,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Button</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,8 +53,19 @@
                             @if ($slider->button != null)
                             <td>{{$slider->button->name}}</td>
                             @else
-                            <td></td>
+                            <td>
+                            </td>
                             @endif
+                            
+                            <td>
+
+                            @if ($slider->status == '0')
+                                Draft
+                            @else
+                                Active
+                            @endif
+
+                            </td>
                             <td >
                                 <form action="{{ route('slider.destroy',$slider->id) }}" method="POST">
                                     

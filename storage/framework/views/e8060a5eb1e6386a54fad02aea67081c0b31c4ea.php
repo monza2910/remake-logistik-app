@@ -37,6 +37,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Button</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,8 +53,19 @@
                             <?php if($slider->button != null): ?>
                             <td><?php echo e($slider->button->name); ?></td>
                             <?php else: ?>
-                            <td></td>
+                            <td>
+                            </td>
                             <?php endif; ?>
+                            
+                            <td>
+
+                            <?php if($slider->status == '0'): ?>
+                                Draft
+                            <?php else: ?>
+                                Active
+                            <?php endif; ?>
+
+                            </td>
                             <td >
                                 <form action="<?php echo e(route('slider.destroy',$slider->id)); ?>" method="POST">
                                     

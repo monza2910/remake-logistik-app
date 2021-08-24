@@ -1,0 +1,119 @@
+:root {
+  --height: calc(var(--vh) * 100);
+}
+
+.splide {
+  position: relative;
+  height: 100vh;
+  height: var(--height);
+  width: 100vw;
+}
+
+.splide .splide__track::before {
+}
+
+.splide .splide__track ul.splide__list {
+  height: var(--height);
+  width: 100%;
+}
+
+.splide .splide__track ul.splide__list li.splide__slide {
+}
+
+.splide .splide__track ul.splide__list img#splide__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.splide .splide__track ul.splide__list .splide__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  text-align: left;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  color: white;
+}
+
+.splide .splide__track ul.splide__list .splide__content h1 {
+  max-width: 600px;
+}
+
+.splide .splide__track ul.splide__list .splide__content p {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.splide .splide__track ul.splide__list .splide__content::before {
+  content: "";
+  z-index: -10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.5)
+  );
+}
+
+.splide .splide__arrows button.splide__arrow {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid rgba(255, 255, 255, 0.4) 2px;
+  color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 150ms, color 150ms, border 150ms;
+}
+.splide .splide__arrows button.splide__arrow:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: solid 2px rgba(255, 255, 255, 0);
+  color: white;
+}
+.splide .splide__arrows button.splide__arrow.splide__arrow--next {
+  left: unset;
+  right: 25px;
+}
+
+.splide__pagination {
+  position: absolute;
+  width: max-content;
+  bottom: 20px;
+  right: 20px;
+}
+.splide.testimony.center-pagination .splide__pagination {
+  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.splide__pagination__page {
+  margin: 0 5px;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: solid 2px rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  transition: background-color 150ms, border 150ms;
+}
+.splide__pagination__page.is-active {
+  border: solid 2px rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0.4);
+}
