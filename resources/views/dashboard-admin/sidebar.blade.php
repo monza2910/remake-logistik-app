@@ -93,11 +93,15 @@
           <li class="nav-item dropdown {{'admin/role' == request()->path() ? 'active' : ''}}">
             <a href="{{route('role.index')}}" class="nav-link"><i class="fas fa-crosshairs"></i><span>Roles</span></a>
           </li>
-          <li class="nav-item {{'admin/partner' == request()->path() ? 'active' : ''}}">
-            <a href="{{route('partner.index')}}" class="nav-link "><i class="far fa-handshake"></i><span>List Partners</span></a>
-          </li>
-          <li class="nav-item {{'admin/team' == request()->path() ? 'active' : ''}}">
-            <a href="{{route('team.index')}}" class="nav-link "><i class="far fa-handshake"></i><span>List Team</span></a>
+
+         
+
+          <li class="nav-item dropdown {{'admin/team' == request()->path()||'admin/partner' == request()->path() ? 'active' : ''}}">
+            <a href="#" class="nav-link has-dropdown"><i class="far fa-handshake"></i><span>Teams</span></a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link" href="{{route('team.index')}}">Team</a></li>
+              <li><a class="nav-link" href="{{route('partner.index')}}">Partner</a></li>
+            </ul>
           </li>
           <li class="nav-item dropdown {{'admin/user' == request()->path()||'admin/user/crate' == request()->path() ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>User</span></a>
