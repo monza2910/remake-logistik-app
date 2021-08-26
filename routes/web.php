@@ -19,6 +19,7 @@ use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OurTeamController;
+use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +57,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('outlet', OutletsController::class);
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
+
+    Route::get('/transaction/trash',[TransactionController::class, 'showTrash'])->name('transaction.trash');
+    Route::get('/transaction/restore/{id}',[TransactionController::class, 'restore'])->name('transaction.restore');
+    Route::delete('/transaction/kill/{id}',[TransactionController::class, 'kill'])->name('transaction.kill');
+    Route::resource('transaction', TransactionController::class);
 
     Route::get('/article/trash',[ArticlesController::class, 'showTrash'])->name('article.trash');
     Route::get('/article/restore/{id}',[ArticlesController::class, 'restore'])->name('article.restore');

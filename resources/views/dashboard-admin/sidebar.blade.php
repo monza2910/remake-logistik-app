@@ -82,8 +82,8 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-dollar-sign"></i><span>Transaction</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="index-0.html">Create Transaction</a></li>
-              <li><a class="nav-link" href="index.html"></i>List Transaction</a></li>
+              <li><a class="nav-link" href="{{route('transaction.index')}}"></i>List Transaction</a></li>
+              <li><a class="nav-link" href="{{route('transaction.trash')}}"></i>Deleted Transaction</a></li>
             </ul>
           </li>
           
