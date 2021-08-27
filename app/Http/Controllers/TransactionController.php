@@ -68,7 +68,12 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+        $idtr        = $transaction['id'];
+        $trackings    =  Tracking::where('transaction_id',$idtr)->orderBy('id','DESC')->get();
+
+        return view('dashboard-admin.transaction.show',compact('transaction','trackings'));
+
     }
 
     /**
@@ -82,6 +87,7 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
         return view('dashboard-admin.transaction.edit',compact('transaction'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -107,7 +113,7 @@ class TransactionController extends Controller
             'tracking_number'   => $request->tn,
             'sender'            => $request->sender,
             'phone_sender'      => $request->phone_sender,
-            'address_sender'      => $request->phone_sender,
+            'address_sender'      => $request->a_sender,
             'penerima'            => $request->penerima,
             'phone_penerima'      => $request->phone_penerima,
             'address_penerima'      => $request->a_penerima,
@@ -149,6 +155,35 @@ class TransactionController extends Controller
         $transaction = Transaction::withTrashed()->where('id',$id)->first();
         $transaction->forceDelete();
         return redirect()->back()->with('success','Transaction Was Deleted');
+    
+    }
+    
+
+    public function addTracking($id){
+        $idtr = $id;
+        return view('dashboard-admin.transaction.addtracking',compact('idtr'));
+    }
+
+    public function storeTracking(Request $request){
+        $request->validate([
+            'location'  => 'required',
+            'status'  => 'required',
+        ]);
+
+        Tracking::create([
+            'transaction_id' => $request->id_tr,
+            'status' => $request->status,
+            'location' => $request->location,
+        ]);
+        return redirect()->back()->with('success','Tracking Was Added');
+
+    }
+
+    public function killTracking($id)
+    {
+        $tracking = Tracking::findorFail($id);
+        $tracking->delete();
+        return redirect()->back()->with('success','Tracking Was Deleted');
     
     }
 }

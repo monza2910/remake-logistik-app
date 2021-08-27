@@ -8,8 +8,11 @@ use App\Models\Testimonials;
 use App\Models\Partners;
 use App\Models\Articles;
 use App\Models\Origins;
+use App\Models\Destinations;
 use App\Models\Contactus as Contacts;
 use App\Models\Ourteam ;
+use App\Models\Transaction ;
+use App\Models\Tracking ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,15 +23,39 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sliders = Sliders::where('status','!=', '0')->get();
-        $testimonials = Testimonials::where('status','!=', '0')->get();
-        $partners = Partners::orderBy('id','DESC')->get();
-        $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
-        $origins  = Origins::distinct()->get(['city']);
-        $teams  = Ourteam::orderBy('id','DESC')->get();
-        return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams'));
+        if ($request->resi != null) {
+            $value = $request->resi;
+            $transactions = Transaction::where('tracking_number', $value)->firstorFail();
+    
+            
+            $trid    = $transactions['id'];
+            
+    
+            $trackings = Tracking::where('transaction_id',$trid)->orderBy('created_at','DESC')->get();
+
+            $sliders = Sliders::where('status','!=', '0')->get();
+            $testimonials = Testimonials::where('status','!=', '0')->get();
+            $partners = Partners::orderBy('id','DESC')->get();
+            $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
+            $origins  = Origins::distinct()->get(['city']);
+            $destinations  = Destinations::distinct()->get(['city']);
+            $teams  = Ourteam::orderBy('id','DESC')->get();
+
+            // return Redirect()->back()->with(compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions'));
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions'));
+        }else {
+            $sliders = Sliders::where('status','!=', '0')->get();
+            $testimonials = Testimonials::where('status','!=', '0')->get();
+            $partners = Partners::orderBy('id','DESC')->get();
+            $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
+            $origins  = Origins::distinct()->get(['city']);
+            $destinations  = Destinations::distinct()->get(['city']);
+            $teams  = Ourteam::orderBy('id','DESC')->get();
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations',));
+        }
+
     }
 
     public function showArticle(){
@@ -132,5 +159,20 @@ class BlogController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function estimasiTrack(Request $request){
+
+    }
+    public function trackingCek(Request $request){
+        $value = $request->resi;
+        $tracking_result = Transaction::where('tracking_number', $value)->get();
+
+        foreach ($tracking_result as $result ) {
+           $trid    = $result->id;
+        }
+
+        $trackings = Tracking::where('transaction_id',$trid);
+        return view();
     }
 }

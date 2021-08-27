@@ -22,7 +22,14 @@
           <li><a href="<?php echo e(route('blog.showarticle')); ?>">Article</a></li>
           <li><a href="<?php echo e(route('blog.contactus')); ?>">Contact Us</a></li>
         </ul>
+        <?php if(empty(auth::user())): ?>
         <a href="<?php echo e(route('login')); ?>" id="right">Login</a>
+        <?php else: ?>
+        <form action="<?php echo e(route('logout')); ?>" method="POST">
+          <?php echo csrf_field(); ?>
+          <button type="submit" class="dropdown-item has-icon text-danger">Logout</button>
+      </form>
+        <?php endif; ?>
       </div>
     </nav>
 
@@ -97,7 +104,8 @@
           <!-- <<<<<<<<<<<<<<<<<<< -->
           <div id="Bayar" class="tabcontent">
             <!-- Form Estimasi Pembayaran -->
-            <form action="">
+            <form action="<?php echo e(route('estimasi.cek')); ?>" method="POST">
+              <?php echo csrf_field(); ?>
               <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
@@ -179,7 +187,7 @@
         <!-- LACAK PAKET -->
         <!-- <<<<<<<<<<< -->
         <div id="Lacak" class="tabcontent" style="display: none">
-          <form action="">
+          <form action="<?php echo e(route('blog.index')); ?>" method="get ">
             <div class="grid col">
               <div class="card card-white">
                 <div class="card-inline">
@@ -189,46 +197,56 @@
                 <p>
                   Nomor Resi didapatkan setelah barang diambil untuk dikirmkan
                 </p>
-                <input type="text" placeholder="Cth: 94328012" />
+                <input type="text" name="resi" placeholder="Cth: 94328012" />
               </div>
             </div>
             <button id="centered" type="submit">Konfirmasi No. Resi</button>
           </form>
 
           <!-- Hasil Dari Lacak Lokasi Barang -->
+
+          <?php if(isset($record)): ?>
+              
+          <?php endif; ?>
+          <?php if(!empty($transactions) ): ?>
           <div class="result">
             <div class="result-header">
-              <span id="name"> Rexothys </span>
-              <span id="id"> 3298652980924 </span>
+              <span id="name"> <?php echo e($transactions->penerima); ?> </span>
+              <span id="id"> <?php echo e($transactions->tracking_number); ?> </span>
             </div>
             <div class="result-content">
               <div id="address">
-                <span id="from">Malang, Jawa Timur</span>
-                <span id="to">Surabaya, Jawa Timur</span>
+                <span id="from"><?php echo e($transactions->address_sender); ?></span>
+                <span id="to"><?php echo e($transactions->address_penerima); ?></span>
               </div>
-              <div id="tracking">
-                <span>STATUS PENGIRIMAN</span>
-                <div class="list">
-                  <div id="time">
-                    <span id="hour">18:15</span>
-                    <span id="date">14 Agustus 2021</span>
-                  </div>
-                  <div id="detail">
-                    <p>Barang sampai di transit</p>
-                  </div>
-                </div>
-                <div class="list">
-                  <div id="time">
-                    <span id="hour">13:15</span>
-                    <span id="date">14 Agustus 2021</span>
-                  </div>
-                  <div id="detail">
-                    <p>Barang dipickup dari alamat yang tertera</p>
-                  </div>
+                <div id="tracking">
+                  <span>STATUS PENGIRIMAN</span>
+                  <?php if(!empty($trackings)): ?>
+                    <?php $__currentLoopData = $trackings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $track): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="list">
+                      <div id="time">
+                        <span id="hour"><?php echo e($track->created_at->format('H:i')); ?></span>
+                        <span id="date"><?php echo e($track->created_at->format('d M y')); ?></span>
+                      </div>
+                      <div id="detail">
+                        <p><?php echo e($track->status." [". $track->location."]"); ?></p>
+                      </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    
+                  <?php else: ?>
+                      
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
-          </div>
+
+
+          <?php else: ?>
+
+           
+          <?php endif; ?>
+          
           <!-- Hasil Dari Lacak Lokasi Barang -->
         </div>
 

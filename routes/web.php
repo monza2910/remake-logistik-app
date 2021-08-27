@@ -39,6 +39,8 @@ Route::get('/',[BlogController::class, 'index'])->name('blog.index');
 Route::get('/article',[BlogController::class, 'showArticle'])->name('blog.showarticle');
 Route::get('/contact-us',[BlogController::class, 'contactus'])->name('blog.contactus');
 Route::post('/contact-us/post',[BlogController::class, 'storecontactus'])->name('blog.storecontactus');
+Route::post('/contact-us/post',[BlogController::class, 'estimasiTrack'])->name('estimasi.cek');
+Route::get('/tracking/cek',[BlogController::class, 'trackingCek'])->name('tracking.cek');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin']],function(){
@@ -58,6 +60,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
 
+    Route::get('/tracking/{id}/edit',[TransactionController::class,'addTracking'])->name('tracking.add');
+    Route::post('/tracking/',[TransactionController::class,'storeTracking'])->name('tracking.store');
+    Route::delete('/tracking/kill/{id}',[TransactionController::class, 'killTracking'])->name('tracking.kill');
     Route::get('/transaction/trash',[TransactionController::class, 'showTrash'])->name('transaction.trash');
     Route::get('/transaction/restore/{id}',[TransactionController::class, 'restore'])->name('transaction.restore');
     Route::delete('/transaction/kill/{id}',[TransactionController::class, 'kill'])->name('transaction.kill');

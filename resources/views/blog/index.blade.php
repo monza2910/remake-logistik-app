@@ -22,7 +22,14 @@
           <li><a href="{{route('blog.showarticle')}}">Article</a></li>
           <li><a href="{{route('blog.contactus')}}">Contact Us</a></li>
         </ul>
+        @if (empty(auth::user()))
         <a href="{{route('login')}}" id="right">Login</a>
+        @else
+        <form action="{{ route('logout') }}" method="POST">
+          @csrf
+          <button type="submit" class="dropdown-item has-icon text-danger">Logout</button>
+      </form>
+        @endif
       </div>
     </nav>
 
@@ -96,7 +103,8 @@
           <!-- <<<<<<<<<<<<<<<<<<< -->
           <div id="Bayar" class="tabcontent">
             <!-- Form Estimasi Pembayaran -->
-            <form action="">
+            <form action="{{route('estimasi.cek')}}" method="POST">
+              @csrf
               <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
@@ -178,7 +186,7 @@
         <!-- LACAK PAKET -->
         <!-- <<<<<<<<<<< -->
         <div id="Lacak" class="tabcontent" style="display: none">
-          <form action="">
+          <form action="{{route('blog.index')}}" method="get ">
             <div class="grid col">
               <div class="card card-white">
                 <div class="card-inline">
@@ -188,46 +196,56 @@
                 <p>
                   Nomor Resi didapatkan setelah barang diambil untuk dikirmkan
                 </p>
-                <input type="text" placeholder="Cth: 94328012" />
+                <input type="text" name="resi" placeholder="Cth: 94328012" />
               </div>
             </div>
             <button id="centered" type="submit">Konfirmasi No. Resi</button>
           </form>
 
           <!-- Hasil Dari Lacak Lokasi Barang -->
+
+          @isset($record)
+              
+          @endisset
+          @if (!empty($transactions) )
           <div class="result">
             <div class="result-header">
-              <span id="name"> Rexothys </span>
-              <span id="id"> 3298652980924 </span>
+              <span id="name"> {{$transactions->penerima}} </span>
+              <span id="id"> {{$transactions->tracking_number}} </span>
             </div>
             <div class="result-content">
               <div id="address">
-                <span id="from">Malang, Jawa Timur</span>
-                <span id="to">Surabaya, Jawa Timur</span>
+                <span id="from">{{$transactions->address_sender}}</span>
+                <span id="to">{{$transactions->address_penerima}}</span>
               </div>
-              <div id="tracking">
-                <span>STATUS PENGIRIMAN</span>
-                <div class="list">
-                  <div id="time">
-                    <span id="hour">18:15</span>
-                    <span id="date">14 Agustus 2021</span>
-                  </div>
-                  <div id="detail">
-                    <p>Barang sampai di transit</p>
-                  </div>
-                </div>
-                <div class="list">
-                  <div id="time">
-                    <span id="hour">13:15</span>
-                    <span id="date">14 Agustus 2021</span>
-                  </div>
-                  <div id="detail">
-                    <p>Barang dipickup dari alamat yang tertera</p>
-                  </div>
+                <div id="tracking">
+                  <span>STATUS PENGIRIMAN</span>
+                  @if (!empty($trackings))
+                    @foreach ($trackings as $track)
+                    <div class="list">
+                      <div id="time">
+                        <span id="hour">{{$track->created_at->format('H:i')}}</span>
+                        <span id="date">{{$track->created_at->format('d M y')}}</span>
+                      </div>
+                      <div id="detail">
+                        <p>{{$track->status." [". $track->location."]"}}</p>
+                      </div>
+                    </div>
+                    @endforeach
+    
+                  @else
+                      
+                  @endif
                 </div>
               </div>
             </div>
-          </div>
+
+
+          @else
+
+           
+          @endif
+          
           <!-- Hasil Dari Lacak Lokasi Barang -->
         </div>
 

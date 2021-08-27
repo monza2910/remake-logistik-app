@@ -86,22 +86,15 @@ for (dataLiveCount = 0; dataLiveCount < dataLiveText.length; dataLiveCount++) {
 }
 
 // FILTER
-for (
-  dataLiveInputCount = 0;
-  dataLiveInputCount < dataLiveInput.length;
-  dataLiveInputCount++
-) {
+for (dataLiveInputCount = 0;dataLiveInputCount < dataLiveInput.length;dataLiveInputCount++) {
   dataLiveInput[dataLiveInputCount].addEventListener("keyup", function () {
-    for (var i = 0; i < dataLiveText.length; i++) {
-      if (
-        this.parentElement
-          .getElementsByTagName("li")
-          [i].innerText.toUpperCase()
-          .indexOf(this.value.toUpperCase()) > -1
-      ) {
-        dataLiveText[i].style.display = "";
+    var sum = this.parentElement.children[1].children;
+    var result = this.value.toUpperCase();
+    for (var i = 0; i < this.parentElement.getElementsByTagName('li').length; i++) {
+      if (sum[i].innerText.toUpperCase().indexOf(result) > -1){
+        sum[i].style.display = "";
       } else {
-        dataLiveText[i].style.display = "none";
+        sum[i].style.display = "none";
       }
     }
   });

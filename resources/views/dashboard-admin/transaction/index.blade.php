@@ -55,8 +55,9 @@
                                     
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{route('transaction.edit',$transaction->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> Update</a>
-                                    <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                    <a href="{{route('transaction.show',$transaction->id)}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
+                                    <a href="{{route('transaction.edit',$transaction->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
+                                    <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
