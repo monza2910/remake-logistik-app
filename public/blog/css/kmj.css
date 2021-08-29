@@ -107,6 +107,9 @@ nav.navbar a#right {
 nav.navbar ul a {
   color: rgba(255, 255, 255, 0.4);
 }
+nav.navbar ul li {
+  position: relative;
+}
 nav.navbar ul li a {
   display: block;
   padding: 10px 25px;
@@ -125,6 +128,7 @@ nav.navbar #sidebar ul {
   margin-left: auto;
 }
 nav.navbar a#openBtn span {
+  cursor: pointer;
   display: none;
   position: relative;
   height: 20px;
@@ -145,6 +149,31 @@ nav.navbar a#openBtn span::after {
   top: unset;
   bottom: 0;
   width: 50%;
+}
+nav.navbar ul li ul.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0);
+  border-radius: 15px 5px 15px 15px;
+  overflow: hidden;
+}
+nav.navbar ul li:hover ul.dropdown {
+  height: max-content;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0);
+}
+nav.navbar ul li ul.dropdown li a {
+  color: rgba(26, 50, 99, 0.8);
+  font-family: "PoppinsMedium";
+}
+nav.navbar ul li ul.dropdown li a:hover {
+  color: var(--blue);
+  background-color: rgba(255, 255, 255);
 }
 
 /* BUTTON */
@@ -324,6 +353,10 @@ nav.navbar a#openBtn span::after {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   padding: 15px;
+  height: max-content;
+}
+.tabcontent form {
+  width: 100%;
 }
 @keyframes tabContent {
   0% {
@@ -423,6 +456,9 @@ nav.navbar a#openBtn span::after {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.card .data-live {
+  width: 100%;
 }
 .news-container {
   margin-top: 50px;
@@ -573,9 +609,7 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
 }
-.flex.flex-row {
-  /* flex-direction: row; */
-}
+
 .flex.flex-left {
   flex-direction: column;
   align-items: flex-start;
@@ -684,6 +718,60 @@ input[type="text"] {
 #articles {
   color: var(--blue);
   padding-top: 0;
+  margin-top: 0;
+}
+#articles .category {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 25px;
+  width: max-content;
+  margin-left: auto;
+}
+#articles .category span {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 10px 15px;
+  border-radius: 15px;
+  color: rgba(26, 50, 99, 0.4);
+  cursor: pointer;
+}
+#articles .category ul {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  list-style-type: none;
+  padding-top: 15px;
+  width: 250px;
+  height: 0;
+  overflow: hidden;
+  display: none;
+}
+#articles .category:focus ul {
+  height: max-content;
+  display: block;
+}
+#articles .category ul:hover {
+  height: max-content;
+  display: block;
+}
+#articles .category ul li a {
+  display: block;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: rgba(26, 50, 99, 0.6);
+  transition: background-color 150ms, color 150ms;
+}
+#articles .category ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgba(26, 50, 99, 1);
+}
+#articles .category ul li:nth-child(1) a {
+  border-radius: 15px 15px 0 0;
+}
+#articles .category ul li:nth-last-child(1) a {
+  border-radius: 0 0 15px 15px;
 }
 
 /* FORM */
@@ -878,25 +966,31 @@ form button {
 .result .result-price span#weight::before {
   content: "BERAT";
 }
-.result .result-price span#price {
+.result .result-price span#reguler,
+.result .result-price span#express {
   position: relative;
   flex-direction: row;
   font-size: 48px;
   padding-top: 15px;
   margin-bottom: 0;
 }
-.result .result-price span#price::before {
+.result .result-price span#reguler::before,
+.result .result-price span#express::before {
   content: "Rp.";
   margin-right: 10px;
 }
-.result .result-price span#price::after {
+.result .result-price span#reguler::after,
+.result .result-price span#express::after {
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 0;
-  font-size: 12px;
-  content: "ESTIMASI HARGA";
+  font-size: 15px;
+  content: "REGULER";
   opacity: 0.4;
   margin-right: 10px;
+}
+.result .result-price span#express::after {
+  content: "EXPRESS";
 }
 
 /* DATA LIVE */
@@ -923,7 +1017,7 @@ form button {
   box-shadow: 0 10px 30px 10px rgba(0, 0, 0, 0.05);
   animation-name: hide-data;
   animation-duration: 50ms;
-  animation-delay: 150ms;
+  animation-delay: 250ms;
   animation-iteration-count: infinite;
 }
 .data-live ul.show-data {
@@ -1033,6 +1127,32 @@ form button {
   color: white;
 }
 
+/* PAGE BUTTON */
+.page-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 75px;
+}
+.page-button a {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--orange);
+  border-radius: 15px;
+  margin: 5px;
+  color: white;
+}
+.page-button span {
+  color: var(--blue);
+  font-family: "PoppinsBold";
+  margin: 0 15px;
+}
+
 /* FORM */
 form.form {
   padding: 25px;
@@ -1123,6 +1243,113 @@ form.form button[type="submit"] {
 }
 .mg-left-auto {
   margin-left: auto !important;
+}
+
+/* BETA CSS */
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  /* min-width: 250px; */
+  width: 100%;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  border-radius: 30px !important;
+  margin: 0 !important;
+  padding: 5px 20px !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,
+.select-selected {
+  color: rgba(0, 0, 0, 0.4);
+  padding: 10px 25px;
+  margin: 10px 0;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-image: linear-gradient(
+    0deg,
+    rgb(231, 245, 255),
+    rgba(255, 255, 255)
+  );
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 15px;
+  z-index: 99;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.select-items input {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+  padding: 5px 15px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  animation-delay: 250ms;
+  animation-name: hide;
+  animation-iteration-count: infinite;
+  animation-duration: 150ms;
+}
+@keyframes hide {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+}
+
+.select-items div:hover,
+.same-as-selected {
+  color: black;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 /* ==== */
@@ -1328,6 +1555,24 @@ span.indexing-full {
 }
 
 /* RESPONSIVE */
+@media (min-width: 1500px) {
+  .section {
+    padding-left: 15% !important;
+    padding-right: 15% !important;
+  }
+  .footer {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  #splidecenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #splidecenter .splide {
+    max-width: 1366px;
+  }
+}
 @media (max-width: 1200px) {
   .footer .footer-content {
     padding: 75px 75px;
@@ -1398,6 +1643,7 @@ span.indexing-full {
     width: 100%;
     transform: translateY(-120%);
     overflow: hidden;
+    overflow-y: auto;
     position: absolute;
     top: 0;
     left: 0;
@@ -1409,6 +1655,10 @@ span.indexing-full {
   }
   #sidebar.open ul {
     transform: translateY(0);
+  }
+  #sidebar.open ul li {
+    display: flex;
+    flex-direction: column;
   }
   #sidebar.open ul li a {
     opacity: 1;
@@ -1429,8 +1679,9 @@ span.indexing-full {
     color: white;
   }
   #sidebar ul li a#closeBtn {
+    cursor: pointer;
     position: absolute;
-    top: 15px;
+    top: -60px;
     left: 15px;
     height: 50px;
     width: 50px;
@@ -1532,6 +1783,31 @@ span.indexing-full {
     padding-left: 0;
     padding-top: 25px;
     margin-top: 25px;
+  }
+  #articles .category {
+    width: 100%;
+  }
+  #articles .category span {
+    text-align: center;
+    width: 100%;
+  }
+  #articles .category ul {
+    width: 100%;
+  }
+  nav.navbar ul li ul.dropdown {
+    position: relative !important;
+    transform: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    top: unset !important;
+    right: unset !important;
+    height: max-content !important;
+    padding-top: 0 !important;
+    border-radius: 0 !important;
+    width: 100%;
+  }
+  nav.navbar ul li ul.dropdown li a {
+    padding-left: 50px;
   }
 }
 

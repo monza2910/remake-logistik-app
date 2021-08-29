@@ -19,7 +19,14 @@
           <li><a href="<?php echo e(route('blog.showarticle')); ?>" id="active">Article</a></li>
           <li><a href="<?php echo e(route('blog.contactus')); ?>">Contact Us</a></li>
         </ul>
-        <a href="<?php echo e(route('login')); ?>" id="right">Login</a>
+        <?php if(empty(auth::user())): ?>
+          <a href="<?php echo e(route('login')); ?>" id="right">Login</a>
+          <?php else: ?>
+          <form action="<?php echo e(route('logout')); ?>" method="POST" id="right">
+            <?php echo csrf_field(); ?>
+            <button type="submit" >Logout</button>
+        </form>
+          <?php endif; ?>
       </div>
     </nav>
 
@@ -38,63 +45,48 @@
 
       <!-- SECOND SECTION -->
       <div id="articles" class="news-container section section-wider">
-          <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            
-            <div class="card card-news">
-            <!-- THUMBNAIL ARTIKEL -->
-            <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>" alt="" class="news" />
-            <div class="news-content">
-                <!-- JUDUL ARTIKEL -->
-                <span class="card-title"><?php echo e($article->title); ?></span>
-                <!-- RINGKASAN/ISI ARTIKEL -->
-                <?php if($article->category->name != null): ?>
-                <p><?php echo e($article->category->name); ?></p>
-                <?php else: ?>
-                <p></p>
-                <?php endif; ?>
-                <a href="post.html">BACA SELENGKAPNYA</a>
-            </div>
-            </div>  
+        <div class="category" tabindex="1">
+          <span>Lihat Kategori</span>
+          <ul>
+            <?php $__currentLoopData = $categorys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><a href="<?php echo e(route('blog.category',$category->id)); ?>"><?php echo e($category->name); ?></a></li>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </ul>
+        </div>
+        <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            
+        <div class="card card-news">
+        <!-- THUMBNAIL ARTIKEL -->
+        <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>" alt="" class="news" />
+        <div class="news-content">
+            <!-- JUDUL ARTIKEL -->
+            <span class="card-title"><?php echo e($article->title); ?></span>
+            <!-- RINGKASAN/ISI ARTIKEL -->
+            <?php if($article->category->name != null): ?>
+            <p><?php echo e($article->category->name); ?></p>
+            <?php else: ?>
+            <p></p>
+            <?php endif; ?>
+            <a href="<?php echo e(route('blog.openarticle',$article->slug)); ?>">BACA SELENGKAPNYA</a>
+        </div>
+        </div>  
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        
+      </div>
+
+      <!-- PAGE BUTTON -->
+
+      <div class="page-button">
+        <a href=""><i class="fi fi-angle-left"></i></a>
+        <span>1/5</span>
+        <a href=""><i class="fi fi-angle-right"></i></a>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <div class="footer">
-      <div class="footer-content">
-        <ul>
-            <li id="title">Link</li>
-            <li><a href="<?php echo e(route('blog.index')); ?>">Home</a></li>
-            <li><a href="contactus.html">Hubungi Kami</a></li>
-          </ul>
-          <ul>
-            <li id="title">Auth</li>
-            <li><a href="<?php echo e(route('login')); ?>">Login</a></li>
-            
-          </ul>
-          <ul>
-            <li id="title">Blog</li>
-            <li><a href="<?php echo e(route('blog.showarticle')); ?>">Berita Terbaru</a></li>
-          </ul>
-        <ul id="address">
-          <li class="flex flex-inline flex-inline-top">
-            <i class="fi fi-map-marker-alt fi-circle-small fi-circle-blue"></i>
-            <p>
-              Menara Kadin Indonesia, Lt.28. Jl.H.R.Rasuna Said Blok X-5 Kav.
-              02/03 Jakarta 12950 PO BOX 5032 JKTM Jakarta 12700
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-foot" class="flex flex-inline">
-        <span>2021 KMJ Trans & Logistic</span>
-        <img src="" alt="logoKMJ" />
-      </div>
-    </div>
+    <?php echo $__env->make('blog.layout.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   </body>
   <!-- JAVASCRIP IMPORT (DON'T MIND ABOUT THIS) -->
   <script src="<?php echo e(asset('blog/js/kmj.js')); ?>"></script>
   <script src="<?php echo e(asset('blog/src/splidejs/dist/js/splide.min.js')); ?>"></script>
-</html>
-<?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/blog/article-list.blade.php ENDPATH**/ ?>
+</html><?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/blog/article-list.blade.php ENDPATH**/ ?>

@@ -13,25 +13,8 @@
 
   <body>
     <!-- NAVBAR -->
-    <nav id="nav" class="navbar">
-      <div id="sidebar">
-        <a id="openBtn"><span></span></a>
-        <ul>
-          <li><a id="closeBtn">X</a></li>
-          <li><a href="{{route('blog.index')}}" id="active">Home</a></li>
-          <li><a href="{{route('blog.showarticle')}}">Article</a></li>
-          <li><a href="{{route('blog.contactus')}}">Contact Us</a></li>
-        </ul>
-        @if (empty(auth::user()))
-        <a href="{{route('login')}}" id="right">Login</a>
-        @else
-        <form action="{{ route('logout') }}" method="POST">
-          @csrf
-          <button type="submit" class="dropdown-item has-icon text-danger">Logout</button>
-      </form>
-        @endif
-      </div>
-    </nav>
+
+    @include('blog.layout.header')
 
     <!-- SLIDER -->
     <div class="splide">
@@ -103,8 +86,7 @@
           <!-- <<<<<<<<<<<<<<<<<<< -->
           <div id="Bayar" class="tabcontent">
             <!-- Form Estimasi Pembayaran -->
-            <form action="{{route('estimasi.cek')}}" method="POST">
-              @csrf
+            <form action="{{route('blog.index')}}" method="get" >
               <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
@@ -112,19 +94,12 @@
                     <span>Lokasi Awal</span>
                   </div>
                   <p>Pilih lokasi penjemputan barang yang akan dikirim</p>
-                  <div class="data-live">
-                    <!-- Input Pilih Lokasi Awal -->
-                    <input type="text" placeholder="Pilih Lokasi" />
-                    <!-- Input Pilih Lokasi Awal -->
-                    <ul>
-                      <li>Malang</li>
-                      <li>Surabaya</li>
-                      <li>Jayapura</li>
-                      <li>Blitar</li>
-                      <li>Bogor</li>
-                      <li>Makassar</li>
-                      <li>Surakarta</li>
-                    </ul>
+                  <div class="custom-select">
+                    <select name="origin">
+                      @foreach ($origins as $origin)
+                      <option value="{{$origin->id}}">{{$origin->province.', '.$origin->city.', '.$origin->subdistrict}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
                 <div class="card card-white">
@@ -133,19 +108,12 @@
                     <span>Lokasi Tujuan</span>
                   </div>
                   <p>Barang yang dijemput akan dikirimkan ke lokasi ini</p>
-                  <div class="data-live">
-                    <!-- Input Pilih Lokasi Tujuan -->
-                    <input type="text" placeholder="Pilih Lokasi" />
-                    <!-- Input Pilih Lokasi Tujuan -->
-                    <ul>
-                      <li>Malang</li>
-                      <li>Surabaya</li>
-                      <li>Jayapura</li>
-                      <li>Blitar</li>
-                      <li>Bogor</li>
-                      <li>Makassar</li>
-                      <li>Surakarta</li>
-                    </ul>
+                  <div class="custom-select">
+                    <select name="destination">
+                      @foreach ($destinations as $destination)
+                      <option value="{{$destination->id}}">{{$destination->province.', '.$destination->city.', '.$destination->subdistrict}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
               </div>
@@ -158,7 +126,7 @@
                   </div>
                   <p>Berat/Weight dari barang yang akan dikirimkan</p>
                   <!-- Input Masukkan Berat -->
-                  <input type="text" placeholder="Masukkan Berat (kg)" />
+                  <input type="text" name="berat" placeholder="Masukkan Berat (kg)" />
                   <!-- Input Masukkan Berat -->
                 </div>
               </div>
@@ -166,27 +134,46 @@
             </form>
 
             <!-- Hasil Dari Cek Estimasi Harga -->
-            <div class="result">
+            @if (!empty($estimations))
+            @foreach ($estimations as $est)
+            <div id="priceTab" class="result">
               <div class="result-price">
                 <div>
-                  <span id="from">Malang</span>
-                  <span id="to">Surabaya</span>
-                  <span id="weight">50kg</span>
+                  <span id="from">{{$est->origin->province.', '.$est->origin->city.', '.$est->origin->subdistrict}}</span>
+                  <span id="to">{{$est->destination->province.', '.$est->destination->city.', '.$est->destination->subdistrict}}</span>
+                  <span id="weight">{{$berat}}kg</span>
                 </div>
                 <div>
-                  <span id="price">30.000</span>
+                  @if ($est->variantservice->variant_service == "Reguler")
+                    @if ($berat > 50)
+                      <span id="reguler">{{$berat*$est->above_terms}}</span>
+                    @else
+                      <span id="reguler">{{$berat*$est->under_terms}}</span>
+                    @endif
+                  @else
+                    @if ($berat > 50)
+                      <span id="express">{{$berat*$est->above_terms}}</span> 
+                      @else
+                      <span id="express">{{$berat*$est->under_terms}}</span> 
+                        
+                    @endif
+                  @endif
                 </div>
               </div>
             </div>
+            @endforeach
+            @else
+              
+            @endif
+            
             <!-- Hasil Dari Cek Estimasi Harga -->
           </div>
         </div>
-
         <!-- >>>>>>>>>>> -->
         <!-- LACAK PAKET -->
         <!-- <<<<<<<<<<< -->
         <div id="Lacak" class="tabcontent" style="display: none">
-          <form action="{{route('blog.index')}}" method="get ">
+          <form action="{{route('blog.index')}}" method="get">
             <div class="grid col">
               <div class="card card-white">
                 <div class="card-inline">
@@ -204,11 +191,8 @@
 
           <!-- Hasil Dari Lacak Lokasi Barang -->
 
-          @isset($record)
-              
-          @endisset
           @if (!empty($transactions) )
-          <div class="result">
+          <div id="resultTab" class="result">
             <div class="result-header">
               <span id="name"> {{$transactions->penerima}} </span>
               <span id="id"> {{$transactions->tracking_number}} </span>
@@ -237,16 +221,16 @@
                       
                   @endif
                 </div>
-              </div>
             </div>
+          </div>
 
 
           @else
 
            
           @endif
-          
-          <!-- Hasil Dari Lacak Lokasi Barang -->
+           <!-- Hasil Dari Lacak Lokasi Barang -->
+         
         </div>
 
         <!-- >>>>>> -->
@@ -254,9 +238,9 @@
         <!-- <<<<<< -->
         <div id="Lokasi" class="tabcontent" style="display: none">
           <div class="grid col col-2 grid-res">
-            @foreach ($origins as $origin)
+            @foreach ($locations as $location)
             <div class="card card-white card-text-small">
-              <span class="card-title">{{$origin->city}}</span>
+              <span class="card-title">{{$location->city}}</span>
             </div>
             @endforeach
           </div>
@@ -297,7 +281,7 @@
           Kami bekerja sama dengan banyak klien untuk mempermudah
           penjemputan/pengiriman barang
         </p>
-        <a href="" class="button button-1 button-orange">Gabung</a>
+        <a href="{{route('blog.contactus')}}" class="button button-1 button-orange">Gabung</a>
       </div>
       <div class="image-flex flex flex-row">
           @foreach ($partners as $partner)
@@ -411,6 +395,8 @@
       {{-- <div class="image-sliding">
         <!-- Input Foto Galeri Perusahaan -->
         <img src="" alt="" />
+        <img src="" alt="" />
+        <img src="" alt="" />
       </div> --}}
     </div>
 
@@ -444,39 +430,7 @@
       </div>
     </div>
 
-    <!-- EIGHTH SECTION -->
-    <div class="footer">
-      <div class="footer-content">
-        <ul>
-          <li id="title">Link</li>
-          <li><a href="{{route('blog.index')}}">Home</a></li>
-          <li><a href="{{route('blog.contactus')}}">Hubungi Kami</a></li>
-        </ul>
-        <ul>
-          <li id="title">Auth</li>
-          <li><a href="{{route('login')}}">Login</a></li>
-          {{-- <li><a href="register.html">Register</a></li> --}}
-        </ul>
-        <ul>
-          <li id="title">Blog</li>
-          <li><a href="{{route('blog.showarticle')}}">Berita Terbaru</a></li>
-        </ul>
-        <ul id="address">
-          <li class="flex flex-inline flex-inline-top">
-            <i class="fi fi-map-marker-alt fi-circle-small fi-circle-blue"></i>
-            <p>
-              Menara Kadin Indonesia, Lt.28. Jl.H.R.Rasuna Said Blok X-5 Kav.
-              02/03 Jakarta 12950 PO BOX 5032 JKTM Jakarta 12700
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-foot" class="flex flex-inline">
-        <span>2021 KMJ Trans & Logistic</span>
-        <img src="" alt="logoKMJ" />
-      </div>
-    </div>
+    @include('blog.layout.footer')
   </body>
 
   <!-- JAVASCRIPT IMPORT (DON'T MIND ABOUT THIS) -->

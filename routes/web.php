@@ -36,10 +36,13 @@ use App\Http\Controllers\TransactionController;
 // });
 Auth::routes();
 Route::get('/',[BlogController::class, 'index'])->name('blog.index');
+Route::get('/#tab',[BlogController::class, 'index'])->name('blog.cek');
 Route::get('/article',[BlogController::class, 'showArticle'])->name('blog.showarticle');
+Route::get('/article/{slug}',[BlogController::class, 'openArticle'])->name('blog.openarticle');
+Route::get('/article/category/{category}',[BlogController::class, 'showArticleByCategory'])->name('blog.category');
 Route::get('/contact-us',[BlogController::class, 'contactus'])->name('blog.contactus');
 Route::post('/contact-us/post',[BlogController::class, 'storecontactus'])->name('blog.storecontactus');
-Route::post('/contact-us/post',[BlogController::class, 'estimasiTrack'])->name('estimasi.cek');
+Route::post('/estimasi/track',[BlogController::class, 'estimasiTrack'])->name('estimasi.cek');
 Route::get('/tracking/cek',[BlogController::class, 'trackingCek'])->name('tracking.cek');
 
 

@@ -13,25 +13,8 @@
 
   <body>
     <!-- NAVBAR -->
-    <nav id="nav" class="navbar">
-      <div id="sidebar">
-        <a id="openBtn"><span></span></a>
-        <ul>
-          <li><a id="closeBtn">X</a></li>
-          <li><a href="<?php echo e(route('blog.index')); ?>" id="active">Home</a></li>
-          <li><a href="<?php echo e(route('blog.showarticle')); ?>">Article</a></li>
-          <li><a href="<?php echo e(route('blog.contactus')); ?>">Contact Us</a></li>
-        </ul>
-        <?php if(empty(auth::user())): ?>
-        <a href="<?php echo e(route('login')); ?>" id="right">Login</a>
-        <?php else: ?>
-        <form action="<?php echo e(route('logout')); ?>" method="POST">
-          <?php echo csrf_field(); ?>
-          <button type="submit" class="dropdown-item has-icon text-danger">Logout</button>
-      </form>
-        <?php endif; ?>
-      </div>
-    </nav>
+
+    <?php echo $__env->make('blog.layout.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- SLIDER -->
     <div class="splide">
@@ -104,8 +87,7 @@
           <!-- <<<<<<<<<<<<<<<<<<< -->
           <div id="Bayar" class="tabcontent">
             <!-- Form Estimasi Pembayaran -->
-            <form action="<?php echo e(route('estimasi.cek')); ?>" method="POST">
-              <?php echo csrf_field(); ?>
+            <form action="<?php echo e(route('blog.index')); ?>" method="get" >
               <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
@@ -113,19 +95,12 @@
                     <span>Lokasi Awal</span>
                   </div>
                   <p>Pilih lokasi penjemputan barang yang akan dikirim</p>
-                  <div class="data-live">
-                    <!-- Input Pilih Lokasi Awal -->
-                    <input type="text" placeholder="Pilih Lokasi" />
-                    <!-- Input Pilih Lokasi Awal -->
-                    <ul>
-                      <li>Malang</li>
-                      <li>Surabaya</li>
-                      <li>Jayapura</li>
-                      <li>Blitar</li>
-                      <li>Bogor</li>
-                      <li>Makassar</li>
-                      <li>Surakarta</li>
-                    </ul>
+                  <div class="custom-select">
+                    <select name="origin">
+                      <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->province.', '.$origin->city.', '.$origin->subdistrict); ?></option>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
                   </div>
                 </div>
                 <div class="card card-white">
@@ -134,19 +109,12 @@
                     <span>Lokasi Tujuan</span>
                   </div>
                   <p>Barang yang dijemput akan dikirimkan ke lokasi ini</p>
-                  <div class="data-live">
-                    <!-- Input Pilih Lokasi Tujuan -->
-                    <input type="text" placeholder="Pilih Lokasi" />
-                    <!-- Input Pilih Lokasi Tujuan -->
-                    <ul>
-                      <li>Malang</li>
-                      <li>Surabaya</li>
-                      <li>Jayapura</li>
-                      <li>Blitar</li>
-                      <li>Bogor</li>
-                      <li>Makassar</li>
-                      <li>Surakarta</li>
-                    </ul>
+                  <div class="custom-select">
+                    <select name="destination">
+                      <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->province.', '.$destination->city.', '.$destination->subdistrict); ?></option>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -159,7 +127,7 @@
                   </div>
                   <p>Berat/Weight dari barang yang akan dikirimkan</p>
                   <!-- Input Masukkan Berat -->
-                  <input type="text" placeholder="Masukkan Berat (kg)" />
+                  <input type="text" name="berat" placeholder="Masukkan Berat (kg)" />
                   <!-- Input Masukkan Berat -->
                 </div>
               </div>
@@ -167,27 +135,46 @@
             </form>
 
             <!-- Hasil Dari Cek Estimasi Harga -->
-            <div class="result">
+            <?php if(!empty($estimations)): ?>
+            <?php $__currentLoopData = $estimations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $est): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div id="priceTab" class="result">
               <div class="result-price">
                 <div>
-                  <span id="from">Malang</span>
-                  <span id="to">Surabaya</span>
-                  <span id="weight">50kg</span>
+                  <span id="from"><?php echo e($est->origin->province.', '.$est->origin->city.', '.$est->origin->subdistrict); ?></span>
+                  <span id="to"><?php echo e($est->destination->province.', '.$est->destination->city.', '.$est->destination->subdistrict); ?></span>
+                  <span id="weight"><?php echo e($berat); ?>kg</span>
                 </div>
                 <div>
-                  <span id="price">30.000</span>
+                  <?php if($est->variantservice->variant_service == "Reguler"): ?>
+                    <?php if($berat > 50): ?>
+                      <span id="reguler"><?php echo e($berat*$est->above_terms); ?></span>
+                    <?php else: ?>
+                      <span id="reguler"><?php echo e($berat*$est->under_terms); ?></span>
+                    <?php endif; ?>
+                  <?php else: ?>
+                    <?php if($berat > 50): ?>
+                      <span id="express"><?php echo e($berat*$est->above_terms); ?></span> 
+                      <?php else: ?>
+                      <span id="express"><?php echo e($berat*$est->under_terms); ?></span> 
+                        
+                    <?php endif; ?>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php else: ?>
+              
+            <?php endif; ?>
+            
             <!-- Hasil Dari Cek Estimasi Harga -->
           </div>
         </div>
-
         <!-- >>>>>>>>>>> -->
         <!-- LACAK PAKET -->
         <!-- <<<<<<<<<<< -->
         <div id="Lacak" class="tabcontent" style="display: none">
-          <form action="<?php echo e(route('blog.index')); ?>" method="get ">
+          <form action="<?php echo e(route('blog.index')); ?>" method="get">
             <div class="grid col">
               <div class="card card-white">
                 <div class="card-inline">
@@ -205,11 +192,8 @@
 
           <!-- Hasil Dari Lacak Lokasi Barang -->
 
-          <?php if(isset($record)): ?>
-              
-          <?php endif; ?>
           <?php if(!empty($transactions) ): ?>
-          <div class="result">
+          <div id="resultTab" class="result">
             <div class="result-header">
               <span id="name"> <?php echo e($transactions->penerima); ?> </span>
               <span id="id"> <?php echo e($transactions->tracking_number); ?> </span>
@@ -238,16 +222,16 @@
                       
                   <?php endif; ?>
                 </div>
-              </div>
             </div>
+          </div>
 
 
           <?php else: ?>
 
            
           <?php endif; ?>
-          
-          <!-- Hasil Dari Lacak Lokasi Barang -->
+           <!-- Hasil Dari Lacak Lokasi Barang -->
+         
         </div>
 
         <!-- >>>>>> -->
@@ -255,9 +239,9 @@
         <!-- <<<<<< -->
         <div id="Lokasi" class="tabcontent" style="display: none">
           <div class="grid col col-2 grid-res">
-            <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="card card-white card-text-small">
-              <span class="card-title"><?php echo e($origin->city); ?></span>
+              <span class="card-title"><?php echo e($location->city); ?></span>
             </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </div>
@@ -298,7 +282,7 @@
           Kami bekerja sama dengan banyak klien untuk mempermudah
           penjemputan/pengiriman barang
         </p>
-        <a href="" class="button button-1 button-orange">Gabung</a>
+        <a href="<?php echo e(route('blog.contactus')); ?>" class="button button-1 button-orange">Gabung</a>
       </div>
       <div class="image-flex flex flex-row">
           <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -443,39 +427,7 @@
       </div>
     </div>
 
-    <!-- EIGHTH SECTION -->
-    <div class="footer">
-      <div class="footer-content">
-        <ul>
-          <li id="title">Link</li>
-          <li><a href="<?php echo e(route('blog.index')); ?>">Home</a></li>
-          <li><a href="<?php echo e(route('blog.contactus')); ?>">Hubungi Kami</a></li>
-        </ul>
-        <ul>
-          <li id="title">Auth</li>
-          <li><a href="<?php echo e(route('login')); ?>">Login</a></li>
-          
-        </ul>
-        <ul>
-          <li id="title">Blog</li>
-          <li><a href="<?php echo e(route('blog.showarticle')); ?>">Berita Terbaru</a></li>
-        </ul>
-        <ul id="address">
-          <li class="flex flex-inline flex-inline-top">
-            <i class="fi fi-map-marker-alt fi-circle-small fi-circle-blue"></i>
-            <p>
-              Menara Kadin Indonesia, Lt.28. Jl.H.R.Rasuna Said Blok X-5 Kav.
-              02/03 Jakarta 12950 PO BOX 5032 JKTM Jakarta 12700
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-foot" class="flex flex-inline">
-        <span>2021 KMJ Trans & Logistic</span>
-        <img src="" alt="logoKMJ" />
-      </div>
-    </div>
+    <?php echo $__env->make('blog.layout.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   </body>
 
   <!-- JAVASCRIPT IMPORT (DON'T MIND ABOUT THIS) -->

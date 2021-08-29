@@ -9,10 +9,12 @@ use App\Models\Partners;
 use App\Models\Articles;
 use App\Models\Origins;
 use App\Models\Destinations;
+use App\Models\Shippingrates;
 use App\Models\Contactus as Contacts;
 use App\Models\Ourteam ;
 use App\Models\Transaction ;
 use App\Models\Tracking ;
+use App\Models\Category ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -39,29 +41,67 @@ class BlogController extends Controller
             $testimonials = Testimonials::where('status','!=', '0')->get();
             $partners = Partners::orderBy('id','DESC')->get();
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
-            $origins  = Origins::distinct()->get(['city']);
-            $destinations  = Destinations::distinct()->get(['city']);
+            $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
+            $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
+            $locations  = Origins::distinct()->get(['city']);
 
-            // return Redirect()->back()->with(compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions'));
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions'));
-        }else {
+
+
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations'));
+        }elseif ($request->origin != null && $request->destination != null && $request->berat != null) {
+
+            $berat = $request->berat;
+            $estimations = Shippingrates::where([['origin_id','=',$request->origin],['destination_id','=', $request->destination]])->get();
+
+
+
             $sliders = Sliders::where('status','!=', '0')->get();
             $testimonials = Testimonials::where('status','!=', '0')->get();
             $partners = Partners::orderBy('id','DESC')->get();
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
-            $origins  = Origins::distinct()->get(['city']);
-            $destinations  = Destinations::distinct()->get(['city']);
+            $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
+            $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations',));
+            $locations  = Origins::distinct()->get(['city']);
+
+
+
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','berat','locations'));
+        }
+        else {
+            $sliders = Sliders::where('status','!=', '0')->get();
+            $testimonials = Testimonials::where('status','!=', '0')->get();
+            $partners = Partners::orderBy('id','DESC')->get();
+            $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
+            $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
+            $locations  = Origins::distinct()->get(['city']);
+            $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
+            $teams  = Ourteam::orderBy('id','DESC')->get();
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','locations'));
         }
 
     }
 
     public function showArticle(){
-        $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->get();
-        return view('blog.article-list',compact('articles'));
+        $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->paginate(2);
+        $categorys = Category::orderBy('id','DESC')->get();
+        return view('blog.article-list',compact('articles','categorys'));
     }
+
+    public function openArticle($slug){
+        $articles = Articles::where('slug',$slug)->get();
+        $listarticles = Articles::where('status','1')->orderBy('id','DESC')->take(3)->get();
+        return view('blog.article-detail',compact('articles','listarticles'));
+    }
+  
+    public function showArticleByCategory($category){
+        $articles = Articles::where(['category_id'=>$category,'status'=> '1'])->get();
+        $categorys = Category::orderBy('id','DESC')->get();
+        return view('blog.article-list',compact('articles','categorys'));
+    }
+
+    
 
     public function contactus(){
         return view('blog.contact-us');
