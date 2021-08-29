@@ -26,6 +26,9 @@
           <li class="nav-item <?php echo e((request()->path() == 'admin/buttons') ? 'active' : ''); ?>">
             <a href="<?php echo e(route('buttons.index')); ?>" class="nav-link "><i class="far fa-compass"></i><span>Button</span></a>
           </li>
+          <li class="nav-item <?php echo e((request()->path() == 'admin/gallery') ? 'active' : ''); ?>">
+            <a href="<?php echo e(route('gallery.index')); ?>" class="nav-link "><i class="fas fa-camera-retro"></i><span>Gallery</span></a>
+          </li>
 
           <li class="menu-header">Content</li>
           <li class="nav-item dropdown  <?php echo e('admin/article' == request()->path()||'admin/article/create' == request()->path()||'admin/article/trash' == request()->path() ? 'active' : ''); ?> ">

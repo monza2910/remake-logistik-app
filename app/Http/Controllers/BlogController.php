@@ -15,6 +15,7 @@ use App\Models\Ourteam ;
 use App\Models\Transaction ;
 use App\Models\Tracking ;
 use App\Models\Category ;
+use App\Models\Galery ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -45,10 +46,10 @@ class BlogController extends Controller
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $locations  = Origins::distinct()->get(['city']);
+            $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
-
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations'));
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations','gallerys'));
         }elseif ($request->origin != null && $request->destination != null && $request->berat != null) {
 
             $berat = $request->berat;
@@ -64,10 +65,12 @@ class BlogController extends Controller
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $locations  = Origins::distinct()->get(['city']);
+            $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
 
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','berat','locations'));
+
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','berat','locations','gallerys'));
         }
         else {
             $sliders = Sliders::where('status','!=', '0')->get();
@@ -78,7 +81,9 @@ class BlogController extends Controller
             $locations  = Origins::distinct()->get(['city']);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','locations'));
+            $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
+
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','locations','gallerys'));
         }
 
     }

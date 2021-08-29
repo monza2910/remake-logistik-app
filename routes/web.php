@@ -20,6 +20,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\GalleryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +63,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('outlet', OutletsController::class);
     Route::resource('role', RolesController::class);
     Route::resource('contact', ContactusController::class);
+    Route::resource('gallery', GalleryController::class);
 
     Route::get('/tracking/{id}/edit',[TransactionController::class,'addTracking'])->name('tracking.add');
     Route::post('/tracking/',[TransactionController::class,'storeTracking'])->name('tracking.store');
