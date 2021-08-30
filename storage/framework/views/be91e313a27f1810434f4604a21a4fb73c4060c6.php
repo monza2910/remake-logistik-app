@@ -2,7 +2,7 @@
 
 
 <?php $__env->startSection('title'); ?>
-    article
+    Article
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('title-page'); ?>

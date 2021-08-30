@@ -1240,4 +1240,67 @@ class UserController extends Controller
         return redirect()->back()->with('success','User Was Deleted');
     
     }
+
+    public function profileSetting(){
+        $userid     = Auth::user()->id;
+        $user       = User::findorFail($userid);
+
+        return view('dashboard-admin.user.profilesetting',compact('user'));
+    }
+
+    public function updateProfileSetting(Request $request, $id){
+        if ($request->image != null) {
+            if ($request->phone != null) {
+                if($request->newpassword != null){
+                    $request->validate([
+                        'name' => 'required|max:100|min:3',
+                        'email' => 'required|unique:users,email|min:3',
+                        'oldpassword' => 'required|max:50|min:3',
+                        'newpassword' => 'required|max:50|min:3',
+                        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                    ]);
+
+                    $hashedPassword = Auth::user()->password;
+                    if (\Hash::check($request->oldpassword , $hashedPassword)) {
+                        if (\Hash::check($request->newpassword , $hashedPassword)) {
+                            $image = time().'.'.$request->image->extension();  
+                            $imageName = md5($image).'.'.$request->image->extension();
+                    
+                            $request->image->move(public_path('users'), $imageName);
+                            User::where('id',$id)->update([
+                                'name' => $request->name,
+                                'email' => $request->email,
+                                'image' => $imageName,
+                                'phone' => $request->phone,
+                                'password' => bcrypt($request->newpassword),
+                            ]);
+                    
+                            return redirect()->back()->with('succces','Profile updated successfully');;
+                        }
+                        else{
+                            session()->flash('danger','new password can not be the old password!');
+                            return redirect()->back();
+                        } 
+                    }
+                    else{
+                        session()->flash('danger','old password doesnt matched');
+                        return redirect()->back();
+                    }
+                }else {
+                    # code...
+                }
+            } else {
+                if($request->newpassword){
+
+                }else {
+                    # code...
+                }
+            }
+            
+        } else {
+            # code...
+        }
+        
+    } 
 }
