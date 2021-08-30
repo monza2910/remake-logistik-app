@@ -1251,55 +1251,297 @@ class UserController extends Controller
     public function updateProfileSetting(Request $request, $id){
         if ($request->image != null) {
             if ($request->phone != null) {
-                if($request->newpassword != null){
-                    $request->validate([
-                        'name' => 'required|max:100|min:3',
-                        'email' => 'required|unique:users,email|min:3',
-                        'oldpassword' => 'required|max:50|min:3',
-                        'newpassword' => 'required|max:50|min:3',
-                        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                    ]);
-
-                    $hashedPassword = Auth::user()->password;
-                    if (\Hash::check($request->oldpassword , $hashedPassword)) {
-                        if (\Hash::check($request->newpassword , $hashedPassword)) {
-                            $image = time().'.'.$request->image->extension();  
-                            $imageName = md5($image).'.'.$request->image->extension();
-                    
-                            $request->image->move(public_path('users'), $imageName);
-                            User::where('id',$id)->update([
-                                'name' => $request->name,
-                                'email' => $request->email,
-                                'image' => $imageName,
-                                'phone' => $request->phone,
-                                'password' => bcrypt($request->newpassword),
-                            ]);
-                    
-                            return redirect()->back()->with('succces','Profile updated successfully');;
-                        }
-                        else{
-                            session()->flash('danger','new password can not be the old password!');
-                            return redirect()->back();
-                        } 
-                    }
-                    else{
-                        session()->flash('danger','old password doesnt matched');
-                        return redirect()->back();
+                if ($request->email != null) {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'image' => $imageName,
+                            'phone' => $request->phone,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'image' => $imageName,
+                            'phone' => $request->phone,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
                     }
                 }else {
-                    # code...
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'image' => $imageName,
+                            'phone' => $request->phone,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'image' => $imageName,
+                            'phone' => $request->phone,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
                 }
             } else {
-                if($request->newpassword){
-
+                if ($request->email != null) {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'image' => $imageName,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'image' => $imageName,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
                 }else {
-                    # code...
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'image' => $imageName,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        ]);
+    
+                        $image = time().'.'.$request->image->extension();  
+                        $imageName = md5($image).'.'.$request->image->extension();
+                
+                        $request->image->move(public_path('users'), $imageName);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'image' => $imageName,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
                 }
             }
             
         } else {
-            # code...
+            if ($request->phone != null) {
+                if ($request->email != null) {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
+                }else {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'phone' => $request->phone,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'phone' => $request->phone,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
+                }
+            } else {
+                if ($request->email != null) {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                        ]);
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'email' => 'required|unique:users,email|min:3',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
+                }else {
+                    if($request->newpassword != null){
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                            'newpassword' => 'required|max:50|min:3',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                            'password' => bcrypt($request->newpassword),
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                    }else {
+                        $request->validate([
+                            'name' => 'required|max:100|min:3',
+                        ]);
+    
+                        User::where('id',$id)->update([
+                            'name' => $request->name,
+                        ]);
+                
+                        return redirect()->back()->with('success','Profile updated successfully');;
+                            
+                    }
+                }
+            }
         }
         
     } 

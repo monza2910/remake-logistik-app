@@ -31,7 +31,7 @@
             @endif
           <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
-              <form method="post" action="{{route('profile.storesetting',$user->id)}}" enctype="multipart/form-data" class="needs-validation" novalidate="">
+              <form  action="{{route('profile.update',$user->id)}}" method="post" enctype="multipart/form-data" >
                 @csrf
                 @method('put')
                 <div class="card-header">
@@ -41,10 +41,10 @@
                     <div class="row">
                         <div class="form-group col-md-12 col-12">
                             <label> Name</label>
-                            <input type="text" class="form-control" value="{{$user->name}}" name="name" required="">
-                            <div class="invalid-feedback">
-                              Please fill in the last name
-                            </div>
+                            <input type="text" class="form-control" value="{{$user->name}}" name="name">
+                            @error('name')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
                           </div>
                     </div>
                     <div class="row">
@@ -69,29 +69,41 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-md-7 col-12">
+                      <div class="form-group col-md-6 col-12">
                         <label>Email</label>
-                        <input type="email" class="form-control" value="{{$user->email}}" name="email">
-                        <div class="invalid-feedback">
-                          Please fill in the email
-                        </div>
+                        <input type="email" class="form-control" value="{{$user->email}}" readonly>
+                        @error('email')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
                       </div>
-                      <div class="form-group col-md-5 col-12">
-                        <label>Phone(Optional)</label>
-                        <input type="tel" class="form-control" value="{{$user->phone}}" name="phone">
+                      <div class="form-group col-md-6 col-12">
+                        <label>New Email(Optional)</label>
+                        <input type="email" class="form-control" value="{{old('email')}}" name="email">
+                        @error('email')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
-                        <label>Old Password</label>
-                        <input type="password" class="form-control" value="" name="oldpassword">
-                        <div class="invalid-feedback">
-                          Please fill in the email
-                        </div>
+                        <label>Phone(Optional)</label>
+                        <input type="tel" class="form-control" 
+                        @if ($user->phone != null)
+                        value="{{$user->phone}}"
+                        @else()
+                        value="{{old('phone')}}"
+                        @endif
+                         name="phone">
                       </div>
+                      @error('phone')
+                      <small class="text-danger">{{$message}}</small>
+                      @enderror
                       <div class="form-group col-md-6 col-12">
                         <label>New Password(Optional)</label>
-                        <input type="password" class="form-control" value="" name="newpassword">
+                        <input type="password" class="form-control" name="newpassword">
+                        @error('newpassword')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
                       </div>
                     </div>
                     

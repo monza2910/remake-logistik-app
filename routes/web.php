@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
 
     Route::resource('dashboard', DashboardsController::class);
     Route::get('/profile/setting', [UserController::class,'profileSetting'])->name('profile.setting');
-    Route::put('/profile/setting/{id}', [UserController::class,'updateProfileSetting'])->name('profile.storesetting');
+    Route::put('/profile/setting/{id}', [UserController::class,'updateProfileSetting'])->name('profile.update');
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas']],function(){
