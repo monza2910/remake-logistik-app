@@ -35,6 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Status</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,7 +46,9 @@
                             <td>     
                                 <img src="/images/gallery/{{$gallery->image}}"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
-                        
+                            <td>
+                                {{$gallery->description}}
+                            </td>
                             
                             <td>
                             @if ($gallery->status == '0')

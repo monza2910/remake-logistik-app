@@ -67,6 +67,7 @@ class ArticlesController extends Controller
             'title' => 'required|min:5|max:100',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
+            'content' => 'required',
             'status' => 'required',       
         ]);
 
@@ -149,7 +150,8 @@ class ArticlesController extends Controller
             'title' => 'required|min:5|max:100',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
-            'status' => 'required',       
+            'status' => 'required', 
+            'content' => 'required',      
         ]);
 
 

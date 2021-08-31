@@ -39,6 +39,7 @@ class GalleryController extends Controller
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|min:3|max:200',
             'status' => 'integer',
         ]);
         $image = time().'.'.$request->image->extension();  
@@ -46,6 +47,7 @@ class GalleryController extends Controller
      
         $request->image->move(public_path('images/gallery'), $imageName);
         Galery::create([
+            'description' => $request->description,
             'image'  => $imageName,
             'status'  => $request->status
         ]);
@@ -88,6 +90,8 @@ class GalleryController extends Controller
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'integer',
+            'description' => 'required|min:3|max:200',
+
         ]);
 
         if ($request->image != "") {
@@ -97,8 +101,10 @@ class GalleryController extends Controller
     
             $request->image->move(public_path('images/gallery'), $imageName);
             Galery::where('id',$id)->update([
-                'image'  => $imageName,
-                'status'  => $request->status
+                'image'  => $imageName, 
+                'description' => $request->description,
+                'status'  => $request->status,
+                
             ]);
         
             return redirect()->route('gallery.index')->with('success','You have successfully updated photo.');
@@ -106,6 +112,8 @@ class GalleryController extends Controller
 
             Galery::where('id',$id)->update([
                 'status'  => $request->status,
+                'description' => $request->description,
+
             ]);
         
             return redirect()->route('gallery.index')->with('success','You have successfully updated photo.');

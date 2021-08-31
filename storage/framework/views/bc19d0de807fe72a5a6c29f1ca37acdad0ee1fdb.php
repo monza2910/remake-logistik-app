@@ -42,6 +42,20 @@ unset($__errorArgs, $__bag); ?>
                     <img src="#" id="category-img-tag" class="img-fluid" width="500px" alt="Preview image">
                 </div>
                 <div class="form-group">
+                    <label  >Description</label>
+                    <textarea name="description" cols="30" rows="10" class="form-control"><?php echo e($gallery->description); ?></textarea>
+                    <?php $__errorArgs = ['description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
                     <label >Status</label>
                     <br>
                     <select class="form-control selectric" name="status">

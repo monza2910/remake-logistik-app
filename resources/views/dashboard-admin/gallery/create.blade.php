@@ -30,6 +30,13 @@
                     <img src="#" id="category-img-tag" class="img-fluid" width="500px" alt="Preview image">
                 </div>
                 <div class="form-group">
+                    <label  >Description</label>
+                    <textarea name="description" cols="30" rows="10" class="form-control">{{old('description')}}</textarea>
+                    @error('description')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label >Status</label>
                     <br>
                     <select class="form-control selectric" name="status">

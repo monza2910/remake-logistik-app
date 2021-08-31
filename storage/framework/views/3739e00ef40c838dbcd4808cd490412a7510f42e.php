@@ -35,6 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Status</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,7 +46,10 @@
                             <td>     
                                 <img src="/images/gallery/<?php echo e($gallery->image); ?>"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
-                        
+                            <td>
+                                <?php echo e($gallery->description); ?>
+
+                            </td>
                             
                             <td>
                             <?php if($gallery->status == '0'): ?>
