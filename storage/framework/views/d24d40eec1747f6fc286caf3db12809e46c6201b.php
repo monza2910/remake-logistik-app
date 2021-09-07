@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-
+    
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('dashboard-admin.home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/dashboard-admin/shippingrate/index.blade.php ENDPATH**/ ?>

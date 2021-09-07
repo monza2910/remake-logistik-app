@@ -21,6 +21,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Livewire\Logistic;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,12 +57,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas']],function(){
     Route::get('/tracking/{id}/edit',[TransactionController::class,'addTracking'])->name('tracking.add');
+    Route::get('/transaction/logistic/cart', Logistic::class )->name('logisticcart');
     Route::post('/tracking/',[TransactionController::class,'storeTracking'])->name('tracking.store');
     Route::delete('/tracking/kill/{id}',[TransactionController::class, 'killTracking'])->name('tracking.kill');
     Route::get('/transaction/trash',[TransactionController::class, 'showTrash'])->name('transaction.trash');
     Route::get('/transaction/restore/{id}',[TransactionController::class, 'restore'])->name('transaction.restore');
     Route::delete('/transaction/kill/{id}',[TransactionController::class, 'kill'])->name('transaction.kill');
     Route::resource('transaction', TransactionController::class);
+
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,writer']],function(){

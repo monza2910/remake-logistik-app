@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?php echo e(route('transaction.create')); ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
+            <a href="<?php echo e(route('logisticcart')); ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
             
         </div>
         <?php if($message = Session::get('success')): ?>

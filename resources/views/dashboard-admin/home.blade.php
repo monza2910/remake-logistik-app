@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
   <link href="{{asset('assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-
+  @livewireStyles
 </head>
 
 <body>
@@ -32,6 +32,7 @@
             @yield('title-page')
           </div>
           @yield('content')  
+          {{isset($slot) ? $slot : null}}
           <div class="section-body">
           </div>
         </section>
@@ -89,5 +90,6 @@
     <script src="{{asset('assets/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <!-- Page Specific JS File -->
+    @livewireScripts
 </body>
 </html>

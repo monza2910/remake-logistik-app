@@ -1,87 +1,99 @@
-<!doctype html>
-<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title><?php echo $__env->yieldContent('title'); ?></title>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <!-- CSS Libraries -->
 
-    <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/components.css')); ?>">
+  <link href="<?php echo e(asset('assets/vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
+  <?php echo \Livewire\Livewire::styles(); ?>
 
-    <!-- Scripts -->
-    <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
-                    <?php echo e(config('app.name', 'Laravel')); ?>
+  <div id="app">
+    
+      <?php echo $__env->make('dashboard-admin.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+      
+      <?php echo $__env->make('dashboard-admin.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<?php echo e(__('Toggle navigation')); ?>">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <?php echo $__env->yieldContent('title-page'); ?>
+          </div>
+          <?php echo $__env->yieldContent('content'); ?>  
+          <?php echo e(isset($slot) ? $slot : null); ?>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+          <div class="section-body">
+          </div>
+        </section>
+      </div>
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <?php if(auth()->guard()->guest()): ?>
-                            <?php if(Route::has('login')): ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo e(route('login')); ?>"><?php echo e(__('Login')); ?></a>
-                                </li>
-                            <?php endif; ?>
-
-                            <?php if(Route::has('register')): ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo e(route('register')); ?>"><?php echo e(__('Register')); ?></a>
-                                </li>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <?php echo e(Auth::user()->name); ?>
-
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        <?php echo e(__('Logout')); ?>
-
-                                    </a>
-
-                                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
-                                        <?php echo csrf_field(); ?>
-                                    </form>
-                                </div>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            <?php echo $__env->yieldContent('content'); ?>
-        </main>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+        </div>
+        <div class="footer-right">
+          2.3.0
+        </div>
+      </footer>
     </div>
+    </div>
+    
+    <!-- General JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="<?php echo e(asset('assets/js/stisla.js')); ?>"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
+    <script type="text/javascript">
+      function readURL(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                  $('#category-img-tag').attr('src', e.target.result);
+              }
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+      $("#cat_image").change(function(){
+          readURL(this);
+      });
+
+      $('select-box').selectpicker(); 
+    </script>
+    <!-- Plugin Libraies -->
+
+    <!-- Template JS File -->
+    <script src="<?php echo e(asset('assets/js/scripts.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/custom.js')); ?>"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?php echo e(asset('assets/vendor/jquery-easing/jquery.easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/demo/datatables-demo.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
+    <!-- Page Specific JS File -->
+    <?php echo \Livewire\Livewire::scripts(); ?>
+
 </body>
 </html>
 <?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/layouts/app.blade.php ENDPATH**/ ?>

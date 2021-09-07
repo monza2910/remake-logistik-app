@@ -76,8 +76,10 @@
                 <li><a class="nav-link" href="<?php echo e(route('rate.index')); ?>"></i>List Price</a></li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-dollar-sign"></i><span>Transaction</span></a>
+            
+            <li class="menu-header">Transaction</li>
+            <li class="nav-item dropdown  <?php echo e('admin/transaction/trash' == request()->path()||'admin/transaction' == request()->path()||'admin/transaction/logistic/cart' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown "><i class="fas fa-dollar-sign"></i><span>Transaction Logistic</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="<?php echo e(route('transaction.index')); ?>"></i>List Transaction</a></li>
                 <li><a class="nav-link" href="<?php echo e(route('transaction.trash')); ?>"></i>Deleted Transaction</a></li>

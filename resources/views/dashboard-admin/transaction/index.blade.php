@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{route('transaction.create')}}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
+            <a href="{{route('logisticcart')}}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
             
         </div>
         @if ($message = Session::get('success'))

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
   <link rel="stylesheet" href="<?php echo e(asset('assets/css/components.css')); ?>">
   <link href="<?php echo e(asset('assets/vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
+  <?php echo \Livewire\Livewire::styles(); ?>
 
 </head>
 
@@ -32,6 +33,8 @@
             <?php echo $__env->yieldContent('title-page'); ?>
           </div>
           <?php echo $__env->yieldContent('content'); ?>  
+          <?php echo e(isset($slot) ? $slot : null); ?>
+
           <div class="section-body">
           </div>
         </section>
@@ -89,6 +92,8 @@
     <script src="<?php echo e(asset('assets/vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
     <!-- Page Specific JS File -->
+    <?php echo \Livewire\Livewire::scripts(); ?>
+
 </body>
 </html>
 <?php /**PATH F:\Kerjaan\BOIS\Project\KMJTRANS\LogisticApp\resources\views/dashboard-admin/home.blade.php ENDPATH**/ ?>
