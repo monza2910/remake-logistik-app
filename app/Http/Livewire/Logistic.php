@@ -6,16 +6,52 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
+//Model 
+use App\Models\Origins ;
+use App\Models\Destinations ;
+use App\Models\Variantservices ;
+use App\Models\Shippingrates as Rates;
+
 
 class Logistic extends Component
 {
     public $name , $weight;
+    public $from, $to, $service, $berat_keseluruhan, $harga_kg, $sub_total, $diskon;
     public function render()
     {
+
+
+        $origins = Rates::distinct()->get(['origin_id']);
+
+        //If from input was added
+        if (!empty($this->from)) {
+            $destinations = Rates::where('origin_id',$this->from)->distinct()->get(['destination_id']);
+        }else {
+            $destinations = [];
+        }
+
+        //if to input was added
+        if (!empty($this->to) && !empty($this->from)) {
+            $variants = Rates::where([['origin_id',$this->from],['destination_id', $this->to]])->get();
+        } else {
+            $variants = [];
+        }
+        
+        //if variant input was added 
+        if (!empty($this->service) &&!empty($this->to) && !empty($this->from)) {
+            $prices = Rates::where([['origin_id',$this->from],['destination_id', $this->to],['variantservice_id',$this->service]])->get();
+        } else {
+            $prices = [];
+        }
+        
+        
+
+
+        
         $items = \Cart::session('logisticsmall')->getContent()->sortBy(function($cart){
             return $cart->attributes->get('added_at');
         });
-
+        
         if(\Cart::isEmpty()){
             $cartData = [];
         }else{
@@ -26,17 +62,21 @@ class Logistic extends Component
                     'qty'              => $item->quantity,
                 ];
             }
-
+            
             
             $cartData = collect($cart);
         }
         $cartTotalQuantity =\Cart::session('logisticsmall')->getTotalQuantity();
-
-
-        // var_dump($cartData);
+        
+    
+        // var_dump($origins);
         return view('livewire.logistic',
         [
          'carts' => $cartData,
+         'origins'  => $origins,
+         'destinations' => $destinations,
+         'variants' => $variants,
+         'prices' => $prices,
          'qtyTotal' => $cartTotalQuantity
         ]);
     }
