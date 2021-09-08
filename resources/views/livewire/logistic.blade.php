@@ -9,32 +9,25 @@
         <div class="col-md-4">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <form action="{{route('variant.store')}}" method="post">
+                    <form wire:submit.prevent="addItem">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Barang</label>
-                            <input type="text" name="nama_barang" placeholder="" value="{{old('nama_barang')}}" class="form-control">
-                            @error('nama_barang')
+                            <label>Name</label>
+                            <input type="text" wire:model="name"  class="form-control">
+                            @error('wire:model')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Berat Barang(kg)</label>
-                            <input type="number" name="berat_barang" placeholder="" value="{{old('berat_barang')}}" class="form-control">
-                            @error('berat_barang')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan</label>
-                            <input type="text" name="keterangan" placeholder="" value="{{old('keterangan')}}" class="form-control">
-                            @error('keterangan')
+                            <label>Weight(kg)</label>
+                            <input type="number" wire:model="weight" min="0" class="form-control">
+                            @error('weight')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group text-right">
                             <button class="btn btn-primary mb-2" type="submit">Add</button>
-                            <a href="{{route('variant.index')}}" class="btn btn-info  mb-2"> Clear</a>
+                            <a href="#" wire:click="resetFields()" class="btn btn-info  mb-2"> Clear</a>
                         </div>
                     </form>
                 </div>
@@ -47,18 +40,30 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Variant</th>
+                                <th>Weight(Kg)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>    
+                            @forelse($carts as $index=>$cart)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$cart['name']}}</td>
+                                <td>
+                                    <a href="#" wire:click="minItem('{{$cart['rowId']}}')" class="btn btn-warning btn-sm" ><i class="fas fa-minus"></i></a>
+                                    {{$cart['qty']}} 
+                                    <a href="#" wire:click="increaseItem('{{$cart['rowId']}}')" class="btn btn-primary btn-sm" ><i class="fas fa-plus"></i></i>
+                                    </td> 
+                                <td>
+                                    <a href="#"  wire:click="removeItem('{{$cart['rowId']}}')" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>    
+                                </td>
                             </tr>
+                            @empty
+
+                            @endforelse
+                        
                         </tbody>
                     </table>
+                    <h4>{{$qtyTotal}}</h4>
                 </div>
             </div>
             <div class="card shadow mb-4">
@@ -68,23 +73,23 @@
                         @csrf
                         
                         <div class="form-group">
-                            <label>Nama Barang</label>
-                            <input type="text" name="nama_barang" placeholder="" value="{{old('nama_barang')}}" class="form-control">
-                            @error('nama_barang')
+                            <label>Name</label>
+                            <input type="text" wire:model="name"  class="form-control">
+                            @error('wire:model')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Berat Barang(kg)</label>
-                            <input type="number" name="berat_barang" placeholder="" value="{{old('berat_barang')}}" class="form-control">
-                            @error('berat_barang')
+                            <label>Weight(kg)</label>
+                            <input type="number" wire:model="weight" class="form-control">
+                            @error('weight')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Keterangan</label>
-                            <input type="text" name="keterangan" placeholder="" value="{{old('keterangan')}}" class="form-control">
-                            @error('keterangan')
+                            <label>Description</label>
+                            <input type="text" wire:model="description"  class="form-control">
+                            @error('description')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
