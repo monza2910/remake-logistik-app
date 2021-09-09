@@ -6,20 +6,27 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
+use DB;
+
 //Model 
 use App\Models\Origins ;
 use App\Models\Destinations ;
 use App\Models\Variantservices ;
 use App\Models\Shippingrates as Rates;
+use App\Models\Transaction ;
+use App\Models\Detaillogistics ;
 
 
 class Logistic extends Component
 {
+    public $diskon = '0';
     public $name , $weight;
-    public $from, $to, $service, $sub_berat, $harga_kg, $sub_total, $diskon, $total;
+    public $from, $to, $service, $sub_berat, $harga_kg, $sub_total, $total, $dibayar, $status;
+    public $pengirim, $alamat_pengirim, $no_pengirim, $penerima, $alamat_penerima, $no_penerima;  
     public function render()
     {
 
+        
 
         $origins = Rates::distinct()->get(['origin_id']);
 
@@ -95,8 +102,8 @@ class Logistic extends Component
         }
         
         
-    
-        // var_dump($origins);
+
+        // var_dump($GenerateDate,$GenerateDate2);
         return view('livewire.logistic',
         [
          'carts' => $cartData,
@@ -192,6 +199,123 @@ class Logistic extends Component
         $this->service='';
         $this->harga_kg='';
         $this->sub_total='';
-        $this->diskon='';
+        $this->diskon='0';
+    }
+
+    public function resetFieldsAll(){
+        $this->name='' ;
+        $this->weight=''; 
+        $this->description='';
+        $this->from='' ;
+        $this->to=''; 
+        $this->service='';
+        $this->sub_berat='';
+        $this->harga_kg='';
+        $this->sub_total='';
+        $this->diskon='0';
+        $this->total='';
+        $this->dibayar='';
+        $this->status='';
+        $this->pengirim='';
+        $this->alamat_pengirim='';
+        $this->no_pengirim='';
+        $this->penerima=''; 
+        $this->alamat_penerima='';
+        $this->no_penerima='';  
+    }
+
+    public function submitHandle(){
+        $userid = Auth()->id();
+        // $order = TransactionModel::whereRaw('id = (select max(`id`) from transactions)')->get();
+        // foreach ($order as $od) {
+        //     $lastid = $od->id;
+        // }
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'transactions'");
+        $lastid = $statement[0]->Auto_increment;
+        $this->validate([
+            'penerima' => 'required',
+            'alamat_penerima' => 'required',
+            'no_penerima' => 'required|numeric',
+            'pengirim' => 'required',
+            'no_pengirim' => 'required|numeric',
+            'alamat_pengirim' => 'required',
+            'service' => 'required',
+            'sub_berat' => 'required',
+            'harga_kg' => 'required',
+            'sub_total' => 'required',
+            'total' => 'required',
+            'status' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+
+
+        $dateNow = Carbon::now();
+        $date   = $dateNow->format('YmdH');
+        $codeyear = $dateNow->format('Y');
+        $codemonthday= $dateNow->format('md');
+        //Generate Invoice
+        $invoice = "INV/KMJ/00".$lastid."/".$codemonthday."/".$codeyear;
+        $tracking_number = "KMJO-00".$lastid."-".$date;
+
+        
+        try {
+            $allcart = \Cart::session('logisticsmall')->getContent();
+            
+            $filterCart = $allcart->map(function($item){
+                return[
+                    'name'        => $item->name,
+                    'quantity'  => $item->quantity,
+                ];
+            });
+            //Action Save
+            
+            if (\Cart::isEmpty()) {
+                session()->flash('danger','Data Keranjang Tidak Boleh Kosong');
+            }else{
+                $transaction = Transaction::create([
+                    'invoice' => $invoice,
+                    'tracking_number' => $tracking_number,
+                    'qr_code' => 'Test.png',
+                    'penerima' => $this->penerima,
+                    'alamat_penerima' => $this->alamat_penerima,
+                    'no_penerima' => $this->no_penerima,
+                    'pengirim' =>   $this->pengirim,
+                    'no_pengirim' => $this->no_pengirim,
+                    'alamat_pengirim' => $this->alamat_pengirim,
+                    'origin_id' => $this->from,
+                    'destination_id' => $this->to,
+                    'variantservice_id' => $this->service,
+                    'berat_total' => $this->sub_berat,
+                    'harga_kg' => $this->harga_kg,
+                    'sub_total' => $this->sub_total,
+                    'diskon' => $this->diskon,
+                    'total' =>$this->total,
+                    'total_bayar' =>$this->dibayar,
+                    'status' => $this->status,
+                    'user_id' => Auth()->id(),
+                ]);
+                
+                foreach ($filterCart as $fc ) {
+                    Detaillogistics::create([
+                        'transaction_id' => $transaction->id,
+                        'nama_barang'     => $fc['name'],
+                        'keterangan'      => null,
+                        'berat'           => $fc['quantity']
+                    ]);
+                }
+    
+                \Cart::session('logisticsmall')->clear();
+                $this->resetFieldsAll();
+                session()->flash('success','Transaction Success');
+                DB::commit();
+                
+            }
+    
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return session()->flash('error',$th);
+        }
+
     }
 }

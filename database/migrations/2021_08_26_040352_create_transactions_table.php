@@ -15,14 +15,28 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice');
             $table->string('tracking_number');
+            $table->string('qr_code');
             $table->string('penerima');
-            $table->text('address_penerima');
-            $table->integer('phone_penerima');
-            $table->string('sender');
-            $table->text('address_sender');
-            $table->integer('phone_sender');
+            $table->text('alamat_penerima');
+            $table->string('no_penerima');
+            $table->string('pengirim');
+            $table->text('alamat_pengirim');
+            $table->string('no_pengirim');
+            $table->integer('origin_id');
+            $table->integer('destination_id');
+            $table->integer('variantservice_id');
+            $table->integer('berat_total');
+            $table->integer('harga_kg');
+            $table->integer('sub_total');
+            $table->integer('diskon')->nullable();
+            $table->integer('total');
+            $table->integer('total_bayar');
+            $table->string('status');
+            $table->string('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

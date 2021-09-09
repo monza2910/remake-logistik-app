@@ -56,6 +56,7 @@ return array(
     'App\\Models\\Comments' => $baseDir . '/app/Models/Comments.php',
     'App\\Models\\Contactus' => $baseDir . '/app/Models/Contactus.php',
     'App\\Models\\Destinations' => $baseDir . '/app/Models/Destinations.php',
+    'App\\Models\\Detaillogistics' => $baseDir . '/app/Models/Detaillogistics.php',
     'App\\Models\\Galery' => $baseDir . '/app/Models/Galery.php',
     'App\\Models\\Origins' => $baseDir . '/app/Models/Origins.php',
     'App\\Models\\Ourteam' => $baseDir . '/app/Models/Ourteam.php',

@@ -11,12 +11,25 @@ class Transaction extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'transactions';
     protected $fillable = [
+        'invoice',
         'tracking_number',
-        'sender',
-        'phone_sender',
-        'address_sender',
+        'qr_code',
         'penerima',
-        'phone_penerima',
-        'address_penerima'
+        'alamat_penerima',
+        'no_penerima',
+        'pengirim',
+        'no_pengirim',
+        'alamat_pengirim',
+        'origin_id',
+        'destination_id',
+        'variantservice_id',
+        'berat_total',
+        'harga_kg',
+        'sub_total',
+        'diskon',
+        'total',
+        'total_bayar',
+        'status',
+        'user_id',
     ];
 }

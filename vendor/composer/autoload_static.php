@@ -581,6 +581,7 @@ class ComposerStaticInitca74129cad1091c4b697b8225458cef0
         'App\\Models\\Comments' => __DIR__ . '/../..' . '/app/Models/Comments.php',
         'App\\Models\\Contactus' => __DIR__ . '/../..' . '/app/Models/Contactus.php',
         'App\\Models\\Destinations' => __DIR__ . '/../..' . '/app/Models/Destinations.php',
+        'App\\Models\\Detaillogistics' => __DIR__ . '/../..' . '/app/Models/Detaillogistics.php',
         'App\\Models\\Galery' => __DIR__ . '/../..' . '/app/Models/Galery.php',
         'App\\Models\\Origins' => __DIR__ . '/../..' . '/app/Models/Origins.php',
         'App\\Models\\Ourteam' => __DIR__ . '/../..' . '/app/Models/Ourteam.php',
