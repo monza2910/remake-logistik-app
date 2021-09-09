@@ -54,7 +54,8 @@ unset($__errorArgs, $__bag); ?>
                     <h3>Paket</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table" width="100%" cellspacing="0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -76,101 +77,123 @@ unset($__errorArgs, $__bag); ?>
                                 </td>
                             </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-
+                            <tr>
+                                <td colspan="3">
+                                    <h6 class="text-center">Empty Cart</h6>
+                                </td>
+                            </tr>
                             <?php endif; ?>
                         
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-8">
-            <div class="card shadow mb-4">
-                <div class="card-header">
-                    <h3>Service Yang Dipilih</h3>
-                </div>
-                <div class="card-body">
-                   
-                    <div class="form-group select-box">
-                        <label >Dikirim Dari</label>
-                        <select class="form-control " wire:model="from" >
-                            <option value="" selected > Pilih </option>
-                            <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($origin->origin_id); ?>"><?php echo e($origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
+            <form action="">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h3>Service Yang Dipilih</h3>
                     </div>
-                    <div class="form-group select-box">
-                        <label >Dikirim Ke</label>
-                        <select class="form-control " wire:model="to" >
-                        <?php if(!empty($destinations)): ?>
-                        <option value="" >Pilih</option>
-                            <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
-                            <option value="<?php echo e($destination->destination_id); ?>"><?php echo e($destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php else: ?>
-                            <option value="" >Not Found</option>
-                        
-                        <?php endif; ?>
-                        </select>
-                    </div>
-                    <div class="form-group select-box">
-                        <label >Jenis Layanan</label>
-                        <select class="form-control " wire:model="service" >
-                        <?php if(!empty($variants)): ?>
-                            <?php $__currentLoopData = $variants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $variant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
-                            <option value="<?php echo e($variant->variantservice_id); ?>"><?php echo e($variant->variantservice->variant_service); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php else: ?>
-                            <option value="" >Not Found</option>
-                        
-                        <?php endif; ?>
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Berat Keseluruhan(Kg) </label>
-                                <input type="text" wire:model="berat_keseluruhan" value=""  class="form-control">
+                    <div class="card-body">
+                            <div class="form-group select-box">
+                                <label >Dikirim Dari</label>
+                                <select class="form-control " wire:model="from" >
+                                    <option value="" selected > Pilih </option>
+                                    <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($origin->origin_id); ?>"><?php echo e($origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Harga /Kg</label>
-                                <?php if(!empty($prices)): ?>
-                                    <?php $__currentLoopData = $prices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $price): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <input type="text" wire:model="harga_kg" value="<?php echo e($price->above_terms); ?>" class="form-control">                
-                                        
+                            <div class="form-group select-box">
+                                <label >Dikirim Ke</label>
+                                <select class="form-control " wire:model="to" >
+                                <?php if(!empty($destinations)): ?>
+                                <option value="" >Pilih</option>
+                                    <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                    <option value="<?php echo e($destination->destination_id); ?>"><?php echo e($destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
-                                    <input type="text" wire:model="harga_kg" readonly value="Kosong" class="form-control">
-                                <?php endif; ?>    
+                                    <option value="" >Not Found</option>
+                                
+                                <?php endif; ?>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Sub Total </label>
-                                <input type="text" wire:model="sub_total"  class="form-control">
+                            <div class="form-group select-box">
+                                <label >Jenis Layanan</label>
+                                <select class="form-control " wire:model="service" >
+                                <?php if(!empty($variants)): ?>
+                                <option value="" >Pilih</option>
+
+                                    <?php $__currentLoopData = $variants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $variant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                    <option value="<?php echo e($variant->variantservice_id); ?>"><?php echo e($variant->variantservice->variant_service.'( '.$variant->est_arrived.' Days)'); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                    <option value="" >Not Found</option>
+                                
+                                <?php endif; ?>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Diskon </label>
-                                <input type="text" wire:model="diskon"  class="form-control">
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Berat Keseluruhan(Kg) </label>
+                                        <input type="text" wire:model="sub_berat" readonly  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Harga /Kg</label>
+                                        <?php if(!empty($prices)): ?>
+                                            
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="harga_kg"  readonly  class="form-control">
+                                        </div>               
+                                                
+                                        <?php else: ?>
+                                            <input type="text" wire:model="harga_kg" readonly value="Kosong" class="form-control">
+                                        <?php endif; ?>    
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Sub Total </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="sub_total"  readonly  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Diskon </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="diskon"  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Total </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="total" readonly  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <h2>Total Harga     : </h2>
                     </div>
                 </div>
-            </div>
 
-            <div class="card shadow mb-4">
-                <div class="card-header"><h3>Detail Order</h3></div>
-                <div class="card-body">
-                    <form >
-                        <?php echo csrf_field(); ?>
+                <div class="card shadow mb-4">
+                    <div class="card-header"><h3>Detail Order</h3></div>
+                    <div class="card-body">
+                            <?php echo csrf_field(); ?>
 
                             <div class="form-group">
                                 <label>Nama Pengirim</label>
@@ -230,7 +253,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="form-group">
-                                <label>ALaamt Penerima </label>
+                                <label>Alamat Penerima </label>
                                 <textarea wire:model="alamat_penerima" class="form-control" cols="30" rows="10"></textarea>
                                 <?php $__errorArgs = ['alamat_penerima'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -244,7 +267,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="form-group">
-                                <label>No Pengirim</label>
+                                <label>No Penerima</label>
                                 <input type="text" wire:model="no_pengirim"  class="form-control">
                                 <?php $__errorArgs = ['no_pengirim'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -260,11 +283,11 @@ unset($__errorArgs, $__bag); ?>
                         
                         <div class="form-group text-right">
                             <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                            <a href="<?php echo e(route('variant.index')); ?>" class="btn btn-info  mb-2"> Back</a>
+                            <a href="<?php echo e(route('transaction.index')); ?>" class="btn btn-info  mb-2"> Back</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     
       

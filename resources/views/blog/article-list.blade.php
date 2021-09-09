@@ -16,17 +16,11 @@
         <ul>
           <li><a id="closeBtn">X</a></li>
           <li><a href="{{route('blog.index')}}">Home</a></li>
-          <li><a href="{{route('blog.showarticle')}}" id="active">Article</a></li>
-          <li><a href="{{route('blog.contactus')}}">Contact Us</a></li>
+          <li><a href="{{route('blog.showarticle')}}" id="active">Artikel</a></li>
+          <li><a href="service-lists.html">Layanan</a></li>
+          <li><a href="{{route('blog.gallery')}}" >Galeri</a></li>
         </ul>
-        @if (empty(auth::user()))
-          <a href="{{route('login')}}" id="right">Login</a>
-          @else
-          <form action="{{ route('logout') }}" method="POST" id="right">
-            @csrf
-            <button type="submit" >Logout</button>
-        </form>
-          @endif
+        <a href="{{route('blog.contactus')}}" id="right">Contact Us</a>
       </div>
     </nav>
 

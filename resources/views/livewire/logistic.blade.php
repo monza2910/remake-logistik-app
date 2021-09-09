@@ -40,7 +40,8 @@
                     <h3>Paket</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table" width="100%" cellspacing="0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -62,101 +63,123 @@
                                 </td>
                             </tr>
                             @empty
-
+                            <tr>
+                                <td colspan="3">
+                                    <h6 class="text-center">Empty Cart</h6>
+                                </td>
+                            </tr>
                             @endforelse
                         
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-8">
-            <div class="card shadow mb-4">
-                <div class="card-header">
-                    <h3>Service Yang Dipilih</h3>
-                </div>
-                <div class="card-body">
-                   
-                    <div class="form-group select-box">
-                        <label >Dikirim Dari</label>
-                        <select class="form-control " wire:model="from" >
-                            <option value="" selected > Pilih </option>
-                            @foreach ($origins as $index => $origin)
-                            <option value="{{$origin->origin_id}}">{{$origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict}}</option>
-                            @endforeach
-                        </select>
+            <form action="">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h3>Service Yang Dipilih</h3>
                     </div>
-                    <div class="form-group select-box">
-                        <label >Dikirim Ke</label>
-                        <select class="form-control " wire:model="to" >
-                        @if (!empty($destinations))
-                        <option value="" >Pilih</option>
-                            @foreach ($destinations as $index => $destination) 
-                            <option value="{{$destination->destination_id}}">{{$destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict}}</option>
-                            @endforeach
-                        @else
-                            <option value="" >Not Found</option>
-                        
-                        @endif
-                        </select>
-                    </div>
-                    <div class="form-group select-box">
-                        <label >Jenis Layanan</label>
-                        <select class="form-control " wire:model="service" >
-                        @if (!empty($variants))
-                            @foreach ($variants as $index => $variant) 
-                            <option value="{{$variant->variantservice_id}}">{{$variant->variantservice->variant_service}}</option>
-                            @endforeach
-                        @else
-                            <option value="" >Not Found</option>
-                        
-                        @endif
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Berat Keseluruhan(Kg) </label>
-                                <input type="text" wire:model="berat_keseluruhan" value=""  class="form-control">
+                    <div class="card-body">
+                            <div class="form-group select-box">
+                                <label >Dikirim Dari</label>
+                                <select class="form-control " wire:model="from" >
+                                    <option value="" selected > Pilih </option>
+                                    @foreach ($origins as $index => $origin)
+                                    <option value="{{$origin->origin_id}}">{{$origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Harga /Kg</label>
-                                @if (!empty($prices))
-                                    @foreach ($prices as $index => $price)
-                                    <input type="text" wire:model="harga_kg" value="{{$price->above_terms}}" class="form-control">                
-                                        
+                            <div class="form-group select-box">
+                                <label >Dikirim Ke</label>
+                                <select class="form-control " wire:model="to" >
+                                @if (!empty($destinations))
+                                <option value="" >Pilih</option>
+                                    @foreach ($destinations as $index => $destination) 
+                                    <option value="{{$destination->destination_id}}">{{$destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict}}</option>
                                     @endforeach
                                 @else
-                                    <input type="text" wire:model="harga_kg" readonly value="Kosong" class="form-control">
-                                @endif    
+                                    <option value="" >Not Found</option>
+                                
+                                @endif
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Sub Total </label>
-                                <input type="text" wire:model="sub_total"  class="form-control">
+                            <div class="form-group select-box">
+                                <label >Jenis Layanan</label>
+                                <select class="form-control " wire:model="service" >
+                                @if (!empty($variants))
+                                <option value="" >Pilih</option>
+
+                                    @foreach ($variants as $index => $variant) 
+                                    <option value="{{$variant->variantservice_id}}">{{$variant->variantservice->variant_service.'( '.$variant->est_arrived.' Days)'}}</option>
+                                    @endforeach
+                                @else
+                                    <option value="" >Not Found</option>
+                                
+                                @endif
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                            <div class="form-group">
-                                <label for="">Diskon </label>
-                                <input type="text" wire:model="diskon"  class="form-control">
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Berat Keseluruhan(Kg) </label>
+                                        <input type="text" wire:model="sub_berat" readonly  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Harga /Kg</label>
+                                        @if (!empty($prices))
+                                            
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="harga_kg"  readonly  class="form-control">
+                                        </div>               
+                                                
+                                        @else
+                                            <input type="text" wire:model="harga_kg" readonly value="Kosong" class="form-control">
+                                        @endif    
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Sub Total </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="sub_total"  readonly  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Diskon </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="diskon"  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Total </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="text" wire:model="total" readonly  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <h2>Total Harga     : </h2>
                     </div>
                 </div>
-            </div>
 
-            <div class="card shadow mb-4">
-                <div class="card-header"><h3>Detail Order</h3></div>
-                <div class="card-body">
-                    <form >
-                        @csrf
+                <div class="card shadow mb-4">
+                    <div class="card-header"><h3>Detail Order</h3></div>
+                    <div class="card-body">
+                            @csrf
 
                             <div class="form-group">
                                 <label>Nama Pengirim</label>
@@ -188,14 +211,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>ALaamt Penerima </label>
+                                <label>Alamat Penerima </label>
                                 <textarea wire:model="alamat_penerima" class="form-control" cols="30" rows="10"></textarea>
                                 @error('alamat_penerima')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>No Pengirim</label>
+                                <label>No Penerima</label>
                                 <input type="text" wire:model="no_pengirim"  class="form-control">
                                 @error('no_pengirim')
                                 <small class="text-danger">{{$message}}</small>
@@ -204,11 +227,11 @@
                         
                         <div class="form-group text-right">
                             <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                            <a href="{{route('variant.index')}}" class="btn btn-info  mb-2"> Back</a>
+                            <a href="{{route('transaction.index')}}" class="btn btn-info  mb-2"> Back</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     
       

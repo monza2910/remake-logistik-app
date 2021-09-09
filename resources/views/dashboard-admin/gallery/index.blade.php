@@ -34,8 +34,8 @@
                         <tr>
                             <th>No</th>
                             <th>Image</th>
-                            <th>Status</th>
                             <th>Description</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -16,7 +16,7 @@ use App\Models\Shippingrates as Rates;
 class Logistic extends Component
 {
     public $name , $weight;
-    public $from, $to, $service, $berat_keseluruhan, $harga_kg, $sub_total, $diskon;
+    public $from, $to, $service, $sub_berat, $harga_kg, $sub_total, $diskon, $total;
     public function render()
     {
 
@@ -40,13 +40,22 @@ class Logistic extends Component
         //if variant input was added 
         if (!empty($this->service) &&!empty($this->to) && !empty($this->from)) {
             $prices = Rates::where([['origin_id',$this->from],['destination_id', $this->to],['variantservice_id',$this->service]])->get();
+
+            foreach ($prices as $price ) {
+                $aboveprice = $price['above_terms'];
+                $underprice = $price['under_terms'];
+            }
+
+            if ($this->sub_berat < 50) {
+                $this->harga_kg = $underprice;
+            } else {
+                $this->harga_kg = $aboveprice;
+            }
+            
         } else {
             $prices = [];
         }
         
-        
-
-
         
         $items = \Cart::session('logisticsmall')->getContent()->sortBy(function($cart){
             return $cart->attributes->get('added_at');
@@ -66,7 +75,25 @@ class Logistic extends Component
             
             $cartData = collect($cart);
         }
-        $cartTotalQuantity =\Cart::session('logisticsmall')->getTotalQuantity();
+        
+        //display weight total
+        $this->sub_berat =\Cart::session('logisticsmall')->getTotalQuantity();
+
+        //display subtotal price
+        if (!empty($this->sub_berat) && !empty($this->harga_kg)) {
+            $this->sub_total = $this->harga_kg*$this->sub_berat;
+        } else {
+            $this->subtotal = '';
+        }
+
+        // Total with diskon
+
+        if (!empty($this->diskon) && !empty($this->sub_total) ) {
+            $this->total = $this->sub_total - $this->diskon ;
+        } else {
+            $this->total = $this->sub_total; 
+        }
+        
         
     
         // var_dump($origins);
@@ -76,8 +103,6 @@ class Logistic extends Component
          'origins'  => $origins,
          'destinations' => $destinations,
          'variants' => $variants,
-         'prices' => $prices,
-         'qtyTotal' => $cartTotalQuantity
         ]);
     }
     
@@ -100,6 +125,7 @@ class Logistic extends Component
                 ]
             ]);
             $this->resetFields();
+            $this->resetFieldsService();
         }else{
             \Cart::session('logisticsmall')->add([
                 'id'    => "Cart".Str::slug($this->name),
@@ -111,7 +137,7 @@ class Logistic extends Component
                 ],
             ]);
             $this->resetFields();
-
+            $this->resetFieldsService();
         }
  
     }
@@ -124,6 +150,7 @@ class Logistic extends Component
                 'value'  =>1
             ]
         ]);
+        $this->resetFieldsService();
     }
 
 
@@ -138,14 +165,18 @@ class Logistic extends Component
                     'value' => -1
                 ]
             ]);
+            $this->resetFieldsService();
+
         }else{
             \Cart::session('logisticsmall')->remove($rowId);
+            $this->resetFieldsService();
         }
     }
 
 
     public function removeItem($rowId){
         \Cart::session('logisticsmall')->remove($rowId);
+        $this->resetFieldsService();
     }
 
 
@@ -153,5 +184,14 @@ class Logistic extends Component
         $this->name='' ;
         $this->weight=''; 
         $this->description='';
+    }
+    
+    public function resetFieldsService(){
+        $this->from='' ;
+        $this->to=''; 
+        $this->service='';
+        $this->harga_kg='';
+        $this->sub_total='';
+        $this->diskon='';
     }
 }

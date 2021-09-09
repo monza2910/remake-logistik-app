@@ -46,6 +46,7 @@ Route::get('/contact-us',[BlogController::class, 'contactus'])->name('blog.conta
 Route::post('/contact-us/post',[BlogController::class, 'storecontactus'])->name('blog.storecontactus');
 Route::post('/estimasi/track',[BlogController::class, 'estimasiTrack'])->name('estimasi.cek');
 Route::get('/tracking/cek',[BlogController::class, 'trackingCek'])->name('tracking.cek');
+Route::get('/gallery',[BlogController::class, 'galleryIndex'])->name('blog.gallery');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas,writer']],function(){

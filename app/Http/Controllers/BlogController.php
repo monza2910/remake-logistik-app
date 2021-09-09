@@ -220,4 +220,9 @@ class BlogController extends Controller
         $trackings = Tracking::where('transaction_id',$trid);
         return view();
     }
+
+    public function galleryIndex(){
+        $gallerys = Galery::where('status','1')->OrderBy('id','DESC')->get();
+        return view('blog.gallery',compact('gallerys'));
+    }
 }
