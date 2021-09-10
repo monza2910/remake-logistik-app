@@ -33,11 +33,12 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Barcode</th>
+                            <th>Invoice</th>
                             <th>Tracking Number </th>
                             <th>Recipient</th>
-                            <th>address Recipient</th>
                             <th>Sender</th>
-                            <th>address Sender</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,11 +46,12 @@
                         @foreach ($transactions as $index => $transaction)    
                         <tr>
                             <td>{{$index +1}}</td> 
+                            <td><img src="/images/transaction/{{$transaction->qr_code}}" alt="" width="100px" height="100px"></td>
+                            <td>{{$transaction->invoice}}</td>
                             <td>{{$transaction->tracking_number}}</td>
                             <td>{{$transaction->penerima}}</td>
-                            <td>{{$transaction->address_penerima}}</td>
-                            <td>{{$transaction->sender}}</td>
-                            <td>{{$transaction->address_sender}}</td>
+                            <td>{{$transaction->pengirim}}</td>
+                            <td>{{$transaction->status}}</td>
                             <td >
                                 <form action="{{ route('transaction.destroy',$transaction->id) }}" method="POST">
                                     

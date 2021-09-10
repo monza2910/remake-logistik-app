@@ -5,8 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-
 use DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 //Model 
 use App\Models\Origins ;
@@ -258,7 +258,10 @@ class Logistic extends Component
         $invoice = "INV/KMJ/00".$lastid."/".$codemonthday."/".$codeyear;
         $tracking_number = "KMJO-00".$lastid."-".$date;
 
-        
+        \QrCode::size(300)
+            ->format('svg')
+            ->generate($tracking_number, public_path('images/transaction/'.$tracking_number.'.svg'));
+        $namaBarcode = $tracking_number.'.svg';
         try {
             $allcart = \Cart::session('logisticsmall')->getContent();
             
@@ -276,7 +279,7 @@ class Logistic extends Component
                 $transaction = Transaction::create([
                     'invoice' => $invoice,
                     'tracking_number' => $tracking_number,
-                    'qr_code' => 'Test.png',
+                    'qr_code' => $namaBarcode,
                     'penerima' => $this->penerima,
                     'alamat_penerima' => $this->alamat_penerima,
                     'no_penerima' => $this->no_penerima,

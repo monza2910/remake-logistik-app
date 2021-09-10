@@ -33,11 +33,12 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Barcode</th>
+                            <th>Invoice</th>
                             <th>Tracking Number </th>
                             <th>Recipient</th>
-                            <th>address Recipient</th>
                             <th>Sender</th>
-                            <th>address Sender</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,11 +46,12 @@
                         <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>    
                         <tr>
                             <td><?php echo e($index +1); ?></td> 
+                            <td><img src="/images/transaction/<?php echo e($transaction->qr_code); ?>" alt="" width="100px" height="100px"></td>
+                            <td><?php echo e($transaction->invoice); ?></td>
                             <td><?php echo e($transaction->tracking_number); ?></td>
                             <td><?php echo e($transaction->penerima); ?></td>
-                            <td><?php echo e($transaction->address_penerima); ?></td>
-                            <td><?php echo e($transaction->sender); ?></td>
-                            <td><?php echo e($transaction->address_sender); ?></td>
+                            <td><?php echo e($transaction->pengirim); ?></td>
+                            <td><?php echo e($transaction->status); ?></td>
                             <td >
                                 <form action="<?php echo e(route('transaction.destroy',$transaction->id)); ?>" method="POST">
                                     

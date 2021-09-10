@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Tracking;
+use App\Models\Detaillogistics;
 class TransactionController extends Controller
 {
     /**
@@ -68,11 +69,11 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = Transaction::findOrFail($id);
-        $idtr        = $transaction['id'];
-        $trackings    =  Tracking::where('transaction_id',$idtr)->orderBy('id','DESC')->get();
-
-        return view('dashboard-admin.transaction.show',compact('transaction','trackings'));
+        $transaction    = Transaction::findOrFail($id);
+        $idtr           = $transaction['id'];
+        $trackings      = Tracking::where('transaction_id',$idtr)->orderBy('id','DESC')->get();
+        $packages       = Detaillogistics::where('transaction_id',$id)->orderBy('id','ASC')->get();
+        return view('dashboard-admin.transaction.show',compact('transaction','trackings','packages'));
 
     }
 

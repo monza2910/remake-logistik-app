@@ -36,24 +36,28 @@
                           <h2>Transaction</h2>
                           <br>
                           <br>
-                          <div class="invoice-number">Tracking Number #{{$transaction->tracking_number}}</div>
+                          <div class="invoice-number">
+                            <label for="">Invoice #{{$transaction->invoice}}</label> 
+                            <br>
+                            <label for="">Tracking Number : {{$transaction->tracking_number}}</label>
+                          </div>
                         </div>
                         <hr>
                         <div class="row">
                           <div class="col-md-6">
                             <address>
                               <strong>Posted By:</strong><br>
-                                {{$transaction->sender}}<br>
-                                {{$transaction->phone_sender}}<br>
-                                {{$transaction->address_sender}}
+                                {{$transaction->pengirim}}<br>
+                                {{$transaction->no_pengirim}}<br>
+                                {{$transaction->alamat_pengirim}}
                             </address>
                           </div>
                           <div class="col-md-6 text-md-right">
                             <address>
                               <strong>Shipped To:</strong><br>
                               {{$transaction->penerima}}<br>
-                              {{$transaction->phone_penerima}}<br>
-                              {{$transaction->address_penerima}}
+                              {{$transaction->no_penerima}}<br>
+                              {{$transaction->alamat_penerima}}
                             </address>
                           </div>
                         </div>
@@ -77,6 +81,62 @@
     
                     <div class="row mt-4">
                       <div class="col-md-12">
+                        <div class="section-title">
+                          <div class="float-left">Packages</div> 
+                          </div>
+                          <div class="table-responsive">
+                            <table class="table table-striped table-hover table-md">
+                              
+                              <tr>
+                                  <th data-width="300">No</th>
+                                  <th>Nama</th>
+                                  <th class="text-center">Berat</th>
+                              </tr>
+                              @if ($packages != null)
+                              @foreach ($packages as $index =>$pkg)
+                              <tr>
+                                <td>{{$index+1}}</td>
+                                <td>{{$pkg->nama_barang}}</td>
+                                <td class="text-center">{{$pkg->berat}}</td>  
+                              </tr>
+                              @endforeach
+                              <tfoot>
+                                <tr>
+                                  <th></th>
+                                  <th id="total"  >Total Berat :</th>
+                                  <td class="text-center">{{$transaction->berat_total}}</td>
+                                </tr>
+                                <tr>
+                                  <th></th>
+                                  <th id="total"  >Harga /kg :</th>
+                                  <td class="text-center">Rp. {{$transaction->harga_kg}}</td>
+                                </tr>
+                                <tr>
+                                  <th></th>
+                                  <th id="total"  >Diskon :</th>
+                                  <td class="text-center">Rp. {{$transaction->diskon}}</td>
+                                </tr>
+                                <tr>
+                                  <th></th>
+                                  <th id="total"  >Sub Total harga :</th>
+                                  <td class="text-center">Rp. {{$transaction->sub_total}}</td>
+                                </tr>
+                                <tr>
+                                  <th></th>
+                                  <th id="total"  >Total harga :</th>
+                                  <td class="text-center">Rp. {{$transaction->total}}</td>
+                                </tr>
+                                
+                               </tfoot>
+                              @else
+                              <tr>
+                                  <td colspan="3">Not Found</td>
+                              </tr>
+                              @endif
+                                
+                            </table>
+                          </div>
+
                         <div class="section-title">
                             <div class="float-left">Tracking</div> 
                             <div class="float-right mx-2 my-2">
