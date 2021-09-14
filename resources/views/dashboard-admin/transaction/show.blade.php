@@ -38,13 +38,15 @@
                           <br>
                           <div class="invoice-number">
                             <label for="">Invoice #{{$transaction->invoice}}</label> 
+                          
                             <br>
-                            <label for="">Tracking Number : {{$transaction->tracking_number}}</label>
+                            <a href="{{route('printlogistic',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Print Pdf</a> 
+                            
                           </div>
                         </div>
                         <hr>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-4">
                             <address>
                               <strong>Posted By:</strong><br>
                                 {{$transaction->pengirim}}<br>
@@ -52,7 +54,15 @@
                                 {{$transaction->alamat_pengirim}}
                             </address>
                           </div>
-                          <div class="col-md-6 text-md-right">
+                          <div class="col-md-4">
+                            <address>
+                              <strong>Tracking Number :</strong><br>
+                              {{$transaction->tracking_number}}
+                              <br>
+                              <img src="/images/transaction/{{$transaction->qr_code}}" class="image-fluid" style="height: 100px; width:100;">
+                            </address>
+                          </div>
+                          <div class="col-md-4 text-md-right">
                             <address>
                               <strong>Shipped To:</strong><br>
                               {{$transaction->penerima}}<br>
@@ -86,7 +96,6 @@
                           </div>
                           <div class="table-responsive">
                             <table class="table table-striped table-hover table-md">
-                              
                               <tr>
                                   <th data-width="300">No</th>
                                   <th>Nama</th>

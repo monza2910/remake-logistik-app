@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Tracking;
 use App\Models\Detaillogistics;
+use PDF;
 class TransactionController extends Controller
 {
     /**
@@ -186,5 +187,14 @@ class TransactionController extends Controller
         $tracking->delete();
         return redirect()->back()->with('success','Tracking Was Deleted');
     
+    }
+
+    public function printPDFLogistic($id){
+        $transaction    = Transaction::findorFail($id);
+        $packages       = Detaillogistics::where('transaction_id',$id)->orderBy('id','ASC')->get();;
+    	// $pdf = PDF::loadview('blog.layout.invoice',compact('transaction','packages'))->setPaper('A4','potrait');
+    	// return $pdf->download('laporan-pegawai-pdf.pdf');
+        return view('blog.layout.invoice',compact('transaction','packages'));
+        // dd($transaction,$packages);
     }
 }

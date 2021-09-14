@@ -15,4 +15,8 @@ class Variantservices extends Model
     {
     	return $this->hasMany(Shippingrates::class);
     }
+    public function transaction()
+    {
+    	return $this->hasMany(Transaction::class);
+    }
 }

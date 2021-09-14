@@ -32,4 +32,14 @@ class Transaction extends Model
         'status',
         'user_id',
     ];
+
+    public function variantservice()
+    {
+    	return $this->belongsTo(Variantservices::class);
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
+    }
 }

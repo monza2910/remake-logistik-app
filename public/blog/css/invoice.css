@@ -1,0 +1,214 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "PoppinsMedium";
+  src: url("../fonts/Poppins/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "PoppinsBold";
+  src: url("../fonts/Poppins/Poppins-Bold.ttf");
+}
+:root {
+  --orange: #ff5200;
+  --blue: #1a3263;
+  --white: #f4f5f6;
+  --lightblue: #b5cff7;
+  --darkblue: #0b162d;
+}
+html {
+  scroll-behavior: smooth;
+}
+* {
+  font-family: "PoppinsMedium";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  scrollbar-color: red;
+}
+a {
+  text-decoration: none;
+}
+body {
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "PoppinsBold";
+}
+h1 {
+  font-size: 48px;
+}
+h1 mark {
+  background-color: transparent;
+  font-family: "PoppinsBold";
+  color: var(--orange);
+}
+.mg-left-auto {
+  margin-left: auto;
+}
+.flex.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* INVOICE */
+.invoice {
+  position: relative;
+  padding: 25px;
+  padding-bottom: 75px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  width: 1024px !important;
+  min-width: 1024px;
+  color: var(--blue);
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+.invoice span#title {
+  color: rgba(26, 50, 99, 0.4);
+  font-family: "PoppinsBold";
+}
+.invoice span#detail {
+  color: rgba(26, 50, 99);
+  font-family: "PoppinsBold";
+}
+.invoice span#subdetail {
+  color: rgba(26, 50, 99, 0.6);
+  font-size: 24px;
+  font-family: "PoppinsBold";
+}
+.invoice .wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.invoice .wrapper.wrapper-inline {
+  flex-direction: row;
+}
+.invoice .wrapper.wrapper-inline span#detail {
+  width: 200px;
+  text-align: left;
+  padding-left: 15px;
+}
+.invoice .invoice-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 10px;
+  border-bottom: 3px solid rgba(26, 50, 99, 0.4);
+}
+.invoice .invoice-header span {
+  font-family: "PoppinsBold";
+  font-size: 24px;
+}
+.invoice .invoice-person {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.invoice .invoice-person span#title {
+  margin-top: 15px;
+}
+.invoice .invoice-person #pengirim {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(26, 50, 99, 0.1);
+  padding: 15px;
+  padding-right: 25px;
+  border-right: 3px dashed rgba(26, 50, 99, 0.4);
+  width: 250px;
+}
+.invoice .invoice-person #penerima {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(26, 50, 99, 0.1);
+  padding: 15px 25px;
+}
+.invoice .invoice-person #penerima span#detail {
+  font-size: 36px;
+}
+.invoice table.invoice-table {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.invoice table.invoice-table th,
+.invoice table.invoice-table td {
+  padding: 5px 10px;
+  color: rgba(26, 50, 99, 0.4);
+  background-color: rgba(26, 50, 99, 0.1);
+  text-align: left;
+}
+.invoice table.invoice-table td {
+  color: rgba(26, 50, 99);
+  font-family: "PoppinsBold";
+}
+.invoice .invoice-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.invoice span.larger {
+  font-size: 24px;
+}
+.invoice span.smaller {
+  font-size: 24px !important;
+}
+.invoice #total {
+  margin-top: 20px;
+}
+.invoice .invoice-status .mg-left-auto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.invoice .invoice-signature {
+  display: grid;
+  grid-template-columns: 33% auto 33%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.invoice .invoice-signature #signature {
+  width: 100%;
+  height: 150px;
+  margin: 15px 0;
+  background-color: rgba(26, 50, 99, 0.1);
+}
+.invoice img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+.invoice .invoice-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 15px 25px;
+  margin-top: 15px;
+  background-color: rgba(26, 50, 99, 0.8);
+}
+.invoice .invoice-footer span {
+  color: white;
+}
+.invoice .invoice-footer span#id {
+  font-family: "PoppinsBold";
+  margin-left: auto;
+}

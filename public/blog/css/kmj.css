@@ -1099,7 +1099,8 @@ form button {
 }
 .invoice .wrapper.wrapper-inline span#detail {
   width: 200px;
-  text-align: right;
+  text-align: left;
+  padding-left: 15px;
 }
 .invoice .invoice-header {
   display: flex;
