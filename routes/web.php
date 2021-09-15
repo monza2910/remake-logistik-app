@@ -21,6 +21,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\TravelController;
 use App\Http\Livewire\Logistic;
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +96,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('outlet', OutletsController::class);
     Route::resource('contact', ContactusController::class);
     Route::resource('gallery', GalleryController::class);
+    Route::resource('facility', FacilityController::class);
+
+    Route::get('/travel/trash',[TravelController::class, 'showTrash'])->name('travel.trash');
+    Route::get('/travel/restore/{id}',[TravelController::class, 'restore'])->name('travel.restore');
+    Route::delete('/travel/kill/{id}',[TravelController::class, 'kill'])->name('travel.kill');
+    Route::post('/travelimg', [TravelController::class,'upload'])->name('travel.upload');
+    Route::resource('travel', TravelController::class);
 
     
     Route::get('/user/trash',[UserController::class, 'showTrash'])->name('user.trash');

@@ -66,7 +66,7 @@
                     @enderror
                 </div>
                 <div class="form-group select-box">
-                    <label >destination</label>
+                    <label >Variant</label>
                     <select class="form-control selectpicker " data-live-search="true" name="variant_id" >
                         @foreach ($variants as $variant)
                             <option value="{{$variant->id}}">{{$variant->variant_service}}</option>

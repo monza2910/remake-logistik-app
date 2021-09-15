@@ -17,6 +17,10 @@ class Origins extends Model
     }
     public function outlet()
     {
-    	return $this->hasMany(Outlets::class);
+        return $this->hasMany(Outlets::class);
+    }
+    public function travel()
+    {
+        return $this->hasMany(Travel::class);
     }
 }

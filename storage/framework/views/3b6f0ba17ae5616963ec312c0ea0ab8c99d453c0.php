@@ -54,7 +54,9 @@
               </ul>
             </li>
 
-            <li class="menu-header">Product & Services</li>
+
+
+            <li class="menu-header">Logistic</li>
             <li class="nav-item dropdown <?php echo e('admin/outlet' == request()->path() ? 'active' : ''); ?>">
               <a href="<?php echo e(route('outlet.index')); ?>" class="nav-link"><i class="fas fa-store"></i><span>Outlets</span></a>
             </li>
@@ -68,14 +70,30 @@
                 <li><a class="nav-link" href="<?php echo e(route('destination.index')); ?>">Destination</a></li>
               </ul>
             </li>
-
             <li class="nav-item dropdown <?php echo e('admin/rate' == request()->path()||'admin/rate/create' == request()->path() ? 'active' : ''); ?>">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Service</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Logistic</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="<?php echo e(route('rate.create')); ?>">Create Price</a></li>
                 <li><a class="nav-link" href="<?php echo e(route('rate.index')); ?>"></i>List Price</a></li>
               </ul>
             </li>
+            <li class="menu-header"></li>
+
+
+            <li class="menu-header">Travel</li>
+            <li class="nav-item dropdown <?php echo e('admin/facility' == request()->path() ? 'active' : ''); ?>">
+              <a href="<?php echo e(route('facility.index')); ?>" class="nav-link"><i class="fas fa-store"></i><span>Facility</span></a>
+            </li>
+            <li class="nav-item dropdown <?php echo e('admin/travel' == request()->path()||'admin/travel/create' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Travel</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?php echo e(route('travel.create')); ?>">Create Price</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('travel.index')); ?>"></i>List Price</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('travel.trash')); ?>"></i>List Trash</a></li>
+              </ul>
+            </li>
+
+            
             
             <li class="menu-header">Transaction</li>
             <li class="nav-item dropdown  <?php echo e('admin/transaction/trash' == request()->path()||'admin/transaction' == request()->path()||'admin/transaction/logistic/cart' == request()->path() ? 'active' : ''); ?>">
@@ -177,28 +195,43 @@
             </ul>
           </li>
 
-          <li class="menu-header">Product & Services</li>
-          <li class="nav-item dropdown <?php echo e('admin/outlet' == request()->path() ? 'active' : ''); ?>">
-            <a href="<?php echo e(route('outlet.index')); ?>" class="nav-link"><i class="fas fa-store"></i><span>Outlets</span></a>
-          </li>
-          <li class="nav-item dropdown <?php echo e('admin/variant' == request()->path() ? 'active' : ''); ?>">
-            <a href="<?php echo e(route('variant.index')); ?>" class="nav-link"><i class="fas fa-receipt"></i><span>Variant Service</span></a>
-          </li>
-          <li class="nav-item dropdown <?php echo e('admin/origin' == request()->path()||'admin/destination' == request()->path() ? 'active' : ''); ?>">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marked"></i><span>Origin & Destination</span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link" href="<?php echo e(route('origin.index')); ?>">Origin</a></li>
-              <li><a class="nav-link" href="<?php echo e(route('destination.index')); ?>">Destination</a></li>
-            </ul>
-          </li>
+          <li class="menu-header">Logistic</li>
+            <li class="nav-item dropdown <?php echo e('admin/outlet' == request()->path() ? 'active' : ''); ?>">
+              <a href="<?php echo e(route('outlet.index')); ?>" class="nav-link"><i class="fas fa-store"></i><span>Outlets</span></a>
+            </li>
+            <li class="nav-item dropdown <?php echo e('admin/variant' == request()->path() ? 'active' : ''); ?>">
+              <a href="<?php echo e(route('variant.index')); ?>" class="nav-link"><i class="fas fa-receipt"></i><span>Variant Service</span></a>
+            </li>
+            <li class="nav-item dropdown <?php echo e('admin/origin' == request()->path()||'admin/destination' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marked"></i><span>Origin & Destination</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?php echo e(route('origin.index')); ?>">Origin</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('destination.index')); ?>">Destination</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown <?php echo e('admin/rate' == request()->path()||'admin/rate/create' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Logistic</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?php echo e(route('rate.create')); ?>">Create Price</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('rate.index')); ?>"></i>List Price</a></li>
+              </ul>
+            </li>
+            <li class="menu-header"></li>
 
-          <li class="nav-item dropdown <?php echo e('admin/rate' == request()->path()||'admin/rate/create' == request()->path() ? 'active' : ''); ?>">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Service</span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link" href="<?php echo e(route('rate.create')); ?>">Create Price</a></li>
-              <li><a class="nav-link" href="<?php echo e(route('rate.index')); ?>"></i>List Price</a></li>
-            </ul>
-          </li>
+
+            <li class="menu-header">Travel</li>
+            <li class="nav-item dropdown <?php echo e('admin/facility' == request()->path() ? 'active' : ''); ?>">
+              <a href="<?php echo e(route('facility.index')); ?>" class="nav-link"><i class="fas fa-store"></i><span>Facility</span></a>
+            </li>
+            <li class="nav-item dropdown <?php echo e('admin/travel' == request()->path()||'admin/travel/create' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave-alt"></i><span>Price Travel</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?php echo e(route('travel.create')); ?>">Create Price</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('travel.index')); ?>"></i>List Price</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('travel.trash')); ?>"></i>List Trash</a></li>
+              </ul>
+            </li>
+
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-dollar-sign"></i><span>Transaction</span></a>
             <ul class="dropdown-menu">

@@ -15,4 +15,8 @@ class Destinations extends Model
     {
     	return $this->hasMany(Shippingrates::class);
     }
+    public function travel()
+    {
+        return $this->hasMany(Travel::class);
+    }
 }

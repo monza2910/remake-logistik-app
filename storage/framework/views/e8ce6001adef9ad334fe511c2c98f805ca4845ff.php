@@ -85,7 +85,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group select-box">
-                    <label >destination</label>
+                    <label >Variant</label>
                     <select class="form-control selectpicker " data-live-search="true" name="variant_id" >
                         <?php $__currentLoopData = $variants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $variant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($variant->id); ?>"><?php echo e($variant->variant_service); ?></option>

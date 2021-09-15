@@ -37,6 +37,7 @@
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Category</th>
+                            <th>Tags</th>
                             <th>Status</th>
                             <th>Author</th>
                             <th>Created At</th>
@@ -60,6 +61,13 @@
                                 @endif
                             </td>
                             <td>
+                                @foreach ($article->tags as $tag)
+                                <ul>
+                                    <li>{{$tag->name}}</li>
+                                </ul>
+                                @endforeach
+                            </td>
+                            <td>
                                 @if ($article->status == 0)
                                     Draft
                                 @else
@@ -73,7 +81,13 @@
                                     </li>
                                 </ul>
                             @endforeach</td> --}}
-                            <td>{{$article->user->name.' ('.$article->user->role->name.')'}}</td>
+                            
+                            <td>
+                                @if ($article->user->name != null)
+                                {{$article->user->name.' ('.$article->user->role->name.')'}}</td>
+                                @else
+                                    
+                                @endif
                             <td>{{$article->created_at}}</td>
                             <td >
                                 <form action="{{ route('article.destroy',$article->id) }}" method="POST">
