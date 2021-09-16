@@ -97,10 +97,17 @@
             
             <li class="menu-header">Transaction</li>
             <li class="nav-item dropdown  <?php echo e('admin/transaction/trash' == request()->path()||'admin/transaction' == request()->path()||'admin/transaction/logistic/cart' == request()->path() ? 'active' : ''); ?>">
-              <a href="#" class="nav-link has-dropdown "><i class="fas fa-dollar-sign"></i><span>Transaction Logistic</span></a>
+              <a href="#" class="nav-link has-dropdown "><i class="fas fa-dollar-sign"></i><span>Logistic</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?php echo e(route('transaction.index')); ?>"></i>List Transaction</a></li>
-                <li><a class="nav-link" href="<?php echo e(route('transaction.trash')); ?>"></i>Deleted Transaction</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('transaction.index')); ?>"></i>List</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('transaction.trash')); ?>"></i>Deleted</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown  <?php echo e('admin/transactiontravel/trash' == request()->path()||'admin/transactiontravel' == request()->path()||'admin/transactiontravel/cart' == request()->path() ? 'active' : ''); ?>">
+              <a href="#" class="nav-link has-dropdown "><i class="fas fa-dollar-sign"></i><span>Travel</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?php echo e(route('transactiontravel.index')); ?>"></i>List</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('transactiontravel.trash')); ?>"></i>Deleted</a></li>
               </ul>
             </li>
             

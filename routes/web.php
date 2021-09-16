@@ -23,7 +23,9 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\TransactionTravelController;
 use App\Http\Livewire\Logistic;
+use App\Http\Livewire\Travel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,11 +65,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::get('/transaction/logistic/cart', Logistic::class )->name('logisticcart');
     Route::post('/tracking/',[TransactionController::class,'storeTracking'])->name('tracking.store');
     Route::delete('/tracking/kill/{id}',[TransactionController::class, 'killTracking'])->name('tracking.kill');
-    Route::get('/transaction/logisticcetak/{id}',[TransactionController::class, 'printPDFLogistic'])->name('printlogistic');
+
+    
     Route::get('/transaction/trash',[TransactionController::class, 'showTrash'])->name('transaction.trash');
     Route::get('/transaction/restore/{id}',[TransactionController::class, 'restore'])->name('transaction.restore');
     Route::delete('/transaction/kill/{id}',[TransactionController::class, 'kill'])->name('transaction.kill');
     Route::resource('transaction', TransactionController::class);
+
+    Route::get('/transactiontravel/cart', Travel::class )->name('travelcart');
+    Route::get('/transactiontravel/trash',[TransactionTravelController::class, 'showTrash'])->name('transactiontravel.trash');
+    Route::resource('transactiontravel', TransactionTravelController::class);
+
 
 });
 
