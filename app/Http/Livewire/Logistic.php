@@ -177,6 +177,7 @@ class Logistic extends Component
         }else{
             \Cart::session('logisticsmall')->remove($rowId);
             $this->resetFieldsService();
+            session()->flash('success','Package was Deleted');
         }
     }
 
@@ -184,6 +185,8 @@ class Logistic extends Component
     public function removeItem($rowId){
         \Cart::session('logisticsmall')->remove($rowId);
         $this->resetFieldsService();
+        session()->flash('success','Package was Deleted');
+
     }
 
 

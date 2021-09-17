@@ -47,20 +47,20 @@
                         @foreach ($transactions as $index => $tr)    
                         <tr>
                             <td>{{$index +1}}</td> 
-                            <td><img src="/images/transactiontravels/{{$tr->qr_code}}" alt="" width="100px" height="100px"></td>
+                            <td><img src="/images/trtravel/{{$tr->qrcode}}" alt="" width="100px" height="100px"></td>
                             <td>{{$tr->invoice}}</td>
-                            <td>{{$tr->namapenumpang}}</td>
+                            <td>{{$tr->nama_penumpang}}</td>
                             <td>{{$tr->no_penumpang}}</td>
                             <td>{{$tr->alamat_penjemputan}}</td>
                             <td>{{$tr->tgl_berangkat.' '.$tr->jam_berangkat}}</td>
                             <td>{{$tr->status}}</td>
                             <td >
-                                <form action="{{ route('transactiontravel.destroy',$travel->id) }}" method="POST">
+                                <form action="{{ route('transactiontravel.destroy',$tr->id) }}" method="POST">
                                     
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{route('transactiontravel.show',$travel->id)}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
-                                    <a href="{{route('transactiontravel.edit',$travel->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
+                                    <a href="{{route('transactiontravel.show',$tr->id)}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
+                                    <a href="{{route('transactiontravel.edit',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
                                     <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>

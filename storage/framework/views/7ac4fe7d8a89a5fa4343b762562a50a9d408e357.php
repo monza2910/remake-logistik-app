@@ -56,14 +56,14 @@
             <th>NAMA BARANG</th>
             <th>BERAT (kg)</th>
         </tr>
+        <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $pkg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
-            <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $pkg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <td><?php echo e($index+1); ?></td>
-                <td><?php echo e($pkg->nama_barang); ?></td>
-                <td><?php echo e($pkg->berat); ?></td>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <td><?php echo e($index+1); ?></td>
+          <td><?php echo e($pkg->nama_barang); ?></td>
+          <td><?php echo e($pkg->berat); ?></td>
         </tr>
-      </table>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </table>
 
       <!-- TABEL KEDUA -->
       <div class="invoice-status">

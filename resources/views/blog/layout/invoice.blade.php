@@ -56,14 +56,14 @@
             <th>NAMA BARANG</th>
             <th>BERAT (kg)</th>
         </tr>
+        @foreach ($packages as $index => $pkg)
         <tr>
-            @foreach ($packages as $index => $pkg)
-                <td>{{$index+1}}</td>
-                <td>{{$pkg->nama_barang}}</td>
-                <td>{{$pkg->berat}}</td>
-            @endforeach
+          <td>{{$index+1}}</td>
+          <td>{{$pkg->nama_barang}}</td>
+          <td>{{$pkg->berat}}</td>
         </tr>
-      </table>
+        @endforeach
+        </table>
 
       <!-- TABEL KEDUA -->
       <div class="invoice-status">

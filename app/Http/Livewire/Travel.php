@@ -8,18 +8,19 @@ use Illuminate\Support\Str;
 use DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-
 // MODELS
 use App\Models\Origins ;
 use App\Models\Destinations ;
 use App\Models\Travel as TravelModel;
-// use App\Models\Facilitys;
+use App\Models\TravelTransactions;
 
 class Travel extends Component
 {
-    public $from, $to, $travel_id, $qty ;
-    public $sub_total, $total, $dibayar, $status;
-    public $diskon = '1';
+    public $from, $to, $travel_id ;
+    public $sub_total, $total, $dibayar, $status, $tgl_berangkat, $jam_berangkat;
+    public $diskon = '0';
+    public $nama_penumpang, $alamat_penumpang, $no_penumpang, $alamat_penjemputan, $alamat_pemberhentian;
+
 
     public function render()
     {
@@ -50,33 +51,13 @@ class Travel extends Component
             foreach ($facilitys as $fac) {
                 $price = $fac['price'];
             }
-            $this->price = $price;
+            $this->sub_total = $price;
         } else {
             $facilitys = [];
         }
         
-        $items = \Cart::session('travel')->getContent()->sortBy(function($cart){
-            return $cart->attributes->get('added_at');
-        });
+   
 
-        if(\Cart::isEmpty()){
-            $cartData = [];
-        }else{
-            foreach($items as $item){
-                $cart[] =[
-                    'rowId'            => $item->id,
-                    'name'             => $item->name,
-                    'qty'              => $item->quantity,
-                    'price'            => $item->price,
-                    'pricetotal'       => $item->getPriceSum(),
-                ];
-            }
-            
-            
-            $cartData = collect($cart);
-        }
-
-        $this->sub_total = \Cart::session('travel')->getSubTotal();
         if (!empty($this->diskon)) {
             $this->total = $this->sub_total - $this->diskon;
         }else{
@@ -86,86 +67,101 @@ class Travel extends Component
     
 
 
-        
+        // dd($this->jam_berangkat);
         return view('livewire.travel',[
             'origins'  => $origins,
             'destinations' => $destinations,
             'travels' => $travels,
             'facilitys' => $facilitys,
-            'carts' => $cartData,
         ]);
     }
 
     // Add Item 
-    public function addItem(){
-        $this->validate([
-
-            'travel_id'           => 'required',
-            'qty'           => 'required',
-            
-        ]);
-
-
-        $id = $this->travel_id;    
-        $rowId = "Cart".$id;
-        $cart = \Cart::session('travel')->getContent();
-        $cekItemId = $cart->whereIn('id', $rowId);
-        if($cekItemId->isNotEmpty()){
-            \Cart::session('travel')->update($rowId,[
-                'quantity' =>[
-                    'relative' =>true,
-                    'value'  => $this->qty,
-                ]
-            ]);
-            $this->resetFields();
-        }else{
-            $product = TravelModel::findOrfail($id);
-            \Cart::session('travel')->add([
-                'id'    => "Cart".$product->id,
-                'name'  => $product->name,
-                'quantity'  => $this->qty,
-                'price'  => $product->price,
-                'attributes'  => [
-                    'added_at' =>Carbon::now()
-                ],
-            ]);
-            $this->resetFields();
-        }
-    }
-
-    public function minItem($rowId){
-        $cart = \Cart::session('travel')->getContent();
-        $checkItemId = $cart->whereIn('id',$rowId);
-
-        if($checkItemId[$rowId]->quantity > 1){
-            \Cart::session('travel')->update($rowId,[
-                'quantity' =>[
-                    'relative' => true,
-                    'value' => -1
-                ]
-            ]);
-
-        }else{
-            \Cart::session('travel')->remove($rowId);
-        }
-    }
-
-    public function increaseItem($rowId){
-        \Cart::session('travel')->update($rowId,[
-            'quantity' =>[
-                'relative' => true,
-                'value'  =>1
-            ]
-        ]);
-    }
-
-    public function removeItem($rowId){
-        \Cart::session('travel')->remove($rowId);
-        $this->resetFieldsService();
-    }
+    
 
     public function resetFields(){
         $this->to = '';
-        $this->qty= '';
+        $this->diskon = '0';
+        $this->dibayar = '';
+        $this->tgl_berangkat = '';
+        $this->jam_berangkat = '';
+    }
+    public function resetFieldsAll(){
+        $this->to = '';
+        $this->diskon = '0';
+        $this->dibayar = '';
+        $this->tgl_berangkat = '';
+        $this->jam_berangkat = '';
+        $this->nama_penumpang = '';  
+        $this->alamat_penumpang = '';
+        $this->no_penumpang = '';
+        $this->alamat_penjemputan = '';
+        $this->alamat_pemberhentian = '';
+    }
+
+    public function submitHandle(){
+
+        $this->validate([
+            'nama_penumpang' => 'required',
+            'alamat_penumpang' => 'required',
+            'no_penumpang' => 'required|numeric',
+            'alamat_penjemputan' => 'required',
+            'alamat_pemberhentian' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'sub_total' => 'required',
+            'total' => 'required', 
+            'status' => 'required',
+            'tgl_berangkat' => 'required',
+            'jam_berangkat' => 'required',
+            'dibayar' => 'required|numeric',
+            'travel_id' => 'required', 
+        ]);
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'travel_transactions'");
+        $lastid = $statement[0]->Auto_increment;
+
+        $dateNow = Carbon::now();
+        $date   = $dateNow->format('YmdH');
+        $codeyear = $dateNow->format('Y');
+        $codemonthday= $dateNow->format('md');
+        //Generate Invoice
+        $invoice = "INV/KMJ/TRV/00".$lastid."/".$codemonthday."/".$codeyear;
+
+        $namaBarcode =  "INV-KMJ-TRV-00".$lastid."-".$codemonthday."-".$codeyear.'.svg';
+        \QrCode::size(300)
+            ->format('svg')
+            ->generate($invoice, public_path('images/trtravel/'.$namaBarcode));
+        
+
+        try {
+            TravelTransactions::create([
+                'invoice' => $invoice,
+                'qrcode' => $namaBarcode,
+                'nama_penumpang' => $this->nama_penumpang,
+                'alamat_penumpang' => $this->alamat_penumpang,
+                'no_penumpang' => $this->no_penumpang,
+                'alamat_penjemputan' => $this->alamat_penjemputan,
+                'alamat_pemberhentian' =>$this->alamat_pemberhentian,
+                'origin_id' => $this->from,
+                'destination_id' => $this->to,
+                'subtotal' => $this->sub_total,
+                'diskon' => $this->diskon,
+                'total' => $this->total, 
+                'status' => $this->status,
+                'tgl_berangkat' => $this->tgl_berangkat,
+                'jam_berangkat' => $this->jam_berangkat,
+                'dibayar' => $this->dibayar,
+                'travel_id' => $this->travel_id, 
+                'user_id' => Auth()->id(),
+            ]);
+            
+            $this->resetFieldsAll();
+            session()->flash('success','Transaction Wa Added ');
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return session()->flash('error',$th);
+        }
+
     }
 }

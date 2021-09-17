@@ -47,20 +47,20 @@
                         <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $tr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>    
                         <tr>
                             <td><?php echo e($index +1); ?></td> 
-                            <td><img src="/images/transactiontravels/<?php echo e($tr->qr_code); ?>" alt="" width="100px" height="100px"></td>
+                            <td><img src="/images/trtravel/<?php echo e($tr->qrcode); ?>" alt="" width="100px" height="100px"></td>
                             <td><?php echo e($tr->invoice); ?></td>
-                            <td><?php echo e($tr->namapenumpang); ?></td>
+                            <td><?php echo e($tr->nama_penumpang); ?></td>
                             <td><?php echo e($tr->no_penumpang); ?></td>
                             <td><?php echo e($tr->alamat_penjemputan); ?></td>
                             <td><?php echo e($tr->tgl_berangkat.' '.$tr->jam_berangkat); ?></td>
                             <td><?php echo e($tr->status); ?></td>
                             <td >
-                                <form action="<?php echo e(route('transactiontravel.destroy',$travel->id)); ?>" method="POST">
+                                <form action="<?php echo e(route('transactiontravel.destroy',$tr->id)); ?>" method="POST">
                                     
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('DELETE'); ?>
-                                    <a href="<?php echo e(route('transactiontravel.show',$travel->id)); ?>" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
-                                    <a href="<?php echo e(route('transactiontravel.edit',$travel->id)); ?>" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
+                                    <a href="<?php echo e(route('transactiontravel.show',$tr->id)); ?>" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
+                                    <a href="<?php echo e(route('transactiontravel.edit',$tr->id)); ?>" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
                                     <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
