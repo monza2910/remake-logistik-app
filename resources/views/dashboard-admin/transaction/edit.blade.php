@@ -20,56 +20,36 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label>Tracking Number</label>
-                    <input type="text" name="tn" value="{{ $transaction->tracking_number}}" class="form-control">
-                    @error('tn')
+                    <label>Total Yang Harus Dibayar</label>
+                    <input type="text" readonly value="{{ $transaction->total}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Dibayar</label>
+                    <input type="text" name="total_bayar" @if ($transaction->status != "debit")
+                    readonly 
+                    @endif value="{{ $transaction->total_bayar}}" class="form-control">
+                    @error('total_bayar')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>receipent</label>
-                    <input type="text" name="penerima" value="{{ $transaction->penerima}}" class="form-control">
-                    @error('penerima')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Phone receipent</label>
-                    <input type="text" name="phone_penerima" value="{{ $transaction->phone_penerima}}" class="form-control">
-                    @error('phone_penerima')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Address receipent</label>
-                    <textarea name="a_penerima" id="" class="form-control" cols="30" rows="10">{{$transaction->address_penerima}}</textarea>
-                    @error('a_penerima')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Sender</label>
-                    <input type="text" name="sender" value="{{ $transaction->sender}}" class="form-control">
-                    @error('sender')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Phone Sender</label>
-                    <input type="text" name="phone_sender" value="{{ $transaction->phone_sender}}" class="form-control">
-                    @error('phone_sender')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Address Sender</label>
-                    <textarea name="a_sender" id="" class="form-control" cols="30" rows="10">{{$transaction->address_sender}}</textarea>
-                    @error('a_sender')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
+                    <label for="">Status</label>
+                    <select name="status" @if ($transaction->status != "debit")
+                       readonly 
+                       @endif class="form-control" >
+                        @if ($transaction->status == "paid")
+                        <option value="paid" selected>Paid</option>
+                        <option value="debit">debit</option>
+                        @else
+                        <option value="debit" selected>debit</option>
+                        <option value="paid" >Paid</option>
+                        @endif
+                    </select>
                 </div>
                 <div class="form-group text-right">
+                    @if ($transaction->status == "debit")
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
+                    @endif
                     <a href="{{route('transaction.index')}}" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>

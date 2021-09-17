@@ -40,7 +40,7 @@
                             <label for="">Invoice #{{$transaction->invoice}}</label> 
                           
                             <br>
-                            <a href="{{route('printlogistic',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Print Pdf</a> 
+                            <a href="{{route('printlogistic',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i>Print Pdf</a> 
                             
                           </div>
                         </div>
@@ -178,10 +178,7 @@
                             </tr>
                             @else
                             <tr>
-                                
-                                <td></td>
-                                <td>Mouse Wireless</td>
-                                <td class="text-center">$10.99</td>
+                                <td colspan="4">Tidak Ada Data</td>>
                             </tr>
                             @endif
                               

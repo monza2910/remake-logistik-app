@@ -60,8 +60,12 @@
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{route('transactiontravel.show',$tr->id)}}" class="btn btn-icon icon-left btn-info"><i class="fas fa-info"></i></a>
+                                    @if ($tr->status =='debit')
+                                        
                                     <a href="{{route('transactiontravel.edit',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
-                                    <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
+                                    @endif
+                                    <a href="{{route('printtravel',$tr->id)}}" class="btn btn-danger btn-icon icon-left"><i class="fas fa-file-pdf"></i></a> 
+                                    <button type="submit" class="btn btn-icon icon-left btn-primary" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

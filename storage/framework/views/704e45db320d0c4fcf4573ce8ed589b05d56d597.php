@@ -29,6 +29,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Invoice </th>
                             <th>Tracking Number </th>
                             <th>Recipient</th>
                             <th>address Recipient</th>
@@ -41,11 +42,12 @@
                         <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>    
                         <tr>
                             <td><?php echo e($index +1); ?></td> 
+                            <td><?php echo e($transaction->invoice); ?></td>
                             <td><?php echo e($transaction->tracking_number); ?></td>
                             <td><?php echo e($transaction->penerima); ?></td>
-                            <td><?php echo e($transaction->address_penerima); ?></td>
-                            <td><?php echo e($transaction->sender); ?></td>
-                            <td><?php echo e($transaction->address_sender); ?></td>
+                            <td><?php echo e($transaction->alamat_penerima); ?></td>
+                            <td><?php echo e($transaction->pengirim); ?></td>
+                            <td><?php echo e($transaction->alamat_pengirim); ?></td>
                             <td >
                                 <form action="<?php echo e(route('transaction.kill',$transaction->id)); ?>" method="POST">
                                     

@@ -37,37 +37,40 @@
                           <br>
                           <br>
                           <div class="invoice-number">
-                            <label for="">Invoice #{{$transaction->invoice}}</label> 
-                          
-                            <br>
-                            <a href="{{route('printlogistic',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Print Pdf</a> 
+                            
+                            <a href="{{route('printtravel',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i> Print Pdf</a> 
                             
                           </div>
                         </div>
                         <hr>
                         <div class="row">
                           <div class="col-md-4">
-                            <address>
-                              <strong>Posted By:</strong><br>
-                                {{$transaction->pengirim}}<br>
-                                {{$transaction->no_pengirim}}<br>
-                                {{$transaction->alamat_pengirim}}
-                            </address>
+                            <div class="col-md-6 text-md-left">
+                              <address>
+                                <strong>Tanggal Order:</strong><br>
+                                {{$transaction->created_at}}<br><br>
+                                <strong>Waktu Keberangkatan:</strong><br>
+                                {{$transaction->tgl_berangkat.' '.$transaction->jam_berangkat}}<br><br>
+                              </address>
+                            </div>
                           </div>
                           <div class="col-md-4">
                             <address>
-                              <strong>Tracking Number :</strong><br>
-                              {{$transaction->tracking_number}}
+                              <strong>Invoice:</strong><br>
+                              {{$transaction->invoice}}
                               <br>
-                              <img src="/images/transaction/{{$transaction->qr_code}}" class="image-fluid" style="height: 100px; width:100;">
+                              <img src="/images/trtravel/{{$transaction->qrcode}}" class="image-fluid" style="height: 100px; width:100;">
+                              <br>
+                              <strong>Status : {{$transaction->status}}</strong>
+                              
                             </address>
                           </div>
                           <div class="col-md-4 text-md-right">
                             <address>
-                              <strong>Shipped To:</strong><br>
-                              {{$transaction->penerima}}<br>
-                              {{$transaction->no_penerima}}<br>
-                              {{$transaction->alamat_penerima}}
+                              <strong>Shipped To:</strong><br><br>
+                              {{$transaction->nama_penumpang}}<br>
+                              {{$transaction->no_penumpang}}<br>
+                              {{$transaction->alamat_penumpang}}
                             </address>
                           </div>
                         </div>
@@ -79,12 +82,7 @@
                               ujang@maman.com --}}
                             </address>
                           </div>
-                          <div class="col-md-6 text-md-right">
-                            <address>
-                              <strong>Order Date:</strong><br>
-                              {{$transaction->created_at}}<br><br>
-                            </address>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -92,98 +90,40 @@
                     <div class="row mt-4">
                       <div class="col-md-12">
                         <div class="section-title">
-                          <div class="float-left">Packages</div> 
-                          </div>
-                          <div class="table-responsive">
-                            <table class="table table-striped table-hover table-md">
-                              <tr>
-                                  <th data-width="300">No</th>
-                                  <th>Nama</th>
-                                  <th class="text-center">Berat</th>
-                              </tr>
-                              @if ($packages != null)
-                              @foreach ($packages as $index =>$pkg)
-                              <tr>
-                                <td>{{$index+1}}</td>
-                                <td>{{$pkg->nama_barang}}</td>
-                                <td class="text-center">{{$pkg->berat}}</td>  
-                              </tr>
-                              @endforeach
-                              <tfoot>
-                                <tr>
-                                  <th></th>
-                                  <th id="total"  >Total Berat :</th>
-                                  <td class="text-center">{{$transaction->berat_total}}</td>
-                                </tr>
-                                <tr>
-                                  <th></th>
-                                  <th id="total"  >Harga /kg :</th>
-                                  <td class="text-center">Rp. {{$transaction->harga_kg}}</td>
-                                </tr>
-                                <tr>
-                                  <th></th>
-                                  <th id="total"  >Diskon :</th>
-                                  <td class="text-center">Rp. {{$transaction->diskon}}</td>
-                                </tr>
-                                <tr>
-                                  <th></th>
-                                  <th id="total"  >Sub Total harga :</th>
-                                  <td class="text-center">Rp. {{$transaction->sub_total}}</td>
-                                </tr>
-                                <tr>
-                                  <th></th>
-                                  <th id="total"  >Total harga :</th>
-                                  <td class="text-center">Rp. {{$transaction->total}}</td>
-                                </tr>
-                                
-                               </tfoot>
-                              @else
-                              <tr>
-                                  <td colspan="3">Not Found</td>
-                              </tr>
-                              @endif
-                                
-                            </table>
-                          </div>
-
-                        <div class="section-title">
-                            <div class="float-left">Tracking</div> 
-                            <div class="float-right mx-2 my-2">
-                                <a href="{{route('tracking.add',$transaction->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add Tracking</a> 
-                            </div>
+                            <div class="float-left">Details</div> 
                         </div>
                         <div class="table-responsive">
                           <table class="table table-striped table-hover table-md">
                             
                             <tr>
-                                <th data-width="300">Date</th>
-                                <th>Status</th>
-                                <th class="text-center">Location</th>
-                                <th class="text-center">Action</th>
+                                <th>Name</th>
+                                <th>Variant</th>
+                                <th>Origin</th>
+                                <th>Destination</th>
+                                <th>Price</th>
                             </tr>
-                            @if ($trackings != null)
-                            @foreach ($trackings as $track)
                             <tr>
-                                <td>{{$track->created_at}}</td>
-                                <td>{{$track->status}}</td>
-                                <td class="text-center">{{$track->location}}</td>
-                                <td class="text-center">
-                                    <form action="{{ route('tracking.kill',$track->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="btn btn-icon icon-left btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                                @endforeach
+                                <td>{{$transaction->travel->name}}</td>
+                                <td>{{$transaction->travel->variant}}</td>
+                                <td>{{$transaction->travel->origin->province.', '.$transaction->travel->origin->city.', '.$transaction->travel->origin->subdistrict}}</td>
+                                <td>{{$transaction->travel->destination->province.', '.$transaction->travel->destination->city.', '.$transaction->travel->destination->subdistrict}}</td>
+                                <td>Rp. {{number_format($transaction->subtotal)}}</td>
                             </tr>
-                            @else
                             <tr>
-                                
-                                <td></td>
-                                <td>Mouse Wireless</td>
-                                <td class="text-center">$10.99</td>
+                                <td colspan="3"></td>
+                                <td >Subtotal</td>
+                                <td>Rp. {{ number_format($transaction->subtotal)}}</td>
                             </tr>
-                            @endif
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>Diskon</td>
+                                <td>Rp. {{number_format($transaction->diskon)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td >Total</td>
+                                <td>Rp. {{number_format($transaction->total)}}</td>
+                            </tr>
                               
                           </table>
                         </div>
@@ -192,7 +132,7 @@
                   </div>
                   <hr>
                   <div class="text-md-right">
-                    <a class="btn btn-warning btn-icon icon-left" href="{{route('transaction.index')}}"> Back</a>
+                    <a class="btn btn-warning btn-icon icon-left" href="{{route('transactiontravel.index')}}"> Back</a>
                   </div>
                 </div>
               </div>

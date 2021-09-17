@@ -40,7 +40,7 @@
                             <label for="">Invoice #<?php echo e($transaction->invoice); ?></label> 
                           
                             <br>
-                            <a href="<?php echo e(route('printlogistic',$transaction->id)); ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Print Pdf</a> 
+                            <a href="<?php echo e(route('printlogistic',$transaction->id)); ?>" class="btn btn-primary btn-sm"><i class="fas fa-file-pdf"></i>Print Pdf</a> 
                             
                           </div>
                         </div>
@@ -179,10 +179,7 @@
                             </tr>
                             <?php else: ?>
                             <tr>
-                                
-                                <td></td>
-                                <td>Mouse Wireless</td>
-                                <td class="text-center">$10.99</td>
+                                <td colspan="4">Tidak Ada Data</td>>
                             </tr>
                             <?php endif; ?>
                               

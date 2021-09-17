@@ -5,14 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TravelTransactions as TravelTr;
-use App\Models\TravelDetails as TravelDt;
+use App\Models\Travel as TravelModel;
 
-use App\Models\Origins ;
-use App\Models\Destinations ;
-use App\Models\Variantservices ;
-use App\Models\Shippingrates as Rates;
-use App\Models\Transaction ;
-use App\Models\Detaillogistics ;
 
 class TransactionTravelController extends Controller
 {
@@ -45,7 +39,7 @@ class TransactionTravelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -56,7 +50,8 @@ class TransactionTravelController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction    = TravelTr::findOrFail($id);
+        return view('dashboard-admin.travel_transaction.show',compact('transaction'));
     }
 
     /**
@@ -67,7 +62,8 @@ class TransactionTravelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaction = TravelTr::findOrFail($id);
+        return view('dashboard-admin.travel_transaction.edit',compact('transaction'));
     }
 
     /**
@@ -79,7 +75,18 @@ class TransactionTravelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status'        => 'required',
+            'total_bayar' => 'required|regex:/^[0-9]+$/|min:3|max:15',
+        ]);
+
+
+        TravelTr::where('id',$id)->update([
+            'status'   => $request->status,
+            'dibayar'  => $request->total_bayar,
+
+        ]);
+        return redirect()->route('transactiontravel.index')->with('success','Transaction Was Updated');
     }
 
     /**
@@ -90,6 +97,40 @@ class TransactionTravelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction = TravelTr::findorFail($id);
+        $transaction->delete();
+        return redirect()->route('transactiontravel.index')->with('success','transaction Was Deleted');
     }
+
+    public function showTrash()
+    {
+        $transactions = TravelTr::onlyTrashed()->get();
+        return view('dashboard-admin.travel_transaction.trash',compact('transactions'));
+    }
+
+    public function restore($id)
+    {
+        $transaction = TravelTr::withTrashed()->where('id',$id)->first();
+        $transaction->restore();
+        return redirect()->back()->with('success','Transaction Was Restored !!');
+        
+    }
+
+    public function kill($id)
+    {
+        $transaction = TravelTr::withTrashed()->where('id',$id)->first();
+        $transaction->forceDelete();
+        return redirect()->back()->with('success','Transaction Was Deleted');
+    
+    }
+
+    public function printPDFTravel($id){
+        $transaction    = TravelTr::findOrFail($id);
+        
+
+        // $travel         = TravelModel::findorFail($travel_id); 
+        // dd($travel);
+        return view('blog.layout.invoicetravel',compact('transaction'));
+    }
+    
 }

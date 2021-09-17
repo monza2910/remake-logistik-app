@@ -126,7 +126,7 @@
                   </div>
                   <p>Berat/Weight dari barang yang akan dikirimkan</p>
                   <!-- Input Masukkan Berat -->
-                  <input type="text" name="berat" placeholder="Masukkan Berat (kg)" />
+                  <input type="number" name="berat" placeholder="Masukkan Berat (kg)" />
                   <!-- Input Masukkan Berat -->
                 </div>
               </div>

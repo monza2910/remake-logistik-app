@@ -22,6 +22,11 @@ class Travel extends Model
     	return $this->belongsTo(Destinations::class);
     }
 
+    public function traveltransaction()
+    {
+    	return $this->hasMany(TravelTransactions::class);
+    }
+
     public function facilitys()
     {
         return $this->belongsToMany(Facilitys::class);

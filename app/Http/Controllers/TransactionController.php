@@ -27,7 +27,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('dashboard-admin.transaction.create');
+        
     }
 
     /**
@@ -38,28 +38,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'tn'        => 'required',
-            'sender'    => 'required|max:50|min:3',
-            'phone_sender' => 'required|regex:/^[0-9]+$/|min:8|max:15',
-            'a_sender' => 'required|min:5',
-            'penerima'    => 'required|max:50|min:3',
-            'phone_penerima' => 'required|regex:/^[0-9]+$/|min:8|max:15',
-            'a_penerima' => 'required|min:5',
-        ]);
-
-
-        Transaction::create([
-            'tracking_number'   => $request->tn,
-            'sender'            => $request->sender,
-            'phone_sender'      => $request->phone_sender,
-            'address_sender'      => $request->a_sender,
-            'penerima'            => $request->penerima,
-            'phone_penerima'      => $request->phone_penerima,
-            'address_penerima'      => $request->a_penerima,
-
-        ]);
-        return redirect()->route('transaction.index')->with('success','Transaction Was Added');
+        
     }
 
     /**
@@ -101,27 +80,17 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tn'        => 'required',
-            'sender'    => 'required|max:50|min:3',
-            'phone_sender' => 'required|regex:/^[0-9]+$/|min:8|max:15',
-            'a_sender' => 'required|min:5',
-            'penerima'    => 'required|max:50|min:3',
-            'phone_penerima' => 'required|regex:/^[0-9]+$/|min:8|max:15',
-            'a_penerima' => 'required|min:5',
+            'status'        => 'required',
+            'total_bayar' => 'required|regex:/^[0-9]+$/|min:3|max:15',
         ]);
 
 
         Transaction::where('id',$id)->update([
-            'tracking_number'   => $request->tn,
-            'sender'            => $request->sender,
-            'phone_sender'      => $request->phone_sender,
-            'address_sender'      => $request->a_sender,
-            'penerima'            => $request->penerima,
-            'phone_penerima'      => $request->phone_penerima,
-            'address_penerima'      => $request->a_penerima,
+            'status'   => $request->status,
+            'total_bayar'  => $request->total_bayar,
 
         ]);
-        return redirect()->route('transaction.index')->with('success','Transaction Was Added');
+        return redirect()->route('transaction.index')->with('success','Transaction Was Updated');
     }
 
     /**

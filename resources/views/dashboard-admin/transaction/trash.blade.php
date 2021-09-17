@@ -29,6 +29,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Invoice </th>
                             <th>Tracking Number </th>
                             <th>Recipient</th>
                             <th>address Recipient</th>
@@ -41,11 +42,12 @@
                         @foreach ($transactions as $index => $transaction)    
                         <tr>
                             <td>{{$index +1}}</td> 
+                            <td>{{$transaction->invoice}}</td>
                             <td>{{$transaction->tracking_number}}</td>
                             <td>{{$transaction->penerima}}</td>
-                            <td>{{$transaction->address_penerima}}</td>
-                            <td>{{$transaction->sender}}</td>
-                            <td>{{$transaction->address_sender}}</td>
+                            <td>{{$transaction->alamat_penerima}}</td>
+                            <td>{{$transaction->pengirim}}</td>
+                            <td>{{$transaction->alamat_pengirim}}</td>
                             <td >
                                 <form action="{{ route('transaction.kill',$transaction->id) }}" method="POST">
                                     

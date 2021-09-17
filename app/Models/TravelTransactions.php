@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TravelTransactions extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $fillable = [
         'user_id',
         'invoice',
@@ -28,4 +29,14 @@ class TravelTransactions extends Model
         'dibayar',
         'travel_id', 
     ];
+
+    public function travel()
+    {
+        return $this->belongsTo(Travel::class);
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
+    }
 }

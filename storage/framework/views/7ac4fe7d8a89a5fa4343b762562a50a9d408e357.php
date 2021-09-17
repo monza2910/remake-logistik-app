@@ -8,7 +8,11 @@
     <title>Invoice</title>
     
   </head>
-  <body onload="window.print()">
+  <body >
+    <div id="options">
+      <button id="printPageButton" onClick="window.print();">Print</button>
+      <a id="printPageButton" href="<?php echo e(route('transaction.index')); ?>">Transaction List</a>
+    </div>
     <div class="invoice">
       <!-- KOP -->
       <div class="invoice-header">

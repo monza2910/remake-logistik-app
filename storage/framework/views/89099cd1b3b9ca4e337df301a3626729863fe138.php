@@ -18,9 +18,15 @@
                 <?php echo method_field('PUT'); ?>
                 <?php echo csrf_field(); ?>
                 <div class="form-group">
-                    <label>Tracking Number</label>
-                    <input type="text" name="tn" value="<?php echo e($transaction->tracking_number); ?>" class="form-control">
-                    <?php $__errorArgs = ['tn'];
+                    <label>Total Yang Harus Dibayar</label>
+                    <input type="text" readonly value="<?php echo e($transaction->total); ?>" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Dibayar</label>
+                    <input type="text" name="total_bayar" <?php if($transaction->status != "debit"): ?>
+                    readonly 
+                    <?php endif; ?> value="<?php echo e($transaction->total_bayar); ?>" class="form-control">
+                    <?php $__errorArgs = ['total_bayar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -32,91 +38,23 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
-                    <label>receipent</label>
-                    <input type="text" name="penerima" value="<?php echo e($transaction->penerima); ?>" class="form-control">
-                    <?php $__errorArgs = ['penerima'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-                <div class="form-group">
-                    <label>Phone receipent</label>
-                    <input type="text" name="phone_penerima" value="<?php echo e($transaction->phone_penerima); ?>" class="form-control">
-                    <?php $__errorArgs = ['phone_penerima'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-                <div class="form-group">
-                    <label>Address receipent</label>
-                    <textarea name="a_penerima" id="" class="form-control" cols="30" rows="10"><?php echo e($transaction->address_penerima); ?></textarea>
-                    <?php $__errorArgs = ['a_penerima'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-                <div class="form-group">
-                    <label>Sender</label>
-                    <input type="text" name="sender" value="<?php echo e($transaction->sender); ?>" class="form-control">
-                    <?php $__errorArgs = ['sender'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-                <div class="form-group">
-                    <label>Phone Sender</label>
-                    <input type="text" name="phone_sender" value="<?php echo e($transaction->phone_sender); ?>" class="form-control">
-                    <?php $__errorArgs = ['phone_sender'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-                <div class="form-group">
-                    <label>Address Sender</label>
-                    <textarea name="a_sender" id="" class="form-control" cols="30" rows="10"><?php echo e($transaction->address_sender); ?></textarea>
-                    <?php $__errorArgs = ['a_sender'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                    <label for="">Status</label>
+                    <select name="status" <?php if($transaction->status != "debit"): ?>
+                       readonly 
+                       <?php endif; ?> class="form-control" >
+                        <?php if($transaction->status == "paid"): ?>
+                        <option value="paid" selected>Paid</option>
+                        <option value="debit">debit</option>
+                        <?php else: ?>
+                        <option value="debit" selected>debit</option>
+                        <option value="paid" >Paid</option>
+                        <?php endif; ?>
+                    </select>
                 </div>
                 <div class="form-group text-right">
+                    <?php if($transaction->status == "debit"): ?>
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
+                    <?php endif; ?>
                     <a href="<?php echo e(route('transaction.index')); ?>" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>

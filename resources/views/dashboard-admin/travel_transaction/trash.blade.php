@@ -29,29 +29,33 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tracking Number </th>
-                            <th>Recipient</th>
-                            <th>address Recipient</th>
-                            <th>Sender</th>
-                            <th>address Sender</th>
+                            <th>Barcode</th>
+                            <th>Invoice</th>
+                            <th>Nama Penumpang </th>
+                            <th>No Penumpang</th>
+                            <th>Titik Penjemputan</th>
+                            <th>Tanggal Pemberangkatan</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($transactions as $index => $transaction)    
+                        @foreach ($transactions as $index => $tr)    
                         <tr>
                             <td>{{$index +1}}</td> 
-                            <td>{{$transaction->tracking_number}}</td>
-                            <td>{{$transaction->penerima}}</td>
-                            <td>{{$transaction->address_penerima}}</td>
-                            <td>{{$transaction->sender}}</td>
-                            <td>{{$transaction->address_sender}}</td>
+                            <td><img src="/images/trtravel/{{$tr->qrcode}}" alt="" width="100px" height="100px"></td>
+                            <td>{{$tr->invoice}}</td>
+                            <td>{{$tr->nama_penumpang}}</td>
+                            <td>{{$tr->no_penumpang}}</td>
+                            <td>{{$tr->alamat_penjemputan}}</td>
+                            <td>{{$tr->tgl_berangkat.' '.$tr->jam_berangkat}}</td>
+                            <td>{{$tr->status}}</td>
                             <td >
-                                <form action="{{ route('transaction.kill',$transaction->id) }}" method="POST">
+                                <form action="{{ route('transactiontravel.kill',$tr->id) }}" method="POST">
                                     
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{route('transaction.restore',$transaction->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> Restore</a>
+                                    <a href="{{route('transactiontravel.restore',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> Restore</a>
                                     <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
                                 </form>
                             </td>
