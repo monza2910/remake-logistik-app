@@ -6,7 +6,7 @@
             <li><a id="closeBtn">X</a></li>
             <li><a href="{{route('blog.index')}}" id="active">Home</a></li>
             <li><a href="{{route('blog.showarticle')}}">Artikel</a></li>
-            <li><a href="service-lists.html">Layanan</a></li>
+            <li><a href="{{route('blog.service')}}">Layanan</a></li>
             <li><a href="{{route('blog.gallery')}}" >Galeri</a></li>
           </ul>
           <a href="{{route('blog.contactus')}}" id="right">Contact Us</a>

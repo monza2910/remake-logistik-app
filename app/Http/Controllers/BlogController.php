@@ -16,6 +16,7 @@ use App\Models\Transaction ;
 use App\Models\Tracking ;
 use App\Models\Category ;
 use App\Models\Galery ;
+use App\Models\Travel ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -88,10 +89,18 @@ class BlogController extends Controller
 
     }
 
-    public function showArticle(){
-        $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->paginate(2);
-        $categorys = Category::orderBy('id','DESC')->get();
-        return view('blog.article-list',compact('articles','categorys'));
+    public function showArticle(Request $request){
+        if ($request->value != null) {
+            
+            $articles = Articles::where([['title','like',"%".$request->value."%"],['status','!=',"0"]])
+            ->orderBy('id','DESC')->paginate(10);
+            $categorys = Category::orderBy('id','DESC')->get();
+            return view('blog.article-list',compact('articles','categorys'));
+        } else {
+            $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->paginate(10);
+            $categorys = Category::orderBy('id','DESC')->get();
+            return view('blog.article-list',compact('articles','categorys'));
+        }
     }
 
     public function openArticle($slug){
@@ -225,4 +234,16 @@ class BlogController extends Controller
         $gallerys = Galery::where('status','1')->OrderBy('id','DESC')->get();
         return view('blog.gallery',compact('gallerys'));
     }
+
+    public function showService(){
+        $travels = Travel::orderBy('id','DESC')->get();
+        return view('blog.service-list',compact('travels'));
+    }
+
+    public function openTravel($slug){
+        $travels = Travel::where('slug',$slug)->get();
+        $listtravel = Travel::where('slug','!=',$slug)->orderBy('id','DESC')->take(4)->get();
+        return view('blog.travel-detail',compact('travels','listtravel'));
+    }
+
 }

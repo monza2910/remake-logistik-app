@@ -146,9 +146,9 @@
             <li class="nav-item {{'admin/testimonial' == request()->path() ? 'active' : ''}}">
               <a href="{{route('testimonial.index')}}" class="nav-link "><i class="fas fa-star"></i><span>Testimoni</span></a>
             </li>
-            <li class="nav-item ">
+            {{-- <li class="nav-item ">
               <a href="#" class="nav-link "><i class="far fa-comments"></i> <span>Comments</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item {{'admin/contact' == request()->path() ? 'active' : ''}}">
               <a href="{{route('contact.index')}}" class="nav-link "><i class="fas fa-headset"></i> <span>Contact Us</span></a>
             </li>
@@ -283,9 +283,9 @@
           <li class="nav-item {{'admin/testimonial' == request()->path() ? 'active' : ''}}">
             <a href="{{route('testimonial.index')}}" class="nav-link "><i class="fas fa-star"></i><span>Testimoni</span></a>
           </li>
-          <li class="nav-item ">
+          {{-- <li class="nav-item ">
             <a href="#" class="nav-link "><i class="far fa-comments"></i> <span>Comments</span></a>
-          </li>
+          </li> --}}
           <li class="nav-item {{'admin/contact' == request()->path() ? 'active' : ''}}">
             <a href="{{route('contact.index')}}" class="nav-link "><i class="fas fa-headset"></i> <span>Contact Us</span></a>
           </li>

@@ -10,7 +10,7 @@ class Travel extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = 'travels';
-    protected $fillable = ['name','variant','origin_id','destination_id','price','thumbnail','content'];
+    protected $fillable = ['name','variant','origin_id','destination_id','price','thumbnail','content','slug'];
     
     public function origin()
     {

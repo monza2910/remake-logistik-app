@@ -51,6 +51,8 @@ Route::post('/contact-us/post',[BlogController::class, 'storecontactus'])->name(
 Route::post('/estimasi/track',[BlogController::class, 'estimasiTrack'])->name('estimasi.cek');
 Route::get('/tracking/cek',[BlogController::class, 'trackingCek'])->name('tracking.cek');
 Route::get('/gallery',[BlogController::class, 'galleryIndex'])->name('blog.gallery');
+Route::get('/service-list',[BlogController::class, 'showService'])->name('blog.service');
+Route::get('/service-travel/{slug}',[BlogController::class, 'openTravel'])->name('blog.opentravel');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas,writer']],function(){

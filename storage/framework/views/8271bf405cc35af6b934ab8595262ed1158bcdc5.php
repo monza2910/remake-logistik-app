@@ -19,7 +19,7 @@
           <li><a id="closeBtn">X</a></li>
           <li><a href="<?php echo e(route('blog.index')); ?>">Home</a></li>
           <li><a href="<?php echo e(route('blog.showarticle')); ?>"  id="active">Artikel</a></li>
-          <li><a href="service-lists.html">Layanan</a></li>
+          <li><a href="<?php echo e(route('blog.service')); ?>">Layanan</a></li>
           <li><a href="<?php echo e(route('blog.gallery')); ?>">Galeri</a></li>
         </ul>
         <a href="<?php echo e(route('blog.contactus')); ?>" id="right">Contact Us</a>

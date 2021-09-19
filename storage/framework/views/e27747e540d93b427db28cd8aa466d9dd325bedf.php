@@ -88,6 +88,7 @@
           <div id="Bayar" class="tabcontent">
             <!-- Form Estimasi Pembayaran -->
             <form action="<?php echo e(route('blog.index')); ?>" method="get" >
+              <?php echo csrf_field(); ?>
               <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
@@ -175,6 +176,7 @@
         <!-- <<<<<<<<<<< -->
         <div id="Lacak" class="tabcontent" style="display: none">
           <form action="<?php echo e(route('blog.index')); ?>" method="get">
+            <?php echo csrf_field(); ?>
             <div class="grid col">
               <div class="card card-white">
                 <div class="card-inline">

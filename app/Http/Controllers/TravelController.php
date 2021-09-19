@@ -8,6 +8,7 @@ use App\Models\Facilitys;
 use App\Models\Travel;
 use App\Models\Origins;
 use App\Models\Destinations;
+use Illuminate\Support\Str;
 
 
 class TravelController extends Controller
@@ -59,10 +60,14 @@ class TravelController extends Controller
 
         $image = time().'.'.$request->thumbnail->extension();  
         $imageName = md5($image).'.'.$request->thumbnail->extension();
-     
+        $slug = Str::slug($request->name.'-'.$request->variant.'-'.$request->price);
+
+
+        
         $request->thumbnail->move(public_path('images/travels'), $imageName);
             $travels = Travel::create([
                 'name'              => $request->name,
+                'slug'              => $slug,
                 'variant'           => $request->variant,
                 'origin_id'         => $request->origin_id,
                 'destination_id'    => $request->destination_id,
@@ -132,10 +137,13 @@ class TravelController extends Controller
             $imageName = md5($image).'.'.$request->thumbnail->extension();
          
             $request->thumbnail->move(public_path('images/travels'), $imageName);
+            $slug = Str::slug($request->name.'-'.$request->variant.'-'.$request->price);
+            
       
             $travel    = Travel::findorFail($id);
             $travels = [
                     'name'              => $request->name,
+                    'slug'              => $slug,
                     'variant'           => $request->variant,
                     'origin_id'         => $request->origin_id,
                     'destination_id'    => $request->destination_id,
@@ -159,9 +167,12 @@ class TravelController extends Controller
     
             ]);
       
+            $slug = Str::slug($request->name.'-'.$request->variant.'-'.$request->price);
+
             $travel    = Travel::findorFail($id);
             $travels = [
                     'name'              => $request->name,
+                    'slug'              => $slug,
                     'variant'           => $request->variant,
                     'origin_id'         => $request->origin_id,
                     'destination_id'    => $request->destination_id,

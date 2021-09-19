@@ -9,10 +9,6 @@
     
   </head>
   <body >
-    <div id="options">
-      <button id="printPageButton" onClick="window.print();">Print</button>
-      <a id="printPageButton" href="<?php echo e(route('transaction.index')); ?>">Transaction List</a>
-    </div>
     <div class="invoice">
       <!-- KOP -->
       <div class="invoice-header">
@@ -129,6 +125,13 @@
       <div class="invoice-footer">
         <span id="date"><?php echo e($transaction->created_at->format('d M Y')); ?></span>
         <span id="id"><?php echo e($transaction->invoice); ?></span>
+      </div>
+
+      <!-- FLOATING BUTTON -->
+      <div class="invoice-button">
+        <button onclick="window.print()">Cetak Halaman</button>
+        <a href="<?php echo e(route('transaction.index')); ?>">Back</a>
+
       </div>
     </div>
   </body>

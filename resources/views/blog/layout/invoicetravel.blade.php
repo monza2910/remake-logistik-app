@@ -9,10 +9,7 @@
     
   </head>
   <body >
-    <div id="options">
-      <button id="printPageButton" onClick="window.print();">Print</button>
-      <a id="printPageButton" href="{{route('transactiontravel.index')}}">Transaction List</a>
-    </div>
+
     <div class="invoice">
       <!-- KOP -->
       <div class="invoice-header">
@@ -137,6 +134,11 @@
       <!-- FOOTER -->
       <div class="invoice-footer">
         <span id="date">{{$transaction->created_at->format('d M Y')}}</span>
+      </div>
+
+      <div class="invoice-button">
+        <button onclick="window.print()">Cetak Halaman</button>
+        <a href="{{route('transactiontravel.index')}}">Back</a>
       </div>
     </div>
   </body>

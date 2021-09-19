@@ -17,7 +17,7 @@
           <li><a id="closeBtn">X</a></li>
           <li><a href="{{route('blog.index')}}">Home</a></li>
           <li><a href="{{route('blog.showarticle')}}" id="active">Artikel</a></li>
-          <li><a href="service-lists.html">Layanan</a></li>
+          <li><a href="{{route('blog.service')}}">Layanan</a></li>
           <li><a href="{{route('blog.gallery')}}" >Galeri</a></li>
         </ul>
         <a href="{{route('blog.contactus')}}" id="right">Contact Us</a>
@@ -34,6 +34,14 @@
             Baca berita-berita seputar update dari kami yang telah disajikan
             dalam bentuk artikel
           </p>
+          <!-- FORM SEARCH ARTICLES/NEWS -->
+          <form action="{{route('blog.showarticle')}}" method="get" class="big-search">
+            @csrf
+            <input type="text" name="value" placeholder="Penelusuran Artikel..." />
+            <button class="big-search-button" type="submit">
+              <i class="fi fi-search"></i>
+            </button>
+          </form>
         </div>
       </div>
 
