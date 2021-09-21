@@ -51,7 +51,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group text-right">
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                    <a href="<?php echo e(route('transaction.index')); ?>" class="btn btn-info  mb-2"> Back</a>
+                    <a href="<?php echo e(route('transaction.show',$idtr)); ?>" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>
           </div>

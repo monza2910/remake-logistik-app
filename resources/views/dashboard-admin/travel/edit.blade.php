@@ -84,7 +84,11 @@
                     <label >Facilitys</label>
                     <select class="form-control selectpicker" multiple="" name="facilitys[]">
                         @foreach ($facilitys as $fac)
-                            <option value="{{$fac->id}}">{{$fac->name}}</option>
+                            <option value="{{$fac->id}}" @foreach ($travel->facilitys as $value)
+                                @if ($fac->id == $value->id)
+                                    selected
+                                @endif
+                            @endforeach>{{$fac->name}}</option>
                         @endforeach
                     </select>
                 </div> 

@@ -98,6 +98,8 @@
                   <p>Pilih lokasi penjemputan barang yang akan dikirim</p>
                   <div class="custom-select">
                     <select name="origin">
+                      <option value="" selected>Pilih</option>
+
                       <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->province.', '.$origin->city.', '.$origin->subdistrict); ?></option>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -112,6 +114,7 @@
                   <p>Barang yang dijemput akan dikirimkan ke lokasi ini</p>
                   <div class="custom-select">
                     <select name="destination">
+                      <option value="" selected>Pilih</option>
                       <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->province.', '.$destination->city.', '.$destination->subdistrict); ?></option>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -202,8 +205,8 @@
             </div>
             <div class="result-content">
               <div id="address">
-                <span id="from"><?php echo e($transactions->address_sender); ?></span>
-                <span id="to"><?php echo e($transactions->address_penerima); ?></span>
+                <span id="from"><?php echo e($transactions->alamat_pengirim); ?></span>
+                <span id="to"><?php echo e($transactions->alamat_penerima); ?></span>
               </div>
                 <div id="tracking">
                   <span>STATUS PENGIRIMAN</span>

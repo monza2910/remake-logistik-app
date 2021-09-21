@@ -55,6 +55,10 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
         </div>
+
+        <?php if($articles->isEmpty()): ?>
+        <h4>Data Not Found !!</h4>
+        <?php else: ?>
         <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             
         <div class="card card-news">
@@ -73,6 +77,8 @@
         </div>
         </div>  
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            
+        <?php endif; ?>
         
       </div>
 

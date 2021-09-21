@@ -55,6 +55,10 @@
             @endforeach
           </ul>
         </div>
+
+        @if ($articles->isEmpty())
+        <h4>Data Not Found !!</h4>
+        @else
         @foreach ($articles as $article)
             
         <div class="card card-news">
@@ -73,6 +77,8 @@
         </div>
         </div>  
         @endforeach
+            
+        @endif
         
       </div>
 

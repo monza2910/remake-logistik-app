@@ -97,6 +97,8 @@
                   <p>Pilih lokasi penjemputan barang yang akan dikirim</p>
                   <div class="custom-select">
                     <select name="origin">
+                      <option value="" selected>Pilih</option>
+
                       @foreach ($origins as $origin)
                       <option value="{{$origin->id}}">{{$origin->province.', '.$origin->city.', '.$origin->subdistrict}}</option>
                       @endforeach
@@ -111,6 +113,7 @@
                   <p>Barang yang dijemput akan dikirimkan ke lokasi ini</p>
                   <div class="custom-select">
                     <select name="destination">
+                      <option value="" selected>Pilih</option>
                       @foreach ($destinations as $destination)
                       <option value="{{$destination->id}}">{{$destination->province.', '.$destination->city.', '.$destination->subdistrict}}</option>
                       @endforeach
@@ -201,8 +204,8 @@
             </div>
             <div class="result-content">
               <div id="address">
-                <span id="from">{{$transactions->address_sender}}</span>
-                <span id="to">{{$transactions->address_penerima}}</span>
+                <span id="from">{{$transactions->alamat_pengirim}}</span>
+                <span id="to">{{$transactions->alamat_penerima}}</span>
               </div>
                 <div id="tracking">
                   <span>STATUS PENGIRIMAN</span>

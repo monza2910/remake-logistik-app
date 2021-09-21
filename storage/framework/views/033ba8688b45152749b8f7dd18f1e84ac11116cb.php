@@ -110,7 +110,11 @@ unset($__errorArgs, $__bag); ?>
                     <label >Facilitys</label>
                     <select class="form-control selectpicker" multiple="" name="facilitys[]">
                         <?php $__currentLoopData = $facilitys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fac): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($fac->id); ?>"><?php echo e($fac->name); ?></option>
+                            <option value="<?php echo e($fac->id); ?>" <?php $__currentLoopData = $travel->facilitys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($fac->id == $value->id): ?>
+                                    selected
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>><?php echo e($fac->name); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div> 

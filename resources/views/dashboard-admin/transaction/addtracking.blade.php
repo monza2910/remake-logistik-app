@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group text-right">
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                    <a href="{{route('transaction.index')}}" class="btn btn-info  mb-2"> Back</a>
+                    <a href="{{route('transaction.show',$idtr)}}" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>
           </div>
