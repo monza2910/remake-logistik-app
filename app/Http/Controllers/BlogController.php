@@ -17,6 +17,7 @@ use App\Models\Tracking ;
 use App\Models\Category ;
 use App\Models\Galery ;
 use App\Models\Travel ;
+use App\Models\Armada ;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -237,13 +238,19 @@ class BlogController extends Controller
 
     public function showService(){
         $travels = Travel::orderBy('id','DESC')->get();
-        return view('blog.service-list',compact('travels'));
+        $armadas = Armada::orderBy('id','DESC')->get();
+        return view('blog.service-list',compact('travels','armadas'));
     }
 
     public function openTravel($slug){
         $travels = Travel::where('slug',$slug)->get();
         $listtravel = Travel::where('slug','!=',$slug)->orderBy('id','DESC')->take(4)->get();
         return view('blog.travel-detail',compact('travels','listtravel'));
+    }
+    public function openArmada($slug){
+        $armadas = Armada::where('slug',$slug)->get();
+        $listarmada = Armada::where('slug','!=',$slug)->orderBy('id','DESC')->take(4)->get();
+        return view('blog.armada-detail',compact('armadas','listarmada'));
     }
 
 }

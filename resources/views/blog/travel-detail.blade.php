@@ -69,9 +69,12 @@
     
     @endforeach
 
-    <!-- ANOTHER LIST -->
+    @if ($listtravel->isEmpty())
+        
+    @else
+        <!-- ANOTHER LIST -->
     <div class="article-lists section section-wider">
-      <h3>TYPE LAYANAN</h3>
+      <h3>LAYANAN LAIN</h3>
       <!-- NEWS LISTS -->
       
       <div class="news-container news-service-container">
@@ -94,6 +97,8 @@
       </div>
     </div>
 
+    @endif
+    
     <!-- FOOTER -->
     @include('blog.layout.footer')
   </body>

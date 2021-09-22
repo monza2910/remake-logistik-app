@@ -15,12 +15,24 @@ class Origins extends Model
     {
     	return $this->hasMany(Shippingrates::class);
     }
+    
     public function outlet()
     {
         return $this->hasMany(Outlets::class);
     }
+    
     public function travel()
     {
         return $this->hasMany(Travel::class);
+    }
+    
+    public function armada()
+    {
+        return $this->hasMany(Armada::class);
+    }
+
+    public function transactiontravel()
+    {
+        return $this->hasMany(TransactionTravel::class);
     }
 }

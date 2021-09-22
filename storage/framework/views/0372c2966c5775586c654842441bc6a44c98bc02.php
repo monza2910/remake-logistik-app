@@ -44,7 +44,7 @@
             
             <!-- SECTION JENIS LAYANAN 2 -->
             <div class="service-wrapper">
-            <span class="service-wrapper-title">LAYANAN EKSPEDISI</span>
+            <span class="service-wrapper-title">LAYANAN TRAVEL</span>
             <div
                 id="articles"
                 class="news-container news-service-container section section-wider"
@@ -70,22 +70,26 @@
 
             <!-- SECTION JENIS LAYANAN 3 -->
             <div class="service-wrapper">
-            <span class="service-wrapper-title">LAYANAN EKSPEDISI</span>
+            <span class="service-wrapper-title">LAYANAN SEWA ARMADA</span>
             <div
                 id="articles"
                 class="news-container news-service-container section section-wider"
             >
-                <div class="card card-news">
+            <?php $__currentLoopData = $armadas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $armada): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                
+                <div class="card card-news">    
                 <!-- THUMBNAIL LAYANAN -->
-                <img src="" alt="" class="news" />
+                <img src="/images/armadas/<?php echo e($armada->thumbnail); ?>" alt="" class="news" />
                 <div class="news-content">
                     <!-- JUDUL LAYANAN -->
-                    <span class="card-title">Ekspedisi</span>
+                    <span class="card-title"><?php echo e($armada->name); ?></span>
                     <!-- RINGKASAN/ISI LAYANAN -->
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <a href="service.html">BACA SELENGKAPNYA</a>
+                    <p><?php echo e($armada->variant.', Rp.'. $armada->price); ?></p>
+                    <a href="<?php echo e(route('blog.armada',$armada->slug)); ?>">BACA SELENGKAPNYA</a>
                 </div>
                 </div>
+
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             </div>
 

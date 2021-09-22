@@ -44,7 +44,7 @@
             
             <!-- SECTION JENIS LAYANAN 2 -->
             <div class="service-wrapper">
-            <span class="service-wrapper-title">LAYANAN EKSPEDISI</span>
+            <span class="service-wrapper-title">LAYANAN TRAVEL</span>
             <div
                 id="articles"
                 class="news-container news-service-container section section-wider"
@@ -70,22 +70,26 @@
 
             <!-- SECTION JENIS LAYANAN 3 -->
             <div class="service-wrapper">
-            <span class="service-wrapper-title">LAYANAN EKSPEDISI</span>
+            <span class="service-wrapper-title">LAYANAN SEWA ARMADA</span>
             <div
                 id="articles"
                 class="news-container news-service-container section section-wider"
             >
-                <div class="card card-news">
+            @foreach ($armadas as $armada)
+                
+                <div class="card card-news">    
                 <!-- THUMBNAIL LAYANAN -->
-                <img src="" alt="" class="news" />
+                <img src="/images/armadas/{{$armada->thumbnail}}" alt="" class="news" />
                 <div class="news-content">
                     <!-- JUDUL LAYANAN -->
-                    <span class="card-title">Ekspedisi</span>
+                    <span class="card-title">{{$armada->name}}</span>
                     <!-- RINGKASAN/ISI LAYANAN -->
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <a href="service.html">BACA SELENGKAPNYA</a>
+                    <p>{{$armada->variant.', Rp.'. $armada->price }}</p>
+                    <a href="{{route('blog.armada',$armada->slug)}}">BACA SELENGKAPNYA</a>
                 </div>
                 </div>
+
+            @endforeach
             </div>
             </div>
 

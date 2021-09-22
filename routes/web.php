@@ -24,8 +24,11 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\TransactionTravelController;
+use App\Http\Controllers\ArmadaController;
+use App\Http\Controllers\ArmadaTrController;
 use App\Http\Livewire\Logistic;
 use App\Http\Livewire\Travel;
+use App\Http\Livewire\Armada;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +56,7 @@ Route::get('/tracking/cek',[BlogController::class, 'trackingCek'])->name('tracki
 Route::get('/gallery',[BlogController::class, 'galleryIndex'])->name('blog.gallery');
 Route::get('/service-list',[BlogController::class, 'showService'])->name('blog.service');
 Route::get('/service-travel/{slug}',[BlogController::class, 'openTravel'])->name('blog.opentravel');
+Route::get('/service-armada/{slug}',[BlogController::class, 'openArmada'])->name('blog.armada');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas,writer']],function(){
@@ -82,6 +86,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::get('/transactiontravel/cart', Travel::class )->name('travelcart');
     Route::get('/transactiontravel/trash',[TransactionTravelController::class, 'showTrash'])->name('transactiontravel.trash');
     Route::resource('transactiontravel', TransactionTravelController::class);
+
+    Route::get('/transactionarmada/cart', Armada::class )->name('armadacart');
+    Route::get('/transactionarmada/trash',[ArmadaTrController::class, 'showTrash'])->name('transactionarmada.trash');
+
+    Route::resource('transactionarmada', ArmadaTrController::class);
 
 
 });
@@ -118,7 +127,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::delete('/travel/kill/{id}',[TravelController::class, 'kill'])->name('travel.kill');
     Route::post('/travelimg', [TravelController::class,'upload'])->name('travel.upload');
     Route::resource('travel', TravelController::class);
-
+    
+    Route::get('/armada/restore/{id}',[ArmadaController::class, 'restore'])->name('armada.restore');
+    Route::get('/armada/trash',[ArmadaController::class, 'showTrash'])->name('armada.trash');
+    Route::delete('/armada/kill/{id}',[ArmadaController::class, 'kill'])->name('armada.kill');
+    Route::post('/armadaimg', [ArmadaController::class,'upload'])->name('armada.upload');
+    Route::resource('armada', ArmadaController::class);
     
     Route::get('/user/trash',[UserController::class, 'showTrash'])->name('user.trash');
     Route::get('/user/restore/{id}',[UserController::class, 'restore'])->name('user.restore');

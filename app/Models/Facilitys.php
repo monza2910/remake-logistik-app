@@ -14,4 +14,9 @@ class Facilitys extends Model
     {
         return $this->belongsToMany(Travel::class);
     }
+
+    public function armada()
+    {
+        return $this->belongsToMany(Armada::class);
+    }
 }
