@@ -21,9 +21,9 @@ class CreateArmadaTransactionsTable extends Migration
             $table->string('penyewa');
             $table->text('alamat_penyewa');
             $table->string('no_penyewa');
-            $table->integer('origin_id');
-            $table->integer('destination_id');
             $table->date('tgl_berangkat');
+            $table->date('tgl_kembali');
+            $table->integer('lama_sewa')->nullable();
             $table->integer('sub_total');
             $table->integer('diskon')->nullable();
             $table->integer('total');

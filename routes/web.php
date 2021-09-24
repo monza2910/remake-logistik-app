@@ -29,6 +29,7 @@ use App\Http\Controllers\ArmadaTrController;
 use App\Http\Livewire\Logistic;
 use App\Http\Livewire\Travel;
 use App\Http\Livewire\Armada;
+use App\Http\Livewire\Armadabus;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,6 +89,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::resource('transactiontravel', TransactionTravelController::class);
 
     Route::get('/transactionarmada/cart', Armada::class )->name('armadacart');
+    Route::get('/transactionarmadabus/cart', Armadabus::class )->name('armadabuscart');
     Route::get('/transactionarmada/trash',[ArmadaTrController::class, 'showTrash'])->name('transactionarmada.trash');
 
     Route::resource('transactionarmada', ArmadaTrController::class);
