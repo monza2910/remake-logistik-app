@@ -36,6 +36,8 @@ class LoginController extends Controller
         }else {
             return '/admin/dashboard';
         }
+
+        
     }
     /**
      * Create a new controller instance.
@@ -47,4 +49,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function keluar(){
+
+        return redirect('login');
+    }
 }

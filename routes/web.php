@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagsController;
@@ -44,7 +45,15 @@ use App\Http\Livewire\Armadabus;
 // Route::get('/', function () {
 //     return view('blog.index');
 // });
-Auth::routes();
+Auth::routes(['register'=> false]);
+
+Route::group(['middleware' => ['auth']], function() {
+    /**
+    * Logout Route
+    */
+    Route::get('/logout', [LoginController::class,'keluar']);
+ });
+
 Route::get('/',[BlogController::class, 'index'])->name('blog.index');
 Route::get('/#tab',[BlogController::class, 'index'])->name('blog.cek');
 Route::get('/article',[BlogController::class, 'showArticle'])->name('blog.showarticle');

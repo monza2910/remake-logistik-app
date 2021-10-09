@@ -131,7 +131,6 @@
       <div class="invoice-button">
         <button onclick="window.print()">Cetak Halaman</button>
         <a href="<?php echo e(route('transaction.index')); ?>">Back</a>
-
       </div>
     </div>
   </body>

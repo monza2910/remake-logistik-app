@@ -105,7 +105,7 @@ class Armada extends Component
         $cart = \Cart::session('armadacart')->getContent();
         $cekItemId = $cart->whereIn('id', $rowId);
         if($cekItemId->isNotEmpty()){
-            \Cart::session('logisticsmall')->update($rowId,[
+            \Cart::session('armadacart')->update($rowId,[
                 'quantity' =>[
                     'relative' =>true,
                     'value'  => $this->qty,
