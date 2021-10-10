@@ -111,7 +111,7 @@ class BlogController extends Controller
     }
   
     public function showArticleByCategory($category){
-        $articles = Articles::where(['category_id'=>$category,'status'=> '1'])->get();
+        $articles = Articles::where(['category_id'=>$category,'status'=> '1'])->paginate(10);
         $categorys = Category::orderBy('id','DESC')->get();
         return view('blog.article-list',compact('articles','categorys'));
     }

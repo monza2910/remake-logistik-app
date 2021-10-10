@@ -76,6 +76,8 @@
             <a href="<?php echo e(route('blog.openarticle',$article->slug)); ?>">BACA SELENGKAPNYA</a>
         </div>
         </div>  
+        <?php echo e($articles->links('blog.vendor.paginator')); ?>
+
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             
         <?php endif; ?>
@@ -83,13 +85,7 @@
       </div>
 
       <!-- PAGE BUTTON -->
-
-      <div class="page-button">
-        <a href=""><i class="fi fi-angle-left"></i></a>
-        <span>1/5</span>
-        <a href=""><i class="fi fi-angle-right"></i></a>
-      </div>
-    </div>
+      
 
     <!-- FOOTER -->
     <?php echo $__env->make('blog.layout.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

@@ -76,6 +76,7 @@
             <a href="{{route('blog.openarticle',$article->slug)}}">BACA SELENGKAPNYA</a>
         </div>
         </div>  
+        {{$articles->links('blog.vendor.paginator')}}
         @endforeach
             
         @endif
@@ -83,13 +84,12 @@
       </div>
 
       <!-- PAGE BUTTON -->
-
-      <div class="page-button">
+      {{-- <div class="page-button">
         <a href=""><i class="fi fi-angle-left"></i></a>
         <span>1/5</span>
         <a href=""><i class="fi fi-angle-right"></i></a>
       </div>
-    </div>
+    </div> --}}
 
     <!-- FOOTER -->
     @include('blog.layout.footer')
