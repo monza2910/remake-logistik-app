@@ -75,7 +75,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label >Category</label>
                     <select class="form-control selectpicker" data-live-search="true" name="category_id">
-                        <?php if($article->category->name != null): ?>
+                        <?php if($article->category): ?>
                         <option value="<?php echo e($article->category->id); ?>" selected><?php echo e($article->category->name); ?></option>
                         <?php else: ?>
                         <option value="" selected>Select Category</option>

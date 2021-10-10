@@ -60,7 +60,7 @@
                                 @endforeach
                             </td>
                             <td>
-                                @if ($travel->origin->city != null )
+                                @if ($travel->origin)
                                 {{$travel->origin->city}}
                                 
                                 @else
@@ -69,7 +69,7 @@
                             </td>
                             
                             <td>
-                                @if ($travel->destination->city != null )
+                                @if ($travel->destination )
                                 {{$travel->destination->city}}
                                 
                                 @else

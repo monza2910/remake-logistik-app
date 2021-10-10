@@ -54,7 +54,7 @@
                             <td><?php echo e($article->title); ?></td>
                             <td><?php echo e($article->slug); ?></td>
                             <td>
-                                <?php if($article->category->name != null): ?>
+                                <?php if($article->category): ?>
                                     <?php echo e($article->category->name); ?> 
                                 <?php else: ?>
                                    

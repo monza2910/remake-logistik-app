@@ -54,7 +54,7 @@
                             <td>{{$article->title}}</td>
                             <td>{{$article->slug}}</td>
                             <td>
-                                @if ($article->category->name != null)
+                                @if ($article->category)
                                     {{$article->category->name}} 
                                 @else
                                    

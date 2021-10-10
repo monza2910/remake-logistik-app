@@ -117,8 +117,13 @@ unset($__errorArgs, $__bag); ?>
                                 <select class="form-control " wire:model="from" >
                                     <option value="" selected > Pilih </option>
                                     <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($origin->origin): ?>
                                     <option value="<?php echo e($origin->origin_id); ?>"><?php echo e($origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict); ?></option>
+                                    <?php else: ?>
+                                    
+                                    <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    
                                 </select>
                                 <?php $__errorArgs = ['from'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -137,7 +142,12 @@ unset($__errorArgs, $__bag); ?>
                                 <?php if(!empty($destinations)): ?>
                                 <option value="" >Pilih</option>
                                     <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                    <?php if($destination->destination): ?>
                                     <option value="<?php echo e($destination->destination_id); ?>"><?php echo e($destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict); ?></option>
+                                        
+                                    <?php else: ?>
+                                        
+                                    <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
                                     <option value="" >Not Found</option>
@@ -162,7 +172,12 @@ unset($__errorArgs, $__bag); ?>
                                 <option value="" >Pilih</option>
 
                                     <?php $__currentLoopData = $variants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $variant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                    <?php if($variant->variantservice): ?>
                                     <option value="<?php echo e($variant->variantservice_id); ?>"><?php echo e($variant->variantservice->variant_service.'( '.$variant->est_arrived.' Days)'); ?></option>
+                                        
+                                    <?php else: ?>
+                                        
+                                    <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
                                     <option value="" >Not Found</option>

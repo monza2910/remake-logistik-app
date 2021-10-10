@@ -39,19 +39,32 @@
                 <div class="form-group">
                     <label >Origin</label>
                     <select class="form-control selectpicker" data-live-search="true" name="origin_id">
+                        @if ($travel->origin)
                         <option value="{{$travel->origin_id}}" selected>{{$travel->origin->province.', '.$travel->origin->city,'. '.$travel->origin->subdistrict}}</option>
                         @foreach ($origins as $origin)
                             <option value="{{$origin->id}}">{{$origin->province}}, {{$origin->city}}, {{$origin->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($origins as $origin)
+                        <option value="{{$origin->id}}">{{$origin->province}}, {{$origin->city}}, {{$origin->subdistrict}}</option>
+                        @endforeach
+                        @endif
+                        
                     </select>
                 </div>
                 <div class="form-group select-box">
                     <label >destination</label>
                     <select class="form-control selectpicker " data-live-search="true" name="destination_id" >
+                        @if ($travel->destination)
                         <option value="{{$travel->destination_id}}" selected>{{$travel->destination->province.', '.$travel->destination->city.', '.$travel->destination->subdistrict}}</option>
                         @foreach ($destinations as $destination)
                             <option value="{{$destination->id}}">{{$destination->province}}, {{$destination->city}}, {{$destination->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($destinations as $destination)
+                        <option value="{{$destination->id}}">{{$destination->province}}, {{$destination->city}}, {{$destination->subdistrict}}</option>
+                    @endforeach
+                        @endif
                     </select>
                 </div>
 

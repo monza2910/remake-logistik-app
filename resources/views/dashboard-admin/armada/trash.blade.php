@@ -60,7 +60,7 @@
                                 @endforeach
                             </td>
                             <td>
-                                @if ($armada->origin->city != null )
+                                @if ($armada->origin)
                                 {{$armada->origin->city}}
                                 
                                 @else
@@ -69,7 +69,7 @@
                             </td>
                             
                             <td>
-                                @if ($armada->destination->city != null )
+                                @if ($armada->destination)
                                 {{$armada->destination->city}}
                                 
                                 @else

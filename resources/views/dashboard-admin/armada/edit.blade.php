@@ -39,19 +39,31 @@
                 <div class="form-group">
                     <label >Origin</label>
                     <select class="form-control selectpicker" data-live-search="true" name="origin_id">
+                        @if ($armada->origin)
                         <option value="{{$armada->origin_id}}" selected>{{$armada->origin->province.', '.$armada->origin->city,'. '.$armada->origin->subdistrict}}</option>
                         @foreach ($origins as $origin)
                             <option value="{{$origin->id}}">{{$origin->province}}, {{$origin->city}}, {{$origin->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($origins as $origin)
+                        <option value="{{$origin->id}}">{{$origin->province}}, {{$origin->city}}, {{$origin->subdistrict}}</option>
+                    @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="form-group select-box">
                     <label >destination</label>
                     <select class="form-control selectpicker " data-live-search="true" name="destination_id" >
+                        @if ($armada->destination)
                         <option value="{{$armada->destination_id}}" selected>{{$armada->destination->province.', '.$armada->destination->city.', '.$armada->destination->subdistrict}}</option>
                         @foreach ($destinations as $destination)
                             <option value="{{$destination->id}}">{{$destination->province}}, {{$destination->city}}, {{$destination->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($destinations as $destination)
+                            <option value="{{$destination->id}}">{{$destination->province}}, {{$destination->city}}, {{$destination->subdistrict}}</option>
+                        @endforeach
+                        @endif
                     </select>
                 </div>
 

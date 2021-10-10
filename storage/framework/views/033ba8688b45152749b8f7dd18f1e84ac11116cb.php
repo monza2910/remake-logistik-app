@@ -51,19 +51,32 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label >Origin</label>
                     <select class="form-control selectpicker" data-live-search="true" name="origin_id">
+                        <?php if($travel->origin): ?>
                         <option value="<?php echo e($travel->origin_id); ?>" selected><?php echo e($travel->origin->province.', '.$travel->origin->city,'. '.$travel->origin->subdistrict); ?></option>
                         <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->province); ?>, <?php echo e($origin->city); ?>, <?php echo e($origin->subdistrict); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                        <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->province); ?>, <?php echo e($origin->city); ?>, <?php echo e($origin->subdistrict); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
+                        
                     </select>
                 </div>
                 <div class="form-group select-box">
                     <label >destination</label>
                     <select class="form-control selectpicker " data-live-search="true" name="destination_id" >
+                        <?php if($travel->destination): ?>
                         <option value="<?php echo e($travel->destination_id); ?>" selected><?php echo e($travel->destination->province.', '.$travel->destination->city.', '.$travel->destination->subdistrict); ?></option>
                         <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->province); ?>, <?php echo e($destination->city); ?>, <?php echo e($destination->subdistrict); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                        <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->province); ?>, <?php echo e($destination->city); ?>, <?php echo e($destination->subdistrict); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </select>
                 </div>
 

@@ -46,12 +46,33 @@
                         <?php $__currentLoopData = $rates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $rate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>    
                         <tr>
                             <td><?php echo e($index + 1); ?></td>
-                            <td><?php echo e($rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict); ?></td>
-                            <td><?php echo e($rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict); ?></td>
+                            <td>
+                                <?php if($rate->origin): ?>
+                                <?php echo e($rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict); ?>
+
+                                <?php else: ?>
+                                    
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($rate->destination): ?>
+                                <?php echo e($rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict); ?>
+
+                                <?php else: ?>
+                                    
+                                <?php endif; ?>
+                            </td>
                             <td>Rp. <?php echo e($rate->under_terms); ?></td>
                             <td>Rp. <?php echo e($rate->above_terms); ?></td>
                             <td><?php echo e($rate->est_arrived); ?> Days</td>
-                            <td><?php echo e($rate->variantservice->variant_service); ?></td>
+                            <td>
+                                <?php if($rate->variantservice): ?>
+                                <?php echo e($rate->variantservice->variant_service); ?>
+
+                                <?php else: ?>
+                                    
+                                <?php endif; ?>
+                            </td>
                             <td >
                                 <form action="<?php echo e(route('rate.destroy',$rate->id)); ?>" method="POST">
                                     

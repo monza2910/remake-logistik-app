@@ -103,10 +103,33 @@
                                 <th>Price</th>
                             </tr>
                             <tr>
-                                <td>{{$transaction->armada->name}}</td>
-                                <td>{{$transaction->armada->variant}}</td>
-                                <td>{{$transaction->armada->origin->province.', '.$transaction->armada->origin->city.', '.$transaction->armada->origin->subdistrict}}</td>
-                                <td>{{$transaction->armada->destination->province.', '.$transaction->armada->destination->city.', '.$transaction->armada->destination->subdistrict}}</td>
+                                <td>
+                                  @if ($transaction->armada)
+                                  {{$transaction->armada->name}}
+                                  @else
+                                      
+                                  @endif</td>
+                                <td>
+                                  @if ($transaction->armada)
+                                  {{$transaction->armada->variant}}
+                                  @else
+                                      
+                                  @endif
+                                </td>
+                                <td>
+                                  @if ($transaction->armada->origin)
+                                  {{$transaction->armada->origin->province.', '.$transaction->armada->origin->city.', '.$transaction->armada->origin->subdistrict}}
+                                  @else
+                                      
+                                  @endif
+                                </td>
+                                <td>
+                                  @if ($transaction->armada->destination)
+                                  {{$transaction->armada->destination->province.', '.$transaction->armada->destination->city.', '.$transaction->armada->destination->subdistrict}}
+                                  @else
+                                    
+                                  @endif
+                                </td>
                                 <td>Rp. {{number_format($transaction->subtotal)}}</td>
                             </tr>
                             <tr>

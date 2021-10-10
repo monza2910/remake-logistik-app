@@ -29,10 +29,17 @@
                 <div class="form-group select-box">
                     <label >Origin </label>
                     <select class="form-control selectpicker " data-live-search="true" name="origin_id" >
+                        @if ($outlet->origin)
                         <option value="{{$outlet->origin_id}}">{{$outlet->origin->province.", ". $outlet->origin->city.", ".$outlet->origin->subdistrict}}</option>
                         @foreach ($origins as $origin)
-                            <option value="{{$origin->id}}">{{$origin->province.", ". $origin->city.", ".$origin->subdistrict}}</option>
+                        <option value="{{$origin->id}}">{{$origin->province.", ". $origin->city.", ".$origin->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($origins as $origin)
+                        <option value="{{$origin->id}}">{{$origin->province.", ". $origin->city.", ".$origin->subdistrict}}</option>
+                        @endforeach
+                        @endif
+                        
                     </select>
                 </div>
                 <div class="form-group">

@@ -22,20 +22,32 @@
                 <div class="form-group">
                     <label >Buton</label>
                     <select class="form-control selectric" name="origin_id">
-
+                        @if ($rate->origin)
                         <option value="{{$rate->origin_id}}">{{$rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict}}</option>
                         @foreach ($origins as $origin)
                             <option value="{{$origin->id}}">{{$origin->province.', '.$origin->city.', '.$origin->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($origins as $origin)
+                        <option value="{{$origin->id}}">{{$origin->province.', '.$origin->city.', '.$origin->subdistrict}}</option>
+                        @endforeach
+                        @endif
+                        
                     </select>
                 </div>
                 <div class="form-group select-box">
                     <label >Buton</label>
                     <select class="form-control selectric " name="destination_id" data-lice-search="true">
+                        @if ($rate->destination)
                         <option value="{{$rate->origin_id}}">{{$rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict}}</option>
                         @foreach ($destinations as $destination)
                             <option value="{{$destination->id}}">{{$destination->province.', '.$destination->city.', '.$destination->subdistrict}}</option>
                         @endforeach
+                        @else
+                        @foreach ($destinations as $destination)
+                            <option value="{{$destination->id}}">{{$destination->province.', '.$destination->city.', '.$destination->subdistrict}}</option>
+                        @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="form-group">

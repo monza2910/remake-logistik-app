@@ -55,12 +55,12 @@
                             </td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            @if ($user->role_id != null)
+                            @if ($user->role)
                                <td>{{$user->role->name}}</td>
                             @else
                                 <td></td>
                             @endif
-                            @if ($user->outlet_id != null)
+                            @if ($user->outlet)
                                 <td>{{$user->outlet->name}}</td>
                             @else
                                 <td></td>

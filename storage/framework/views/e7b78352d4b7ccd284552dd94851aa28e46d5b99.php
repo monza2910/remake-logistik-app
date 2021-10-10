@@ -70,9 +70,12 @@
     
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-    <!-- ANOTHER LIST -->
+    <?php if($listtravel->isEmpty()): ?>
+        
+    <?php else: ?>
+        <!-- ANOTHER LIST -->
     <div class="article-lists section section-wider">
-      <h3>TYPE LAYANAN</h3>
+      <h3>LAYANAN LAIN</h3>
       <!-- NEWS LISTS -->
       
       <div class="news-container news-service-container">
@@ -95,6 +98,8 @@
       </div>
     </div>
 
+    <?php endif; ?>
+    
     <!-- FOOTER -->
     <?php echo $__env->make('blog.layout.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   </body>

@@ -46,12 +46,30 @@
                         @foreach ($rates as $index => $rate)    
                         <tr>
                             <td>{{$index + 1}}</td>
-                            <td>{{$rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict}}</td>
-                            <td>{{$rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict}}</td>
+                            <td>
+                                @if ($rate->origin)
+                                {{$rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict}}
+                                @else
+                                    
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rate->destination)
+                                {{$rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict}}
+                                @else
+                                    
+                                @endif
+                            </td>
                             <td>Rp. {{$rate->under_terms}}</td>
                             <td>Rp. {{$rate->above_terms}}</td>
                             <td>{{$rate->est_arrived}} Days</td>
-                            <td>{{$rate->variantservice->variant_service}}</td>
+                            <td>
+                                @if ($rate->variantservice)
+                                {{$rate->variantservice->variant_service}}
+                                @else
+                                    
+                                @endif
+                            </td>
                             <td >
                                 <form action="{{ route('rate.destroy',$rate->id) }}" method="POST">
                                     

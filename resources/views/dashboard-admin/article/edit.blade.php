@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label >Category</label>
                     <select class="form-control selectpicker" data-live-search="true" name="category_id">
-                        @if ($article->category->name != null)
+                        @if ($article->category)
                         <option value="{{$article->category->id}}" selected>{{$article->category->name}}</option>
                         @else
                         <option value="" selected>Select Category</option>

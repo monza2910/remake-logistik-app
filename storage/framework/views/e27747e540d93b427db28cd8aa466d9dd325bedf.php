@@ -399,12 +399,7 @@
           </p>
         </div>
       </div>
-      <div class="image-sliding">
-        <!-- Input Foto Galeri Perusahaan -->
-        <?php $__currentLoopData = $gallerys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <img src="/images/gallery/<?php echo e($gallery->image); ?>" alt="" />
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      </div>
+      
     </div>
 
     <!-- OUR TEAM -->

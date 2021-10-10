@@ -47,7 +47,7 @@ class CategoryController extends Controller
             'name'  => $request->name,
             'slug'  => $slug
         ]);
-        return redirect('/category')->with('success','Categroy Wa Added');
+        return redirect()->route('category.index')->with('success','Categroy Wa Added');
     }
 
     /**
@@ -69,9 +69,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = CategoryModel::find($id);
+        $category = CategoryModel::findorfail($id);
         if ($category == null) {
-            return redirect('/category')->with('danger','Category Not Found');
+            return redirect()->route('category.index')->with('danger','Category Not Found');
         }else {
             return view('dashboard-admin.category.edit',compact('category'));
         }
@@ -97,7 +97,7 @@ class CategoryController extends Controller
             'name'  => $request->name, 
             'slug'  => $slug
         ]);
-        return redirect('/category')->with('success','Categroy Was Updated');
+        return redirect()->route('category.index')->with('success','Categroy Was Updated');
     }
 
     /**
@@ -110,6 +110,6 @@ class CategoryController extends Controller
     {
         $category = CategoryModel::find($id);
         $category->delete();
-        return redirect('/category')->with('deleted','Category Was Deleted');
+        return redirect()->route('category.index')->with('deleted','Category Was Deleted');
     }
 }

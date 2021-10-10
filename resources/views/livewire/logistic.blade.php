@@ -101,8 +101,13 @@
                                 <select class="form-control " wire:model="from" >
                                     <option value="" selected > Pilih </option>
                                     @foreach ($origins as $index => $origin)
+                                    @if ($origin->origin)
                                     <option value="{{$origin->origin_id}}">{{$origin->origin->province.', '.$origin->origin->city.', '.$origin->origin->subdistrict}}</option>
+                                    @else
+                                    
+                                    @endif
                                     @endforeach
+                                    
                                 </select>
                                 @error('from')
                                 <small class="text-danger">{{$message}}</small>
@@ -114,7 +119,12 @@
                                 @if (!empty($destinations))
                                 <option value="" >Pilih</option>
                                     @foreach ($destinations as $index => $destination) 
+                                    @if ($destination->destination)
                                     <option value="{{$destination->destination_id}}">{{$destination->destination->province.', '.$destination->destination->city.', '.$destination->destination->subdistrict}}</option>
+                                        
+                                    @else
+                                        
+                                    @endif
                                     @endforeach
                                 @else
                                     <option value="" >Not Found</option>
@@ -132,7 +142,12 @@
                                 <option value="" >Pilih</option>
 
                                     @foreach ($variants as $index => $variant) 
+                                    @if ($variant->variantservice)
                                     <option value="{{$variant->variantservice_id}}">{{$variant->variantservice->variant_service.'( '.$variant->est_arrived.' Days)'}}</option>
+                                        
+                                    @else
+                                        
+                                    @endif
                                     @endforeach
                                 @else
                                     <option value="" >Not Found</option>

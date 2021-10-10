@@ -397,12 +397,12 @@
           </p>
         </div>
       </div>
-      <div class="image-sliding">
+      {{-- <div class="image-sliding">
         <!-- Input Foto Galeri Perusahaan -->
         @foreach ($gallerys as $gallery)
           <img src="/images/gallery/{{$gallery->image}}" alt="" />
         @endforeach
-      </div>
+      </div> --}}
     </div>
 
     <!-- OUR TEAM -->
