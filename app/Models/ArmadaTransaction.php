@@ -12,14 +12,13 @@ class ArmadaTransaction extends Model
 
     protected $fillable = [
         'invoice',
-        'tracking_number',
         'qr_code',
         'penyewa',
         'alamat_penyewa',
         'no_penyewa',
-        'origin_id',
-        'destination_id',
         'tgl_berangkat',
+        'tgl_kembali',
+        'lama_sewa',
         'sub_total',
         'diskon',
         'total',

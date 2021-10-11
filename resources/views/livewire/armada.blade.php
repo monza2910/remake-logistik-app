@@ -191,7 +191,7 @@
                         </tbody>
                         </table>
                     </div>
-
+                    <form wire:submit.prevent="submitHandle">
                     <div class="row">
                             
                         <div class="form-group col-md-6 col-12">
@@ -246,9 +246,9 @@
                             <div class="form-group">
                                 <label for="">Tanggal Berangkat</label>
                                 <div class="input-group-prepend">
-                                    <input type="date" wire:model="tgl_berangkat"   class="form-control">
+                                    <input type="date" wire:model="tgl_brkt"   class="form-control">
                                 </div>
-                                @error('tgl_berangkat')
+                                @error('tgl_brkt')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
@@ -283,29 +283,29 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <form wire:submit.prevent="submitHandle">
+        
+            <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header"><h3>Detail Order</h3></div>
                     <div class="card-body">
                             <div class="form-group">
                                 <label>Nama Penyewa</label>
-                                <input type="text" wire:model="nama_penumpang" value="{{old('nama_penumpang')}}" class="form-control">
-                                @error('nama_penumpang')
+                                <input type="text" wire:model="penyewa" value="{{old('penyewa')}}" class="form-control">
+                                @error('penyewa')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label>Alamat Penyewa</label>
-                                <textarea wire:model="alamat_penumpang" class="form-control" cols="30" rows="10"></textarea>
-                                @error('alamat_penumpang')
+                                <textarea wire:model="alamat_penyewa" class="form-control" cols="30" rows="10">{{old('alamat_penyewa')}}</textarea>
+                                @error('alamat_penyewa')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label>No Penyewa</label>
-                                <input type="text" wire:model="no_penumpang" value="{{old('no_pengirim')}}"  class="form-control">
-                                @error('no_penumpang')
+                                <input type="text" wire:model="no_penyewa" value="{{old('no_penyewa')}}"  class="form-control">
+                                @error('no_penyewa')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
@@ -313,12 +313,12 @@
                         
                         <div class="form-group text-right">
                             <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                            <a href="{{route('transactiontravel.index')}}" class="btn btn-info  mb-2"> Back</a>
+                            <a href="{{route('transactionarmada.index')}}" class="btn btn-info  mb-2"> Back</a>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     
       
     </div>

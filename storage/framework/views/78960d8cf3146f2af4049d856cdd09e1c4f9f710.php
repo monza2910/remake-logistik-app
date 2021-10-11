@@ -37,8 +37,9 @@
                             <th>Invoice</th>
                             <th>Nama Penyewa </th>
                             <th>No Penyewa</th>
-                            <th>Dari</th>
-                            <th>Ke</th>
+                            <th>Alamat</th>
+                            <th>Tgl Berangkat</th>
+                            <th>Tgl Kembali</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -47,12 +48,13 @@
                         <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $tr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>    
                         <tr>
                             <td><?php echo e($index +1); ?></td> 
-                            <td><img src="/images/trarmada/<?php echo e($tr->qrcode); ?>" alt="" width="100px" height="100px"></td>
+                            <td><img src="/images/trarmada/<?php echo e($tr->qr_code); ?>" alt="" width="100px" height="100px"></td>
                             <td><?php echo e($tr->invoice); ?></td>
-                            <td><?php echo e($tr->nama_penumpang); ?></td>
-                            <td><?php echo e($tr->no_penumpang); ?></td>
-                            <td><?php echo e($tr->alamat_penjemputan); ?></td>
-                            <td><?php echo e($tr->tgl_berangkat.' '.$tr->jam_berangkat); ?></td>
+                            <td><?php echo e($tr->penyewa); ?></td>
+                            <td><?php echo e($tr->no_penyewa); ?></td>
+                            <td><?php echo e($tr->alamat_penyewa); ?></td>
+                            <td><?php echo e($tr->tgl_berangkat); ?></td>
+                            <td><?php echo e($tr->tgl_kembali); ?></td>
                             <td><?php echo e($tr->status); ?></td>
                             <td >
                                 <form action="<?php echo e(route('transactionarmada.destroy',$tr->id)); ?>" method="POST">
@@ -64,7 +66,7 @@
                                         
                                     <a href="<?php echo e(route('transactionarmada.edit',$tr->id)); ?>" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
                                     <?php endif; ?>
-                                    <a href="<?php echo e(route('printarmada',$tr->id)); ?>" class="btn btn-danger btn-icon icon-left"><i class="fas fa-file-pdf"></i></a> 
+                                    
                                     <button type="submit" class="btn btn-icon icon-left btn-primary" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>

@@ -16,7 +16,6 @@ class CreateArmadaTransactionsTable extends Migration
         Schema::create('armada_transactions', function (Blueprint $table) {
             $table->id();
             $table->string('invoice');
-            $table->string('tracking_number');
             $table->string('qr_code');
             $table->string('penyewa');
             $table->text('alamat_penyewa');

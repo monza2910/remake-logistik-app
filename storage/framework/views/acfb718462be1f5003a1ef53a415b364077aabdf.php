@@ -235,7 +235,7 @@ unset($__errorArgs, $__bag); ?>
                         </tbody>
                         </table>
                     </div>
-
+                    <form wire:submit.prevent="submitHandle">
                     <div class="row">
                             
                         <div class="form-group col-md-6 col-12">
@@ -318,9 +318,9 @@ unset($__errorArgs, $__bag); ?>
                             <div class="form-group">
                                 <label for="">Tanggal Berangkat</label>
                                 <div class="input-group-prepend">
-                                    <input type="date" wire:model="tgl_berangkat"   class="form-control">
+                                    <input type="date" wire:model="tgl_brkt"   class="form-control">
                                 </div>
-                                <?php $__errorArgs = ['tgl_berangkat'];
+                                <?php $__errorArgs = ['tgl_brkt'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -376,15 +376,15 @@ unset($__errorArgs, $__bag); ?>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <form wire:submit.prevent="submitHandle">
+        
+            <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header"><h3>Detail Order</h3></div>
                     <div class="card-body">
                             <div class="form-group">
                                 <label>Nama Penyewa</label>
-                                <input type="text" wire:model="nama_penumpang" value="<?php echo e(old('nama_penumpang')); ?>" class="form-control">
-                                <?php $__errorArgs = ['nama_penumpang'];
+                                <input type="text" wire:model="penyewa" value="<?php echo e(old('penyewa')); ?>" class="form-control">
+                                <?php $__errorArgs = ['penyewa'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -397,8 +397,8 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="form-group">
                                 <label>Alamat Penyewa</label>
-                                <textarea wire:model="alamat_penumpang" class="form-control" cols="30" rows="10"></textarea>
-                                <?php $__errorArgs = ['alamat_penumpang'];
+                                <textarea wire:model="alamat_penyewa" class="form-control" cols="30" rows="10"><?php echo e(old('alamat_penyewa')); ?></textarea>
+                                <?php $__errorArgs = ['alamat_penyewa'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -411,8 +411,8 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="form-group">
                                 <label>No Penyewa</label>
-                                <input type="text" wire:model="no_penumpang" value="<?php echo e(old('no_pengirim')); ?>"  class="form-control">
-                                <?php $__errorArgs = ['no_penumpang'];
+                                <input type="text" wire:model="no_penyewa" value="<?php echo e(old('no_penyewa')); ?>"  class="form-control">
+                                <?php $__errorArgs = ['no_penyewa'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -427,12 +427,12 @@ unset($__errorArgs, $__bag); ?>
                         
                         <div class="form-group text-right">
                             <button class="btn btn-primary mb-2" type="submit">Submit</button>
-                            <a href="<?php echo e(route('transactiontravel.index')); ?>" class="btn btn-info  mb-2"> Back</a>
+                            <a href="<?php echo e(route('transactionarmada.index')); ?>" class="btn btn-info  mb-2"> Back</a>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     
       
     </div>

@@ -18,7 +18,7 @@ use App\Models\ArmadaDetail as ArmadaDT;
 
 class Armada extends Component
 {
-    public $diskon = '';
+    public $diskon = '0';
     public $armada_id, $armada_name, $armada_price , $qty;
     public $from, $to;
     public $sub_total, $total, $dibayar, $status, $tgl_brkt,$tgl_kembali; 
@@ -180,5 +180,109 @@ class Armada extends Component
         $this->qty = '';
         $this->armada_id = '';
         $this->armada_price = '';
+    }
+
+    public function resetFieldAll(){
+        $this->to = '';
+        $this->diskon = '0';
+        $this->qty = '';
+        $this->armada_id = '';
+        $this->armada_price = '';
+        $this->dibayar = '';
+        $this->tgl_berangkat = '';
+        $this->jam_berangkat = '';
+        $this->penyewa = '';
+        $this->alamat_penyewa = '';
+        $this->no_penyewa = '';
+    }
+
+    public function submitHandle(){
+        $userid = Auth()->id();
+        // $order = TransactionModel::whereRaw('id = (select max(`id`) from transactions)')->get();
+        // foreach ($order as $od) {
+        //     $lastid = $od->id;
+        // }
+
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'armada_transactions'");
+        $lastid = $statement[0]->Auto_increment;
+        $this->validate([
+            'penyewa' => 'required',
+            'alamat_penyewa' => 'required',
+            'no_penyewa' => 'required|numeric',
+            'sub_total' => 'required',
+            'diskon' => 'nullable|numeric',
+            'total' => 'required|numeric',
+            'status' => 'required',
+            'dibayar' => 'required|numeric',
+            'tgl_brkt' => 'required',
+            'tgl_kembali' => 'required',
+        ]);
+
+
+        $dateNow = Carbon::now();
+        $date   = $dateNow->format('YmdH');
+        $codeyear = $dateNow->format('Y');
+        $codemonthday= $dateNow->format('md');
+        //Generate Invoice
+        $invoice = "INV/KMJ/ARM/00".$lastid."/".$codemonthday."/".$codeyear;
+        $namaBarcode  = "INV-KMJ-ARM-00".$lastid."-".$codemonthday."-".$codeyear.".svg";
+        \QrCode::size(300)
+            ->format('svg')
+            ->generate($invoice, public_path('images/trarmada/'.$namaBarcode));
+       
+        try {
+            $allcart = \Cart::session('armadacart')->getContent();
+            
+            $filterCart = $allcart->map(function($item){
+                return[
+                    'id'            => substr($item->id, 4,5),
+                    'name'          => $item->name,
+                    'quantity'      => $item->quantity,
+                    'price'         => $item->price,
+                ];
+            });
+            //Action Save
+            
+            if (\Cart::isEmpty()) {
+                session()->flash('danger','Data Keranjang Tidak Boleh Kosong');
+            }else{
+                $transaction = ArmadaTR::create([
+                    'invoice' => $invoice,
+                    'qr_code' => $namaBarcode,
+                    'penyewa' => $this->penyewa,
+                    'alamat_penyewa' => $this->alamat_penyewa,
+                    'no_penyewa' => $this->no_penyewa,
+                    'tgl_berangkat' => $this->tgl_brkt,
+                    'tgl_kembali' => $this->tgl_kembali,
+                    'sub_total' => $this->sub_total,
+                    'diskon' => $this->diskon,
+                    'total' => $this->total,
+                    'total_bayar' => $this->dibayar,
+                    'status' => $this->status,
+                    'user_id' => Auth()->id(),
+                ]);
+                
+                foreach ($filterCart as $fc ) {
+                    ArmadaDT::create([
+                        'armada_transaction_id' => $transaction->id,
+                        'armada_id'       => $fc['id'],
+                        'qty'             => $fc['quantity'],
+                        'harga'           => $fc['price'],
+                        'keterangan'      => null,
+                    ]);
+                }
+    
+                \Cart::session('armadacart')->clear();
+                $this->resetFieldAll();
+                session()->flash('success','Transaction Success');
+                DB::commit();
+                
+            }
+    
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return session()->flash('error',$th);
+        }
+
     }
 }
