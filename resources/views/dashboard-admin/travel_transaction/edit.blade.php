@@ -50,7 +50,7 @@
                     @if ($transaction->status == "debit")
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
                     @endif
-                    <a href="{{route('transaction.index')}}" class="btn btn-info  mb-2"> Back</a>
+                    <a href="{{route('transactiontravel.index')}}" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>
           </div>

@@ -51,7 +51,7 @@ class ArmadaTrController extends Controller
     public function show($id)
     {
         $transaction    = ArmadaTR::findOrFail($id);
-        $details        = ArmadaDT::where('id',$transaction['id']);
+        $details        = ArmadaDT::where('armada_transaction_id',$transaction['id'])->get();
         return view('dashboard-admin.armada_transaction.show',compact('transaction','details'));
     }
 
@@ -63,7 +63,9 @@ class ArmadaTrController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaction    = ArmadaTR::findOrFail($id);
+        return view('dashboard-admin.armada_transaction.edit',compact('transaction'));
+
     }
 
     /**
@@ -75,7 +77,18 @@ class ArmadaTrController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status'        => 'required',
+            'total_bayar' => 'required|regex:/^[0-9]+$/|min:3|max:15',
+        ]);
+
+
+        ArmadaTR::where('id',$id)->update([
+            'status'   => $request->status,
+            'total_bayar'  => $request->total_bayar,
+
+        ]);
+        return redirect()->route('transactionarmada.index')->with('success','Transaction Was Updated');
     }
 
     /**
@@ -86,12 +99,37 @@ class ArmadaTrController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction = ArmadaTr::findorFail($id);
+        $transaction->delete();
+        return redirect()->route('transactionarmada.index')->with('success','transaction Was Deleted');
     }
 
     public function showTrash()
     {
-        $transactions = TravelTr::onlyTrashed()->get();
-        return view('dashboard-admin.travel_transaction.trash',compact('transactions'));
+        $transactions = ArmadaTr::onlyTrashed()->get();
+        return view('dashboard-admin.armada_transaction.trash',compact('transactions'));
+    }
+
+    public function restore($id)
+    {
+        $transaction = ArmadaTr::withTrashed()->where('id',$id)->first();
+        $transaction->restore();
+        return redirect()->back()->with('success','Transaction Was Restored !!');
+        
+    }
+
+    public function kill($id)
+    {
+        $transaction = ArmadaTr::withTrashed()->where('id',$id)->first();
+        $transaction->forceDelete();
+        return redirect()->back()->with('success','Transaction Was Deleted');
+    
+    }
+
+    public function printarmadaTruck($id){
+        $transaction    = ArmadaTR::findOrFail($id);
+        $details        = ArmadaDT::where('armada_transaction_id',$transaction['id'])->get();
+        return view('blog.layout.invoicearmada',compact('transaction','details'));
+
     }
 }

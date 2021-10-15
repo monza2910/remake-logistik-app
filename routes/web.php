@@ -94,14 +94,20 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
     Route::delete('/transaction/kill/{id}',[TransactionTravelController::class, 'kill'])->name('transactiontravel.kill');
     Route::get('/transaction/restore/{id}',[TransactionTravelController::class, 'restore'])->name('transactiontravel.restore');
     Route::get('/transactiontravel/cart', Travel::class )->name('travelcart');
-    Route::get('/transactiontravel/trash',[TransactionTravelController::class, 'showTrash'])->name('transactiontravel.trash');
     Route::resource('transactiontravel', TransactionTravelController::class);
-
-    Route::get('/transactionarmada/cart', Armada::class )->name('armadacart');
+    
+    Route::get('/transactionarmada/cetakTruck/{id}',[ArmadaTrController::class, 'printarmadaTruck'])->name('printarmada');
     Route::get('/transactionarmadabus/cart', Armadabus::class )->name('armadabuscart');
     Route::get('/transactionarmada/trash',[ArmadaTrController::class, 'showTrash'])->name('transactionarmada.trash');
-
+    Route::delete('/transactionarmada/kill/{id}',[ArmadaTrController::class, 'kill'])->name('transactionarmada.kill');
+    Route::get('/transactionarmada/restore/{id}',[ArmadaTrController::class, 'restore'])->name('transactionarmada.restore');
+    Route::get('/transactionarmada/cart', Armada::class )->name('armadacart');
     Route::resource('transactionarmada', ArmadaTrController::class);
+    
+    
+    Route::get('/transactionarmadabus/cart', Armadabus::class )->name('armadabuscart');
+
+
 
 
 });

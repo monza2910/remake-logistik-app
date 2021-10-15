@@ -32,7 +32,7 @@ class BlogController extends Controller
     {
         if ($request->resi != null) {
             $value = $request->resi;
-            $transactions = Transaction::where('tracking_number', $value)->firstorFail();
+            $transactions = Transaction::where('tracking_number', $value)->firstorfail();
     
             
             $trid    = $transactions['id'];

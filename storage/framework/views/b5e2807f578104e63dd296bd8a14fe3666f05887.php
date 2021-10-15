@@ -55,7 +55,7 @@ unset($__errorArgs, $__bag); ?>
                     <?php if($transaction->status == "debit"): ?>
                     <button class="btn btn-primary mb-2" type="submit">Submit</button>
                     <?php endif; ?>
-                    <a href="<?php echo e(route('transaction.index')); ?>" class="btn btn-info  mb-2"> Back</a>
+                    <a href="<?php echo e(route('transactiontravel.index')); ?>" class="btn btn-info  mb-2"> Back</a>
                 </div>
             </form>
           </div>

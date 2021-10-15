@@ -26,6 +26,10 @@ class Armada extends Model
     {
     	return $this->hasMany(ArmadaTransactions::class);
     }
+    public function armadadetail()
+    {
+    	return $this->hasMany(ArmadaDetail::class);
+    }
 
     public function facilitys()
     {

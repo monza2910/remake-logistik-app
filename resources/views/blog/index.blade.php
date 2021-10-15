@@ -231,8 +231,10 @@
 
 
           @else
-
-           
+          
+          <div id="resultTab" class="result">
+            KOSONG
+          </div>
           @endif
            <!-- Hasil Dari Lacak Lokasi Barang -->
          
@@ -245,6 +247,14 @@
           <div class="grid col col-2 grid-res">
             @foreach ($locations as $location)
             <div class="card card-white card-text-small">
+              <div class="mapouter">
+                <div class="gmap_canvas">
+                   <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=JNt%20kepanjen&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br>
+                   <style>.mapouter{position:relative;text-align:right;height:300px;width:300px;}</style>
+                   <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+                   <style>.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:300px;}</style>
+                </div>
+             </div>
               <span class="card-title">{{$location->city}}</span>
             </div>
             @endforeach

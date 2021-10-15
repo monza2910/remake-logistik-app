@@ -16,7 +16,7 @@
             {{-- <div class="alert alert-info">
               <b>Note!</b> Not all browsers support HTML5 type input.
             </div> --}}
-            <form action="{{route('transactiontravel.update',$transaction->id)}}" method="post">
+            <form action="{{route('transactionarmada.update',$transaction->id)}}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
@@ -27,7 +27,7 @@
                     <label>Dibayar</label>
                     <input type="text" name="total_bayar" @if ($transaction->status != "debit")
                     readonly 
-                    @endif value="{{ $transaction->dibayar}}" class="form-control">
+                    @endif value="{{ $transaction->total_bayar}}" class="form-control">
                     @error('total_bayar')
                     <small class="text-danger">{{$message}}</small>
                     @enderror

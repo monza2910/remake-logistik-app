@@ -15,7 +15,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{route('armadacart')}}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add Transaction</a>
+            <a href="{{route('armadacart')}}" class="btn btn-icon icon-left btn-primary mx-2 my-1"><i class="fas fa-plus"></i> Add Transaction Truck</a>
+            <a href="{{route('armadabuscart')}}" class="btn btn-icon icon-left btn-primary mx-2 my-1"><i class="fas fa-plus"></i> Add Transaction Bus</a>
             
         </div>
         @if ($message = Session::get('success'))
@@ -66,7 +67,7 @@
                                         
                                     <a href="{{route('transactionarmada.edit',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> </a>
                                     @endif
-                                    {{-- <a href="{{route('printarmada',$tr->id)}}" class="btn btn-danger btn-icon icon-left"><i class="fas fa-file-pdf"></i></a>  --}}
+                                    <a href="{{route('printarmada',$tr->id)}}" class="btn btn-danger btn-icon icon-left"><i class="fas fa-file-pdf"></i></a> 
                                     <button type="submit" class="btn btn-icon icon-left btn-primary" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>

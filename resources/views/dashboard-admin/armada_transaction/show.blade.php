@@ -49,8 +49,10 @@
                               <address>
                                 <strong>Tanggal Order:</strong><br>
                                 {{$transaction->created_at}}<br><br>
-                                <strong>Waktu Keberangkatan:</strong><br>
-                                {{$transaction->tgl_berangkat.' '.$transaction->jam_berangkat}}<br><br>
+                                <strong>Tanggal Keberangkatan:</strong><br>
+                                {{$transaction->tgl_berangkat}}<br><br>
+                                <strong>Tanggal Kembali:</strong><br>
+                                {{$transaction->tgl_kembali}}<br><br>
                               </address>
                             </div>
                           </div>
@@ -59,7 +61,7 @@
                               <strong>Invoice:</strong><br>
                               {{$transaction->invoice}}
                               <br>
-                              <img src="/images/trarmada/{{$transaction->qrcode}}" class="image-fluid" style="height: 100px; width:100;">
+                              <img src="/images/trarmada/{{$transaction->qr_code}}" class="image-fluid" style="height: 100px; width:100;">
                               <br>
                               <strong>Status : {{$transaction->status}}</strong>
                               
@@ -67,10 +69,10 @@
                           </div>
                           <div class="col-md-4 text-md-right">
                             <address>
-                              <strong>Shipped To:</strong><br><br>
-                              {{$transaction->nama_penumpang}}<br>
-                              {{$transaction->no_penumpang}}<br>
-                              {{$transaction->alamat_penumpang}}
+                              <strong>Penyewa:</strong><br><br>
+                              {{$transaction->penyewa}}<br>
+                              {{$transaction->no_penyewa}}<br>
+                              {{$transaction->alamat_penyewa}}
                             </address>
                           </div>
                         </div>
@@ -96,56 +98,71 @@
                           <table class="table table-striped table-hover table-md">
                             
                             <tr>
-                                <th>Name</th>
-                                <th>Variant</th>
-                                <th>Origin</th>
-                                <th>Destination</th>
-                                <th>Price</th>
+                                <th>#</th>
+                                <th>Armada</th>
+                                <th>Dari</th>
+                                <th>Ke</th>
+                                <th>Quantitas</th>
+                                <th>Harga</th>
                             </tr>
+                            @foreach ($details as $index => $detail)
+                                
                             <tr>
                                 <td>
-                                  @if ($transaction->armada)
-                                  {{$transaction->armada->name}}
-                                  @else
-                                      
-                                  @endif</td>
+                                  {{$index+1}}
+                                </td>
                                 <td>
-                                  @if ($transaction->armada)
-                                  {{$transaction->armada->variant}}
+                                  @if ($detail->armada)
+                                  {{$detail->armada->name}}
                                   @else
                                       
                                   @endif
                                 </td>
                                 <td>
-                                  @if ($transaction->armada->origin)
-                                  {{$transaction->armada->origin->province.', '.$transaction->armada->origin->city.', '.$transaction->armada->origin->subdistrict}}
+                                  @if ($detail->armada->origin)
+                                  {{$detail->armada->origin->province}} ,
+                                  {{$detail->armada->origin->city}} , 
+                                  {{$detail->armada->origin->subdistrict}}  
+                                  @else
+                                      
+                                  @endif
+                                <td>
+                                  @if ($detail->armada->destination)
+                                  {{$detail->armada->destination->province}},
+                                  {{$detail->armada->destination->city}} , 
+                                  {{$detail->armada->destination->subdistrict}}
                                   @else
                                       
                                   @endif
                                 </td>
                                 <td>
-                                  @if ($transaction->armada->destination)
-                                  {{$transaction->armada->destination->province.', '.$transaction->armada->destination->city.', '.$transaction->armada->destination->subdistrict}}
-                                  @else
-                                    
-                                  @endif
+                                  {{$detail->qty}}
                                 </td>
-                                <td>Rp. {{number_format($transaction->subtotal)}}</td>
+                                <td>
+                                  {{$detail->harga}}
+                                </td>
+                                
                             </tr>
+                            @endforeach
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td >Subtotal</td>
-                                <td>Rp. {{ number_format($transaction->subtotal)}}</td>
+                                <td>Rp. {{ number_format($transaction->sub_total)}}</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td>Diskon</td>
                                 <td>Rp. {{number_format($transaction->diskon)}}</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td >Total</td>
                                 <td>Rp. {{number_format($transaction->total)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td >Dibayar</td>
+                                <td>Rp. {{number_format($transaction->total_bayar)}}</td>
                             </tr>
                               
                           </table>

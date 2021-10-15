@@ -49,8 +49,10 @@
                               <address>
                                 <strong>Tanggal Order:</strong><br>
                                 <?php echo e($transaction->created_at); ?><br><br>
-                                <strong>Waktu Keberangkatan:</strong><br>
-                                <?php echo e($transaction->tgl_berangkat.' '.$transaction->jam_berangkat); ?><br><br>
+                                <strong>Tanggal Keberangkatan:</strong><br>
+                                <?php echo e($transaction->tgl_berangkat); ?><br><br>
+                                <strong>Tanggal Kembali:</strong><br>
+                                <?php echo e($transaction->tgl_kembali); ?><br><br>
                               </address>
                             </div>
                           </div>
@@ -60,7 +62,7 @@
                               <?php echo e($transaction->invoice); ?>
 
                               <br>
-                              <img src="/images/trarmada/<?php echo e($transaction->qrcode); ?>" class="image-fluid" style="height: 100px; width:100;">
+                              <img src="/images/trarmada/<?php echo e($transaction->qr_code); ?>" class="image-fluid" style="height: 100px; width:100;">
                               <br>
                               <strong>Status : <?php echo e($transaction->status); ?></strong>
                               
@@ -68,10 +70,10 @@
                           </div>
                           <div class="col-md-4 text-md-right">
                             <address>
-                              <strong>Shipped To:</strong><br><br>
-                              <?php echo e($transaction->nama_penumpang); ?><br>
-                              <?php echo e($transaction->no_penumpang); ?><br>
-                              <?php echo e($transaction->alamat_penumpang); ?>
+                              <strong>Penyewa:</strong><br><br>
+                              <?php echo e($transaction->penyewa); ?><br>
+                              <?php echo e($transaction->no_penyewa); ?><br>
+                              <?php echo e($transaction->alamat_penyewa); ?>
 
                             </address>
                           </div>
@@ -96,60 +98,76 @@
                           <table class="table table-striped table-hover table-md">
                             
                             <tr>
-                                <th>Name</th>
-                                <th>Variant</th>
-                                <th>Origin</th>
-                                <th>Destination</th>
-                                <th>Price</th>
+                                <th>#</th>
+                                <th>Armada</th>
+                                <th>Dari</th>
+                                <th>Ke</th>
+                                <th>Quantitas</th>
+                                <th>Harga</th>
                             </tr>
+                            <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                
                             <tr>
                                 <td>
-                                  <?php if($transaction->armada): ?>
-                                  <?php echo e($transaction->armada->name); ?>
+                                  <?php echo e($index+1); ?>
 
-                                  <?php else: ?>
-                                      
-                                  <?php endif; ?></td>
+                                </td>
                                 <td>
-                                  <?php if($transaction->armada): ?>
-                                  <?php echo e($transaction->armada->variant); ?>
+                                  <?php if($detail->armada): ?>
+                                  <?php echo e($detail->armada->name); ?>
 
                                   <?php else: ?>
                                       
                                   <?php endif; ?>
                                 </td>
                                 <td>
-                                  <?php if($transaction->armada->origin): ?>
-                                  <?php echo e($transaction->armada->origin->province.', '.$transaction->armada->origin->city.', '.$transaction->armada->origin->subdistrict); ?>
+                                  <?php if($detail->armada->origin): ?>
+                                  <?php echo e($detail->armada->origin->province); ?> ,
+                                  <?php echo e($detail->armada->origin->city); ?> , 
+                                  <?php echo e($detail->armada->origin->subdistrict); ?>  
+                                  <?php else: ?>
+                                      
+                                  <?php endif; ?>
+                                <td>
+                                  <?php if($detail->armada->destination): ?>
+                                  <?php echo e($detail->armada->destination->province); ?>,
+                                  <?php echo e($detail->armada->destination->city); ?> , 
+                                  <?php echo e($detail->armada->destination->subdistrict); ?>
 
                                   <?php else: ?>
                                       
                                   <?php endif; ?>
                                 </td>
                                 <td>
-                                  <?php if($transaction->armada->destination): ?>
-                                  <?php echo e($transaction->armada->destination->province.', '.$transaction->armada->destination->city.', '.$transaction->armada->destination->subdistrict); ?>
+                                  <?php echo e($detail->qty); ?>
 
-                                  <?php else: ?>
-                                    
-                                  <?php endif; ?>
                                 </td>
-                                <td>Rp. <?php echo e(number_format($transaction->subtotal)); ?></td>
+                                <td>
+                                  <?php echo e($detail->harga); ?>
+
+                                </td>
+                                
                             </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td >Subtotal</td>
-                                <td>Rp. <?php echo e(number_format($transaction->subtotal)); ?></td>
+                                <td>Rp. <?php echo e(number_format($transaction->sub_total)); ?></td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td>Diskon</td>
                                 <td>Rp. <?php echo e(number_format($transaction->diskon)); ?></td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td >Total</td>
                                 <td>Rp. <?php echo e(number_format($transaction->total)); ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td >Dibayar</td>
+                                <td>Rp. <?php echo e(number_format($transaction->total_bayar)); ?></td>
                             </tr>
                               
                           </table>

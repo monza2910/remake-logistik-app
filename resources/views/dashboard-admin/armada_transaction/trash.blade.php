@@ -31,10 +31,11 @@
                             <th>No</th>
                             <th>Barcode</th>
                             <th>Invoice</th>
-                            <th>Nama Penumpang </th>
-                            <th>No Penumpang</th>
-                            <th>Titik Penjemputan</th>
-                            <th>Tanggal Pemberangkatan</th>
+                            <th>Nama Penyewa </th>
+                            <th>No Penyewa</th>
+                            <th>Alamat</th>
+                            <th>Tgl Berangkat</th>
+                            <th>Tgl Kembali</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -43,19 +44,20 @@
                         @foreach ($transactions as $index => $tr)    
                         <tr>
                             <td>{{$index +1}}</td> 
-                            <td><img src="/images/trtravel/{{$tr->qrcode}}" alt="" width="100px" height="100px"></td>
+                            <td><img src="/images/trarmada/{{$tr->qr_code}}" alt="" width="100px" height="100px"></td>
                             <td>{{$tr->invoice}}</td>
-                            <td>{{$tr->nama_penumpang}}</td>
-                            <td>{{$tr->no_penumpang}}</td>
-                            <td>{{$tr->alamat_penjemputan}}</td>
-                            <td>{{$tr->tgl_berangkat.' '.$tr->jam_berangkat}}</td>
+                            <td>{{$tr->penyewa}}</td>
+                            <td>{{$tr->no_penyewa}}</td>
+                            <td>{{$tr->alamat_penyewa}}</td>
+                            <td>{{$tr->tgl_berangkat}}</td>
+                            <td>{{$tr->tgl_kembali}}</td>
                             <td>{{$tr->status}}</td>
                             <td >
-                                <form action="{{ route('transactiontravel.kill',$tr->id) }}" method="POST">
+                                <form action="{{ route('transactionarmada.kill',$tr->id) }}" method="POST">
                                     
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{route('transactiontravel.restore',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> Restore</a>
+                                    <a href="{{route('transactionarmada.restore',$tr->id)}}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-pencil-alt"></i> Restore</a>
                                     <button type="submit" class="btn btn-icon icon-left btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
                                 </form>
                             </td>
