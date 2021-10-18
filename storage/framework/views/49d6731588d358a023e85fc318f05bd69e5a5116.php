@@ -30,6 +30,20 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
+                <div class="form-group">
+                    <label>Keyword GMaps</label>
+                    <input type="text" name="keyword" placeholder="" value="<?php echo e(old('keyword')); ?>" class="form-control">
+                    <?php $__errorArgs = ['keyword'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
                 <div class="form-group select-box">
                     <label >Origin </label>
                     <select class="form-control selectpicker " data-live-search="true" name="origin_id" >

@@ -60,7 +60,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </td>
                             <td>
-                                <?php if($armada->origin->city != null ): ?>
+                                <?php if($armada->origin ): ?>
                                 <?php echo e($armada->origin->city); ?>
 
                                 
@@ -70,7 +70,7 @@
                             </td>
                             
                             <td>
-                                <?php if($armada->destination->city != null ): ?>
+                                <?php if($armada->destination): ?>
                                 <?php echo e($armada->destination->city); ?>
 
                                 

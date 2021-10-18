@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Outlets;
 use App\Models\Origins;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class OutletsController extends Controller
 {
@@ -41,12 +43,16 @@ class OutletsController extends Controller
             'origin_id'  => 'required|integer|max:100',
             'address'  => 'required|max:255',
             'name'  => 'required|max:100',
+            'keyword'  => 'required|max:100',
         ]);
+
+        $key = Str::slug($request->keyword);
 
         Outlets::create([
             'origin_id'  => $request->origin_id,
             'address'  => $request->address,
             'name'  => $request->name,
+            'keyword'  => $key,
         ]);
         return redirect()->route('outlet.index')->with('success','Outlet Service Was Added');
     }
@@ -97,12 +103,15 @@ class OutletsController extends Controller
             'origin_id'  => 'required|integer|max:100',
             'address'  => 'required|max:255',
             'name'  => 'required|max:100',
+            'keyword' => 'required|max:100'
         ]);
 
+        $key = Str::slug($request->keyword);
         Outlets::where('id',$id)->update([
             'origin_id'  => $request->origin_id,
             'address'  => $request->address,
             'name'  => $request->name,
+            'keyword'  => $key,
         ]);
         return redirect()->route('outlet.index')->with('success','Outlet Service Was Updated');
     }

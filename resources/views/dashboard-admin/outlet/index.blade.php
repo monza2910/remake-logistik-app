@@ -34,6 +34,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Keyword</th>
                             <th>Address</th>
                             <th>Addres Detail</th>
                             <th>Action</th>
@@ -44,6 +45,7 @@
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>{{$outlet->name}}</td>
+                            <td>{{$outlet->keyword}}</td>
                             <td>
                                 @if ($outlet->origin)
                                 {{$outlet->origin->province.', '.$outlet->origin->city.', '.$outlet->origin->subdistrict}}
@@ -51,6 +53,7 @@
                                     
                                 @endif
                             </td>
+                            
                             <td>{{$outlet->address}}</td>
                             <td >
                                 <form action="{{ route('outlet.destroy',$outlet->id) }}" method="POST">

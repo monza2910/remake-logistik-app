@@ -12,6 +12,7 @@ use App\Models\Destinations;
 use App\Models\Shippingrates;
 use App\Models\Contactus as Contacts;
 use App\Models\Ourteam ;
+use App\Models\Outlets ;
 use App\Models\Transaction ;
 use App\Models\Tracking ;
 use App\Models\Category ;
@@ -47,7 +48,7 @@ class BlogController extends Controller
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
-            $locations  = Origins::distinct()->get(['city']);
+            $locations  = Outlets::all();
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
@@ -65,8 +66,8 @@ class BlogController extends Controller
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
-            $teams  = Ourteam::orderBy('id','DESC')->get();
-            $locations  = Origins::distinct()->get(['city']);
+            $teams  = Ourteam::orderBy('id','DESC')->get();            
+            $locations  = Outlets::all();
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
@@ -80,7 +81,7 @@ class BlogController extends Controller
             $partners = Partners::orderBy('id','DESC')->get();
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
-            $locations  = Origins::distinct()->get(['city']);
+            $locations  = Outlets::all();
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();

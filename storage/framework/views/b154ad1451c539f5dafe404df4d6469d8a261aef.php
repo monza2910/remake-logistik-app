@@ -34,6 +34,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Keyword</th>
                             <th>Address</th>
                             <th>Addres Detail</th>
                             <th>Action</th>
@@ -44,6 +45,7 @@
                         <tr>
                             <td><?php echo e($index + 1); ?></td>
                             <td><?php echo e($outlet->name); ?></td>
+                            <td><?php echo e($outlet->keyword); ?></td>
                             <td>
                                 <?php if($outlet->origin): ?>
                                 <?php echo e($outlet->origin->province.', '.$outlet->origin->city.', '.$outlet->origin->subdistrict); ?>
@@ -52,6 +54,7 @@
                                     
                                 <?php endif; ?>
                             </td>
+                            
                             <td><?php echo e($outlet->address); ?></td>
                             <td >
                                 <form action="<?php echo e(route('outlet.destroy',$outlet->id)); ?>" method="POST">

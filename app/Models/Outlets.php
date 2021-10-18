@@ -9,7 +9,7 @@ class Outlets extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['origin_id','address','name','created_at','updated_at'];
+    protected $fillable = ['origin_id','address','name','keyword','created_at','updated_at'];
 
     public function origin()
     {

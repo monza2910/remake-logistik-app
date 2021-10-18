@@ -268,6 +268,13 @@
                             
                             <div class="form-group">
                                 <label for="">Status</label>
+                                <input type="text" wire:model="lama_sewa" class="form-control">
+                                @error('status')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="">Status</label>
                                 <select wire:model="status" class="form-control">
                                     <option value="">Pilih</option>
                                     <option value="paid">Full Paid</option>

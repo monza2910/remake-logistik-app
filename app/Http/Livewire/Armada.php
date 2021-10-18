@@ -21,7 +21,7 @@ class Armada extends Component
     public $diskon = '0';
     public $armada_id, $armada_name, $armada_price , $qty;
     public $from, $to;
-    public $sub_total, $total, $dibayar, $status, $tgl_brkt,$tgl_kembali; 
+    public $sub_total, $total, $dibayar, $status, $tgl_brkt,$tgl_kembali,$lama_sewa; 
     public $penyewa, $alamat_penyewa, $no_penyewa;  
 
     public function render()
@@ -75,6 +75,14 @@ class Armada extends Component
             
             $cartData = collect($cart);
         }
+
+        // if ($this->tgl_brkt != null && $this->tgl_kembali) {
+        //     $brkt = strtotime($this->tgl_brkt);
+        //     $kembali = strtotime($this->tgl_kembali);
+
+        //     $total = $kembali - $brkt;
+        //     $this->lama_sewa = $total /(60*60*24);
+        // }
         
         $sub_total = \Cart::session('armadacart')->getSubTotal();
         

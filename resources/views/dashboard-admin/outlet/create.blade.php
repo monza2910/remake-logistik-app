@@ -25,6 +25,13 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label>Keyword GMaps</label>
+                    <input type="text" name="keyword" placeholder="" value="{{old('keyword')}}" class="form-control">
+                    @error('keyword')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
                 <div class="form-group select-box">
                     <label >Origin </label>
                     <select class="form-control selectpicker " data-live-search="true" name="origin_id" >

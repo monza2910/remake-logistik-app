@@ -232,9 +232,6 @@
 
           @else
           
-          <div id="resultTab" class="result">
-            KOSONG
-          </div>
           @endif
            <!-- Hasil Dari Lacak Lokasi Barang -->
          
@@ -246,6 +243,25 @@
         <div id="Lokasi" class="tabcontent" style="display: none">
           <div class="grid col col-2 grid-res">
             @foreach ($locations as $location)
+              <div class="card card-news">
+                <!-- THUMBNAIL ARTIKEL -->
+                <div class="mapouter">
+                  <div class="gmap_canvas">
+                    <iframe width="150" height="150" id="gmap_canvas" src="https://maps.google.com/maps?q={{$location->keyword}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://soap2day-to.com">365 days soap2day</a><br>
+                    <style>.mapouter{position:relative;text-align:right;height:150px;width:150px;}</style>
+                    <a href="https://www.embedgooglemap.net">google map on my website</a>
+                    <style>.gmap_canvas {overflow:hidden;background:none!important;height:150px;width:150px;}</style>
+                  </div>
+                </div>
+                <div class="news-content">
+                    <!-- JUDUL ARTIKEL -->
+                    <span class="card-title"></span>
+                    <!-- RINGKASAN/ISI ARTIKEL -->
+                    <a href="">{{$location->name}}</a>
+                </div>
+              </div>  
+            @endforeach
+            {{-- @foreach ($locations as $location)
             <div class="card card-white card-text-small">
               <div class="mapouter">
                 <div class="gmap_canvas">
@@ -257,7 +273,7 @@
              </div>
               <span class="card-title">{{$location->city}}</span>
             </div>
-            @endforeach
+            @endforeach --}}
           </div>
         </div>
       </div>

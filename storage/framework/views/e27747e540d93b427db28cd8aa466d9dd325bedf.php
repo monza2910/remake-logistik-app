@@ -233,9 +233,6 @@
 
           <?php else: ?>
           
-          <div id="resultTab" class="result">
-            KOSONG
-          </div>
           <?php endif; ?>
            <!-- Hasil Dari Lacak Lokasi Barang -->
          
@@ -247,18 +244,25 @@
         <div id="Lokasi" class="tabcontent" style="display: none">
           <div class="grid col col-2 grid-res">
             <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="card card-white card-text-small">
-              <div class="mapouter">
-                <div class="gmap_canvas">
-                   <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=JNt%20kepanjen&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br>
-                   <style>.mapouter{position:relative;text-align:right;height:300px;width:300px;}</style>
-                   <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
-                   <style>.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:300px;}</style>
+              <div class="card card-news">
+                <!-- THUMBNAIL ARTIKEL -->
+                <div class="mapouter">
+                  <div class="gmap_canvas">
+                    <iframe width="150" height="150" id="gmap_canvas" src="https://maps.google.com/maps?q=<?php echo e($location->keyword); ?>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://soap2day-to.com">365 days soap2day</a><br>
+                    <style>.mapouter{position:relative;text-align:right;height:150px;width:150px;}</style>
+                    <a href="https://www.embedgooglemap.net">google map on my website</a>
+                    <style>.gmap_canvas {overflow:hidden;background:none!important;height:150px;width:150px;}</style>
+                  </div>
                 </div>
-             </div>
-              <span class="card-title"><?php echo e($location->city); ?></span>
-            </div>
+                <div class="news-content">
+                    <!-- JUDUL ARTIKEL -->
+                    <span class="card-title"></span>
+                    <!-- RINGKASAN/ISI ARTIKEL -->
+                    <a href=""><?php echo e($location->name); ?></a>
+                </div>
+              </div>  
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            
           </div>
         </div>
       </div>

@@ -112,6 +112,15 @@
           <span class="larger" id="detail"><?php echo e($transaction->status); ?></span>
         </div>
         <div class="mg-left-auto">
+          <?php if($transaction->lama_sewa): ?>
+          <div class="wrapper wrapper-inline">
+            <span id="title">LAMA SEWA</span>
+            <span id="detail"><?php echo e($transaction->lama_sewa); ?> Hari</span>
+          </div>
+          <?php else: ?>
+              
+          <?php endif; ?>
+          
           <div class="wrapper wrapper-inline">
             <span id="title">SUB TOTAL HARGA</span>
             <span id="detail">Rp. <?php echo e(number_format($transaction->sub_total)); ?></span>
