@@ -76,9 +76,9 @@
             <a href="<?php echo e(route('blog.openarticle',$article->slug)); ?>">BACA SELENGKAPNYA</a>
         </div>
         </div>  
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <?php echo e($articles->links('blog.vendor.paginator')); ?>
 
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             
         <?php endif; ?>
         

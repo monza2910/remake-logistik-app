@@ -76,8 +76,8 @@
             <a href="{{route('blog.openarticle',$article->slug)}}">BACA SELENGKAPNYA</a>
         </div>
         </div>  
-        {{$articles->links('blog.vendor.paginator')}}
         @endforeach
+        {{$articles->links('blog.vendor.paginator')}}
             
         @endif
         

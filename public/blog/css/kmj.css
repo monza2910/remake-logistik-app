@@ -1711,7 +1711,33 @@ span.indexing-full {
   }
 }
 
+#Lokasi iframe {
+  width: 150px;
+  height: 150px !important;
+  margin-right: 15px;
+  margin-bottom: 0;
+  border-radius: 5px;
+}
+#Lokasi .card {
+  padding: 5px;
+  flex-direction: row;
+  align-items: center;
+}
+#Lokasi .card span {
+  font-size: 1rem;
+}
+a[href="https://www.symptoma.it/"]
+{
+  width: 0px !important;
+  overflow: hidden;
+  opacity: 0;
+}
 /* RESPONSIVE */
+@media (max-width: 1200px) {
+  #Lokasi .grid {
+    grid-template-columns: auto;
+  }
+}
 @media (min-width: 1500px) {
   .section {
     padding-left: 15% !important;

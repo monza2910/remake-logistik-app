@@ -48,7 +48,7 @@ class BlogController extends Controller
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
-            $locations  = Outlets::all();
+            $locations  = Outlets::paginate(10);
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
@@ -67,7 +67,7 @@ class BlogController extends Controller
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();            
-            $locations  = Outlets::all();
+            $locations  = Outlets::paginate(10);
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
 
 
@@ -81,7 +81,7 @@ class BlogController extends Controller
             $partners = Partners::orderBy('id','DESC')->get();
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->limit(3)->get();
             $origins  = Origins::distinct()->get(['id','city','province','subdistrict']);
-            $locations  = Outlets::all();
+            $locations  = Outlets::paginate(10);
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
