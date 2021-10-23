@@ -30,6 +30,7 @@ class Transaction extends Model
         'total',
         'total_bayar',
         'status',
+        'satuan',
         'user_id',
     ];
 

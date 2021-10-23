@@ -58,6 +58,43 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label> above 1-5 ton </label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{old('one_ton')}}" name="one_ton" id="inlineFormInputGroup" >
+                    </div>
+                    @error('one_ton')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Above 5-9 ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{old('five_ton')}}" name="five_ton" id="inlineFormInputGroup">
+                    </div>
+                    @error('five_ton')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Above 10 Ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{old('ten_ton')}}" name="ten_ton" id="inlineFormInputGroup">
+                    </div>
+                    @error('ten_ton')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label>Estimated arrived (Days)</label>
                     <input type="text" name="est_arrived" placeholder="" value="{{old('est_arrived')}}" class="form-control">

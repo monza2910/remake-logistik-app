@@ -42,9 +42,17 @@
           </div>
           <div class="wrapper">
             <span id="title">ALAMAT</span>
-            <span class="smaller" id="detail"
-              ><?php echo e($transaction->alamat_penerima); ?></span
-            >
+            <span class="smaller" id="detail">
+              <?php echo e($transaction->alamat_penerima); ?>
+
+            </span>
+          </div>
+          <div class="wrapper">
+            <span id="title">Satuan Berat</span>
+            <span class="smaller" id="detail">
+              <?php echo e($transaction->satuan); ?>
+
+            </span>
           </div>
         </div>
       </div>
@@ -54,7 +62,7 @@
         <tr>
             <th>#</th>
             <th>NAMA BARANG</th>
-            <th>BERAT (kg)</th>
+            <th>BERAT (<?php echo e($transaction->satuan); ?>)</th>
         </tr>
         <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $pkg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
@@ -73,11 +81,11 @@
         </div>
         <div class="mg-left-auto">
           <div class="wrapper wrapper-inline">
-            <span id="title">TOTAL BERAT (kg)</span>
+            <span id="title">TOTAL BERAT (<?php echo e($transaction->satuan); ?>)</span>
             <span id="detail">Kg <?php echo e(number_format($transaction->berat_total)); ?></span>
           </div>
           <div class="wrapper wrapper-inline">
-            <span id="title">HARGA (kg)</span>
+            <span id="title">HARGA (<?php echo e($transaction->satuan); ?>)</span>
             <span id="detail">Rp. <?php echo e(number_format($transaction->harga_kg)); ?></span>
           </div>
           <div class="wrapper wrapper-inline">

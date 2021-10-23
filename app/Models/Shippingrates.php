@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shippingrates extends Model
 {
     use HasFactory;
-    protected $fillable = ['origin_id','destination_id','under_terms','above_terms','est_arrived','variantservice_id','created_at','updated_at'];
+    protected $fillable = ['origin_id','destination_id','under_terms','above_terms','est_arrived','variantservice_id','created_at','updated_at','one_ton','five_ton','ten_ton'];
 
     public function origin()
     {

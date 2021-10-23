@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">KMJ TRANS </a>
+        <a href="{{route('blog.index')}}">KMJ TRANS </a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">KMJ</a>
+        <a href="{{route('blog.index')}}">KMJ</a>
       </div>
       <ul class="sidebar-menu">
           

@@ -48,6 +48,9 @@ class ShippingratesController extends Controller
             'above_terms'  => 'required|integer',
             'est_arrived'  => 'required',
             'variant_id'  => 'required',
+            'one_ton'  => 'required|integer',
+            'five_ton'  => 'required|integer',
+            'ten_ton'  => 'required|integer',
         ]);
 
         Rates::create([
@@ -57,6 +60,9 @@ class ShippingratesController extends Controller
             'above_terms'  => $request->above_terms,
             'est_arrived'  => $request->est_arrived,
             'variantservice_id'  => $request->variant_id,
+            'one_ton'  => $request->one_ton,
+            'five_ton'  => $request->five_ton,
+            'ten_ton'  => $request->ten_ton,
         ]);
         return redirect()->route('rate.index')->with('success','Shipping Rate Was Added');
     }
@@ -113,6 +119,9 @@ class ShippingratesController extends Controller
             'destination_id'  => 'required|integer',
             'under_terms'  => 'required|integer',
             'above_terms'  => 'required|integer',
+            'one_ton'  => 'required|integer',
+            'five_ton'  => 'required|integer',
+            'ten_ton'  => 'required|integer',
             'est_arrived'  => 'required',
             'variant_id'  => 'required',
 
@@ -123,6 +132,9 @@ class ShippingratesController extends Controller
             'destination_id'  => $request->destination_id,
             'under_terms'  => $request->under_terms,
             'above_terms'  => $request->above_terms,
+            'one_ton'  => $request->one_ton,
+            'five_ton'  => $request->five_ton,
+            'ten_ton'  => $request->ten_ton,
             'est_arrived'  => $request->est_arrived,
             'variantservice_id'  => $request->variant_id,
         ]);

@@ -70,6 +70,64 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
+
+                <div class="form-group">
+                    <label> above 1-5 ton </label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e(old('one_ton')); ?>" name="one_ton" id="inlineFormInputGroup" >
+                    </div>
+                    <?php $__errorArgs = ['one_ton'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
+                    <label>Above 5-9 ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e(old('five_ton')); ?>" name="five_ton" id="inlineFormInputGroup">
+                    </div>
+                    <?php $__errorArgs = ['five_ton'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
+                    <label>Above 10 Ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e(old('ten_ton')); ?>" name="ten_ton" id="inlineFormInputGroup">
+                    </div>
+                    <?php $__errorArgs = ['ten_ton'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
                 <div class="form-group">
                     <label>Estimated arrived (Days)</label>
                     <input type="text" name="est_arrived" placeholder="" value="<?php echo e(old('est_arrived')); ?>" class="form-control">

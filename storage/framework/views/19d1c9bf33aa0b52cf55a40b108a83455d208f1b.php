@@ -35,8 +35,11 @@
                             <th>No</th>
                             <th>Origin</th>
                             <th>Destination</th>
-                            <th>Under Terms Rate</th>
-                            <th>Above Terms Rate</th>
+                            <th>Under 50 kg</th>
+                            <th>Above 50 kg</th>
+                            <th>Under 1-5 ton</th>
+                            <th>Above 5 ton</th>
+                            <th>Above 10 ton</th>
                             <th>Estimated arrived</th>
                             <th>Variant Service</th>
                             <th>Action</th>
@@ -64,6 +67,9 @@
                             </td>
                             <td>Rp. <?php echo e($rate->under_terms); ?></td>
                             <td>Rp. <?php echo e($rate->above_terms); ?></td>
+                            <td>Rp. <?php echo e($rate->one_ton); ?></td>
+                            <td>Rp. <?php echo e($rate->five_ton); ?></td>
+                            <td>Rp. <?php echo e($rate->ten_ton); ?></td>
                             <td><?php echo e($rate->est_arrived); ?> Days</td>
                             <td>
                                 <?php if($rate->variantservice): ?>

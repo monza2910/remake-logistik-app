@@ -28,6 +28,7 @@ use App\Http\Controllers\TransactionTravelController;
 use App\Http\Controllers\ArmadaController;
 use App\Http\Controllers\ArmadaTrController;
 use App\Http\Livewire\Logistic;
+use App\Http\Livewire\Logisticton;
 use App\Http\Livewire\Travel;
 use App\Http\Livewire\Armada;
 use App\Http\Livewire\Armadabus;
@@ -79,6 +80,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin,petugas']],function(){
     Route::get('/tracking/{id}/edit',[TransactionController::class,'addTracking'])->name('tracking.add');
     Route::get('/transaction/logistic/cart', Logistic::class )->name('logisticcart');
+    Route::get('/transaction/logisticton/cart', Logisticton::class )->name('logistictoncart');
     Route::post('/tracking/',[TransactionController::class,'storeTracking'])->name('tracking.store');
     Route::delete('/tracking/kill/{id}',[TransactionController::class, 'killTracking'])->name('tracking.kill');
     

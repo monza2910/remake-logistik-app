@@ -18,7 +18,7 @@
                 <?php echo method_field('PUT'); ?>
                 <?php echo csrf_field(); ?>
                 <div class="form-group">
-                    <label >Buton</label>
+                    <label >From</label>
                     <select class="form-control selectric" name="origin_id">
                         <?php if($rate->origin): ?>
                         <option value="<?php echo e($rate->origin_id); ?>"><?php echo e($rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict); ?></option>
@@ -34,7 +34,7 @@
                     </select>
                 </div>
                 <div class="form-group select-box">
-                    <label >Buton</label>
+                    <label >To</label>
                     <select class="form-control selectric " name="destination_id" data-lice-search="true">
                         <?php if($rate->destination): ?>
                         <option value="<?php echo e($rate->origin_id); ?>"><?php echo e($rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict); ?></option>
@@ -49,7 +49,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Under Terms Price(<50kg) </label>
+                    <label> under 50kg</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">Rp.</div>
@@ -68,7 +68,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group">
-                    <label>Above Terms Price(>50kg)</label>
+                    <label> above 50kg</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">Rp.</div>
@@ -76,6 +76,63 @@ unset($__errorArgs, $__bag); ?>
                         <input type="number" class="form-control" min="0" value="<?php echo e($rate->above_terms); ?>" name="above_terms" id="inlineFormInputGroup">
                     </div>
                     <?php $__errorArgs = ['above_terms'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
+                    <label> above 1-5 ton </label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e($rate->one_ton); ?>" name="one_ton" id="inlineFormInputGroup" >
+                    </div>
+                    <?php $__errorArgs = ['one_ton'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
+                    <label>Above 5-9 ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e($rate->five_ton); ?>" name="five_ton" id="inlineFormInputGroup">
+                    </div>
+                    <?php $__errorArgs = ['five_ton'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+                <div class="form-group">
+                    <label>Above 10 Ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="<?php echo e($rate->ten_ton); ?>" name="ten_ton" id="inlineFormInputGroup">
+                    </div>
+                    <?php $__errorArgs = ['ten_ton'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

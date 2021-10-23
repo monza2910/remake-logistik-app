@@ -15,8 +15,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?php echo e(route('logisticcart')); ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
-            
+            <a href="<?php echo e(route('logisticcart')); ?>" class="btn btn-icon icon-left btn-primary mx-2 my-2"><i class="fas fa-plus"></i> Add transaction(kg)</a>
+            <a href="<?php echo e(route('logistictoncart')); ?>" class="btn btn-icon icon-left btn-primary mx-2 my-2"><i class="fas fa-plus"></i> Add transaction(ton)</a>
         </div>
         <?php if($message = Session::get('success')): ?>
         <div class="alert alert-success mx-4 my-4">
@@ -38,6 +38,7 @@
                             <th>Tracking Number </th>
                             <th>Recipient</th>
                             <th>Sender</th>
+                            <th>Satuan</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -51,6 +52,7 @@
                             <td><?php echo e($transaction->tracking_number); ?></td>
                             <td><?php echo e($transaction->penerima); ?></td>
                             <td><?php echo e($transaction->pengirim); ?></td>
+                            <td><?php echo e($transaction->satuan); ?></td>
                             <td><?php echo e($transaction->status); ?></td>
                             <td >
                                 <form action="<?php echo e(route('transaction.destroy',$transaction->id)); ?>" method="POST">

@@ -299,6 +299,7 @@ class Logistic extends Component
                     'total' =>$this->total,
                     'total_bayar' =>$this->dibayar,
                     'status' => $this->status,
+                    'satuan' => 'kg',
                     'user_id' => Auth()->id(),
                 ]);
                 

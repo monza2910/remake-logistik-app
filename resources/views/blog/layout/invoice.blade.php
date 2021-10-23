@@ -42,9 +42,15 @@
           </div>
           <div class="wrapper">
             <span id="title">ALAMAT</span>
-            <span class="smaller" id="detail"
-              >{{$transaction->alamat_penerima}}</span
-            >
+            <span class="smaller" id="detail">
+              {{$transaction->alamat_penerima}}
+            </span>
+          </div>
+          <div class="wrapper">
+            <span id="title">Satuan Berat</span>
+            <span class="smaller" id="detail">
+              {{$transaction->satuan}}
+            </span>
           </div>
         </div>
       </div>
@@ -54,7 +60,7 @@
         <tr>
             <th>#</th>
             <th>NAMA BARANG</th>
-            <th>BERAT (kg)</th>
+            <th>BERAT ({{$transaction->satuan}})</th>
         </tr>
         @foreach ($packages as $index => $pkg)
         <tr>
@@ -73,11 +79,11 @@
         </div>
         <div class="mg-left-auto">
           <div class="wrapper wrapper-inline">
-            <span id="title">TOTAL BERAT (kg)</span>
+            <span id="title">TOTAL BERAT ({{$transaction->satuan}})</span>
             <span id="detail">Kg {{number_format($transaction->berat_total)}}</span>
           </div>
           <div class="wrapper wrapper-inline">
-            <span id="title">HARGA (kg)</span>
+            <span id="title">HARGA ({{$transaction->satuan}})</span>
             <span id="detail">Rp. {{number_format($transaction->harga_kg)}}</span>
           </div>
           <div class="wrapper wrapper-inline">

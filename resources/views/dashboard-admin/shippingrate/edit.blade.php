@@ -20,7 +20,7 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label >Buton</label>
+                    <label >From</label>
                     <select class="form-control selectric" name="origin_id">
                         @if ($rate->origin)
                         <option value="{{$rate->origin_id}}">{{$rate->origin->province.', '.$rate->origin->city.', '.$rate->origin->subdistrict}}</option>
@@ -36,7 +36,7 @@
                     </select>
                 </div>
                 <div class="form-group select-box">
-                    <label >Buton</label>
+                    <label >To</label>
                     <select class="form-control selectric " name="destination_id" data-lice-search="true">
                         @if ($rate->destination)
                         <option value="{{$rate->origin_id}}">{{$rate->destination->province.', '.$rate->destination->city.', '.$rate->destination->subdistrict}}</option>
@@ -51,7 +51,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Under Terms Price(<50kg) </label>
+                    <label> under 50kg</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">Rp.</div>
@@ -63,7 +63,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Above Terms Price(>50kg)</label>
+                    <label> above 50kg</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">Rp.</div>
@@ -71,6 +71,42 @@
                         <input type="number" class="form-control" min="0" value="{{$rate->above_terms}}" name="above_terms" id="inlineFormInputGroup">
                     </div>
                     @error('above_terms')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label> above 1-5 ton </label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{$rate->one_ton}}" name="one_ton" id="inlineFormInputGroup" >
+                    </div>
+                    @error('one_ton')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Above 5-9 ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{$rate->five_ton}}" name="five_ton" id="inlineFormInputGroup">
+                    </div>
+                    @error('five_ton')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Above 10 Ton</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Rp.</div>
+                        </div>
+                        <input type="number" class="form-control" min="0" value="{{$rate->ten_ton}}" name="ten_ton" id="inlineFormInputGroup">
+                    </div>
+                    @error('ten_ton')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>

@@ -53,8 +53,9 @@ class BlogController extends Controller
 
 
             return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations','gallerys'));
-        }elseif ($request->origin != null && $request->destination != null && $request->berat != null) {
+        }elseif ($request->origin != null && $request->destination != null && $request->berat != null && $request->satuan != null) {
 
+            $satuan = $request->satuan;
             $berat = $request->berat;
             $estimations = Shippingrates::where([['origin_id','=',$request->origin],['destination_id','=', $request->destination]])->get();
 
@@ -73,7 +74,7 @@ class BlogController extends Controller
 
 
 
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','berat','locations','gallerys'));
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','satuan','berat','locations','gallerys'));
         }
         else {
             $sliders = Sliders::where('status','!=', '0')->get();

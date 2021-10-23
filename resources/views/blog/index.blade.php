@@ -122,7 +122,7 @@
                 </div>
               </div>
 
-              <div class="grid col">
+              <div class="grid col col-2 grid-res">
                 <div class="card card-white">
                   <div class="card-inline">
                     <i class="fi fi-shopping-basket"></i>
@@ -132,6 +132,20 @@
                   <!-- Input Masukkan Berat -->
                   <input type="number" name="berat" placeholder="Masukkan Berat (kg)" />
                   <!-- Input Masukkan Berat -->
+                </div>
+                <div class="card card-white">
+                  <div class="card-inline">
+                    <i class="fi fi-shopping-basket"></i>
+                    <span>Satuan Berat</span>
+                  </div>
+                  <p>Pilih satuan berat barang yang akan dikirim</p>
+                  <div class="custom-select">
+                    <select name="satuan">
+                      <option value="" selected>Pilih</option>
+                      <option value="ton">Ton</option>
+                      <option value="kg">Kg</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <button id="centered" type="submit">Cek Estimasi Biaya</button>
@@ -148,20 +162,41 @@
                   <span id="weight">{{$berat}}kg</span>
                 </div>
                 <div>
-                  @if ($est->variantservice->variant_service == "Reguler")
-                    @if ($berat > 50)
-                      <span id="reguler">{{$berat*$est->above_terms}}</span>
-                    @else
-                      <span id="reguler">{{$berat*$est->under_terms}}</span>
-                    @endif
-                  @else
-                    @if ($berat > 50)
-                      <span id="express">{{$berat*$est->above_terms}}</span> 
+                  @if ($satuan == 'kg')
+                    @if ($est->variantservice->variant_service == "Reguler")
+                      @if ($berat > 50)
+                        <span id="reguler">{{$berat*$est->above_terms}}</span>
                       @else
-                      <span id="express">{{$berat*$est->under_terms}}</span> 
-                        
+                        <span id="reguler">{{$berat*$est->under_terms}}</span>
+                      @endif
+                    @else
+                      @if ($berat > 50)
+                        <span id="express">{{$berat*$est->above_terms}}</span> 
+                      @else
+                        <span id="express">{{$berat*$est->under_terms}}</span> 
+                          
+                      @endif
+                    @endif
+                  @elseif($satuan =='ton')
+                    @if ($est->variantservice->variant_service == "Reguler")
+                      @if ($berat >= 1 && $berat <= 5)
+                        <span id="reguler">{{$berat*$est->one_ton}}</span>
+                      @elseif($berat > 5 && $berat <10)
+                        <span id="reguler">{{$berat*$est->five_ton}}</span>
+                      @elseif($berat >= 10)
+                        <span id="reguler">{{$berat*$est->ten_ton}}</span>
+                      @endif
+                    @else
+                      @if ($berat >= 1 && $berat <= 5)
+                        <span id="express">{{$berat*$est->one_ton}}</span>
+                      @elseif($berat > 5 && $berat <10)
+                        <span id="express">{{$berat*$est->five_ton}}</span>
+                      @elseif($berat >= 10)
+                        <span id="express">{{$berat*$est->ten_ton}}</span>
+                      @endif
                     @endif
                   @endif
+                  
                 </div>
               </div>
             </div>

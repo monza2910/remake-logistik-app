@@ -15,8 +15,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{route('logisticcart')}}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add transaction</a>
-            
+            <a href="{{route('logisticcart')}}" class="btn btn-icon icon-left btn-primary mx-2 my-2"><i class="fas fa-plus"></i> Add transaction(kg)</a>
+            <a href="{{route('logistictoncart')}}" class="btn btn-icon icon-left btn-primary mx-2 my-2"><i class="fas fa-plus"></i> Add transaction(ton)</a>
         </div>
         @if ($message = Session::get('success'))
         <div class="alert alert-success mx-4 my-4">
@@ -38,6 +38,7 @@
                             <th>Tracking Number </th>
                             <th>Recipient</th>
                             <th>Sender</th>
+                            <th>Satuan</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -51,6 +52,7 @@
                             <td>{{$transaction->tracking_number}}</td>
                             <td>{{$transaction->penerima}}</td>
                             <td>{{$transaction->pengirim}}</td>
+                            <td>{{$transaction->satuan}}</td>
                             <td>{{$transaction->status}}</td>
                             <td >
                                 <form action="{{ route('transaction.destroy',$transaction->id) }}" method="POST">
