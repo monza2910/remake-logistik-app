@@ -11,6 +11,15 @@
 @section('content')
 <div class="container-fluid">
     <div class="card shadow mb-4">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success mx-4 my-4">
+            <p>{{ $message }}</p>
+        </div>
+        @elseif($message = session::get('deleted'))
+        <div class="alert alert-danger mx-4 my-4">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
           <div class="card-body">
 
             {{-- <div class="alert alert-info">

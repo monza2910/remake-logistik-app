@@ -11,6 +11,15 @@
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid">
     <div class="card shadow mb-4">
+        <?php if($message = Session::get('success')): ?>
+        <div class="alert alert-success mx-4 my-4">
+            <p><?php echo e($message); ?></p>
+        </div>
+        <?php elseif($message = session::get('deleted')): ?>
+        <div class="alert alert-danger mx-4 my-4">
+            <p><?php echo e($message); ?></p>
+        </div>
+        <?php endif; ?>
           <div class="card-body">
 
             

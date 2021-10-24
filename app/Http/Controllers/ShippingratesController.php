@@ -53,18 +53,27 @@ class ShippingratesController extends Controller
             'ten_ton'  => 'required|integer',
         ]);
 
-        Rates::create([
-            'origin_id'  => $request->origin_id,
-            'destination_id'  => $request->destination_id,
-            'under_terms'  => $request->under_terms,
-            'above_terms'  => $request->above_terms,
-            'est_arrived'  => $request->est_arrived,
-            'variantservice_id'  => $request->variant_id,
-            'one_ton'  => $request->one_ton,
-            'five_ton'  => $request->five_ton,
-            'ten_ton'  => $request->ten_ton,
-        ]);
-        return redirect()->route('rate.index')->with('success','Shipping Rate Was Added');
+        $Rates = Rates::where([['destination_id',$request->destination_id],['origin_id',$request->origin_id],['variantservice_id',$request->variant_id]])->get();
+        $rateCount = $Rates->count(); 
+        // dd($cekRates);
+        if ($rateCount == 0) {
+            Rates::create([
+                'origin_id'  => $request->origin_id,
+                'destination_id'  => $request->destination_id,
+                'under_terms'  => $request->under_terms,
+                'above_terms'  => $request->above_terms,
+                'est_arrived'  => $request->est_arrived,
+                'variantservice_id'  => $request->variant_id,
+                'one_ton'  => $request->one_ton,
+                'five_ton'  => $request->five_ton,
+                'ten_ton'  => $request->ten_ton,
+            ]);
+            return redirect()->route('rate.index')->with('success','Shipping Rate Was Added');
+        } else {
+            return redirect()->route('rate.create')->with('deleted','the data is already available in the database ');
+            
+        }
+
     }
 
     /**
