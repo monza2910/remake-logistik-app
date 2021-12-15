@@ -612,6 +612,7 @@ class ComposerStaticInitca74129cad1091c4b697b8225458cef0
         'App\\Models\\Detaillogistics' => __DIR__ . '/../..' . '/app/Models/Detaillogistics.php',
         'App\\Models\\Facilitys' => __DIR__ . '/../..' . '/app/Models/Facilitys.php',
         'App\\Models\\Galery' => __DIR__ . '/../..' . '/app/Models/Galery.php',
+        'App\\Models\\GeneralSetting' => __DIR__ . '/../..' . '/app/Models/GeneralSetting.php',
         'App\\Models\\Origins' => __DIR__ . '/../..' . '/app/Models/Origins.php',
         'App\\Models\\Ourteam' => __DIR__ . '/../..' . '/app/Models/Ourteam.php',
         'App\\Models\\Outlets' => __DIR__ . '/../..' . '/app/Models/Outlets.php',

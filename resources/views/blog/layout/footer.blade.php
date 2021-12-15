@@ -4,12 +4,10 @@
       <ul>
         <li id="title">Link</li>
         <li><a href="{{route('blog.index')}}">Home</a></li>
-        <li><a href="{{route('blog.contactus')}}">Hubungi Kami</a></li>
       </ul>
       <ul>
-        <li id="title">Auth</li>
-        <li><a href="{{route('login')}}">Login</a></li>
-        {{-- <li><a href="register.html">Register</a></li> --}}
+        <li id="title">Contact</li>
+        <li><a href="{{route('blog.contactus')}}">Hubungi Kami</a></li>
       </ul>
       <ul>
         <li id="title">Blog</li>
@@ -18,16 +16,19 @@
       <ul id="address">
         <li class="flex flex-inline flex-inline-top">
           <i class="fi fi-map-marker-alt fi-circle-small fi-circle-blue"></i>
+          @foreach ($mainaddress as $address)
           <p>
-            Menara Kadin Indonesia, Lt.28. Jl.H.R.Rasuna Said Blok X-5 Kav.
-            02/03 Jakarta 12950 PO BOX 5032 JKTM Jakarta 12700
+            {{$address->content}}
           </p>
+          @endforeach
         </li>
       </ul>
     </div>
 
     <div class="footer-foot" class="flex flex-inline">
       <span>2021 KMJ Trans & Logistic</span>
-      <img src="" alt="logoKMJ" />
+      @foreach ($logos as $logo)
+      <img src="/assets/logo/{{$logo->image}}" alt="logoKMJ" />
+      @endforeach
     </div>
   </div>

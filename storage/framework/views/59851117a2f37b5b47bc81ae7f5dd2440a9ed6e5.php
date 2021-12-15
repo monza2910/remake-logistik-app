@@ -17,6 +17,7 @@
     <!-- ARTICLE HEADER -->
     <div class="section section-blue section-wider">
         <div class="grid col col-40-60 grid-res">
+          
           <div class="card card-text-white grid-right-50">
             <span class="card-nav">HUBUNGI KAMI</span>
             <span class="card-title"

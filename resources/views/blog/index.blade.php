@@ -439,11 +439,9 @@
           <span class="card-nav">TENTANG KAMI</span>
           <span class="card-title">kmjtrans</span>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in
-            aliquet nunc, vitae cursus orci. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Aenean laoreet eleifend dolor ultrices
-            scelerisque. Curabitur scelerisque molestie massa in tempor. Morbi
-            vestibulum neque ut vulputate semper.
+            @foreach ($aboutus as $about)
+              {{$about->content}}  
+            @endforeach
           </p>
         </div>
       </div>

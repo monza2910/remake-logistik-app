@@ -441,11 +441,9 @@
           <span class="card-nav">TENTANG KAMI</span>
           <span class="card-title">kmjtrans</span>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in
-            aliquet nunc, vitae cursus orci. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Aenean laoreet eleifend dolor ultrices
-            scelerisque. Curabitur scelerisque molestie massa in tempor. Morbi
-            vestibulum neque ut vulputate semper.
+            <?php $__currentLoopData = $aboutus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $about): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <?php echo e($about->content); ?>  
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </p>
         </div>
       </div>

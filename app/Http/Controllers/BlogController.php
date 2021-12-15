@@ -19,6 +19,8 @@ use App\Models\Category ;
 use App\Models\Galery ;
 use App\Models\Travel ;
 use App\Models\Armada ;
+use App\Models\GeneralSetting;
+
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
 
@@ -50,9 +52,12 @@ class BlogController extends Controller
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $locations  = Outlets::paginate(10);
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
+            $logos = GeneralSetting::where('page_name','logo')->get();
+            $aboutus = GeneralSetting::where('page_name','about_us')->get();
+            $mainaddress = GeneralSetting::where('page_name','main_address')->get();
 
 
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations','gallerys'));
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','trackings','transactions','locations','gallerys','logos','aboutus','mainaddress'));
         }elseif ($request->origin != null && $request->destination != null && $request->berat != null && $request->satuan != null) {
 
             $satuan = $request->satuan;
@@ -70,11 +75,13 @@ class BlogController extends Controller
             $teams  = Ourteam::orderBy('id','DESC')->get();            
             $locations  = Outlets::paginate(10);
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
+            $logos = GeneralSetting::where('page_name','logo')->get();
+            $aboutus = GeneralSetting::where('page_name','about_us')->get();
+            $mainaddress = GeneralSetting::where('page_name','main_address')->get();
 
 
 
-
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','satuan','berat','locations','gallerys'));
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','estimations','satuan','berat','locations','gallerys','logos','aboutus','mainaddress'));
         }
         else {
             $sliders = Sliders::where('status','!=', '0')->get();
@@ -86,8 +93,12 @@ class BlogController extends Controller
             $destinations  = Destinations::distinct()->get(['id','city','province','subdistrict']);
             $teams  = Ourteam::orderBy('id','DESC')->get();
             $gallerys = Galery::where('status','1')->orderBy('id','desc')->get();
+            $logos = GeneralSetting::where('page_name','logo')->get();
+            $aboutus = GeneralSetting::where('page_name','about_us')->get();
+            $mainaddress = GeneralSetting::where('page_name','main_address')->get();
 
-            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','locations','gallerys'));
+
+            return view('blog.index',compact('sliders','testimonials','partners','articles','origins','teams','destinations','locations','gallerys','logos','aboutus','mainaddress'));
         }
 
     }
@@ -98,30 +109,45 @@ class BlogController extends Controller
             $articles = Articles::where([['title','like',"%".$request->value."%"],['status','!=',"0"]])
             ->orderBy('id','DESC')->paginate(10);
             $categorys = Category::orderBy('id','DESC')->get();
-            return view('blog.article-list',compact('articles','categorys'));
+            $logos = GeneralSetting::where('page_name','logo')->get();
+            $aboutus = GeneralSetting::where('page_name','about_us')->get();
+            $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+            return view('blog.article-list',compact('articles','categorys','logos','aboutus','mainaddress'));
         } else {
             $articles = Articles::where('status','!=',"0")->orderBy('id','DESC')->paginate(10);
             $categorys = Category::orderBy('id','DESC')->get();
-            return view('blog.article-list',compact('articles','categorys'));
+            $logos = GeneralSetting::where('page_name','logo')->get();
+            $aboutus = GeneralSetting::where('page_name','about_us')->get();
+            $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+            return view('blog.article-list',compact('articles','categorys','logos','aboutus','mainaddress'));
         }
     }
 
     public function openArticle($slug){
         $articles = Articles::where('slug',$slug)->get();
         $listarticles = Articles::where('status','1')->orderBy('id','DESC')->take(3)->get();
-        return view('blog.article-detail',compact('articles','listarticles'));
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.article-detail',compact('articles','listarticles','logos','aboutus','mainaddress'));
     }
   
     public function showArticleByCategory($category){
         $articles = Articles::where(['category_id'=>$category,'status'=> '1'])->paginate(10);
         $categorys = Category::orderBy('id','DESC')->get();
-        return view('blog.article-list',compact('articles','categorys'));
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.article-list',compact('articles','categorys','logos','aboutus','mainaddress'));
     }
 
     
 
     public function contactus(){
-        return view('blog.contact-us');
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.contact-us',compact('logos','aboutus','mainaddress'));
     }
 
     public function storecontactus(Request $request)
@@ -241,18 +267,27 @@ class BlogController extends Controller
     public function showService(){
         $travels = Travel::orderBy('id','DESC')->get();
         $armadas = Armada::orderBy('id','DESC')->get();
-        return view('blog.service-list',compact('travels','armadas'));
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.service-list',compact('travels','armadas','logos','aboutus','mainaddress'));
     }
 
     public function openTravel($slug){
         $travels = Travel::where('slug',$slug)->get();
         $listtravel = Travel::where('slug','!=',$slug)->orderBy('id','DESC')->take(4)->get();
-        return view('blog.travel-detail',compact('travels','listtravel'));
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.travel-detail',compact('travels','listtravel','logos','aboutus','mainaddress'));
     }
     public function openArmada($slug){
         $armadas = Armada::where('slug',$slug)->get();
         $listarmada = Armada::where('slug','!=',$slug)->orderBy('id','DESC')->take(4)->get();
-        return view('blog.armada-detail',compact('armadas','listarmada'));
+        $logos = GeneralSetting::where('page_name','logo')->get();
+        $aboutus = GeneralSetting::where('page_name','about_us')->get();
+        $mainaddress = GeneralSetting::where('page_name','main_address')->get();
+        return view('blog.armada-detail',compact('armadas','listarmada','logos','aboutus','mainaddress'));
     }
 
 }

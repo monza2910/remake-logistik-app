@@ -172,9 +172,9 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Site Setting</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="index-0.html">General Setting</a></li>
-                <li><a class="nav-link" href="index.html">Sitemap</a></li>
-                <li><a class="nav-link" href="index.html">Ads</a></li>
+                <li><a class="nav-link" href="<?php echo e(route('generalsetting.index')); ?>">General Setting</a></li>
+                
+                
               </ul>
             </li>
             

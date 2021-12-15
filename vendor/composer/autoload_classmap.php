@@ -72,6 +72,7 @@ return array(
     'App\\Models\\Detaillogistics' => $baseDir . '/app/Models/Detaillogistics.php',
     'App\\Models\\Facilitys' => $baseDir . '/app/Models/Facilitys.php',
     'App\\Models\\Galery' => $baseDir . '/app/Models/Galery.php',
+    'App\\Models\\GeneralSetting' => $baseDir . '/app/Models/GeneralSetting.php',
     'App\\Models\\Origins' => $baseDir . '/app/Models/Origins.php',
     'App\\Models\\Ourteam' => $baseDir . '/app/Models/Ourteam.php',
     'App\\Models\\Outlets' => $baseDir . '/app/Models/Outlets.php',

@@ -27,6 +27,7 @@ use App\Http\Controllers\TravelController;
 use App\Http\Controllers\TransactionTravelController;
 use App\Http\Controllers\ArmadaController;
 use App\Http\Controllers\ArmadaTrController;
+use App\Http\Controllers\GeneralSettingController;
 use App\Http\Livewire\Logistic;
 use App\Http\Livewire\Logisticton;
 use App\Http\Livewire\Travel;
@@ -127,6 +128,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin,admin']],function(){
+
+    Route::resource('generalsetting', GeneralSettingController::class);
     Route::resource('slider', SlidersController::class);
     Route::resource('buttons', ButtonsController::class);
     Route::resource('testimonial', TestimonialsController::class);
