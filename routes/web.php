@@ -94,8 +94,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','checkRole:super-admin
 
     Route::get('/transactiontravel/cetak/{id}',[TransactionTravelController::class, 'printPDFTravel'])->name('printtravel');
     Route::get('/transactiontravel/trash',[TransactionTravelController::class, 'showTrash'])->name('transactiontravel.trash');
-    Route::delete('/transaction/kill/{id}',[TransactionTravelController::class, 'kill'])->name('transactiontravel.kill');
-    Route::get('/transaction/restore/{id}',[TransactionTravelController::class, 'restore'])->name('transactiontravel.restore');
+    Route::delete('/transactiontravel/kill/{id}',[TransactionTravelController::class, 'kill'])->name('transactiontravel.kill');
+    Route::get('/transactiontravel/restore/{id}',[TransactionTravelController::class, 'restore'])->name('transactiontravel.restore');
     Route::get('/transactiontravel/cart', Travel::class )->name('travelcart');
     Route::resource('transactiontravel', TransactionTravelController::class);
     

@@ -72,8 +72,9 @@ unset($__errorArgs, $__bag); ?>
                         <table class="table table-bordered"  width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th>Name</th>
                                 <th>Weight(Kg)</th>
+                                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -85,7 +86,8 @@ unset($__errorArgs, $__bag); ?>
                                     <a wire:click="minItem('<?php echo e($cart['rowId']); ?>')" class="btn btn-warning btn-sm" ><i class="fas fa-minus"></i></a>
                                     <?php echo e($cart['qty']); ?> 
                                     <a  wire:click="increaseItem('<?php echo e($cart['rowId']); ?>')" class="btn btn-primary btn-sm" ><i class="fas fa-plus"></i></i>
-                                    </td> 
+                                </td> 
+                                
                                 <td>
                                     <a wire:click="removeItem('<?php echo e($cart['rowId']); ?>')" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Delete</a>    
                                 </td>

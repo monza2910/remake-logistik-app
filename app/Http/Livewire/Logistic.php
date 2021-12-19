@@ -76,6 +76,7 @@ class Logistic extends Component
                     'rowId'            => $item->id,
                     'name'             => $item->name,
                     'qty'              => $item->quantity,
+                    // 'keterangan'       => $item->attributes->keterangan
                 ];
             }
             
@@ -103,7 +104,7 @@ class Logistic extends Component
         
         
 
-        // var_dump($GenerateDate,$GenerateDate2);
+        // var_dump($cartData);
         return view('livewire.logistic',
         [
          'carts' => $cartData,
@@ -140,7 +141,8 @@ class Logistic extends Component
                 'price' => "0",
                 'quantity'  => $this->weight,
                 'attributes'  => [
-                    'added_at' =>Carbon::now()
+                    'added_at' =>Carbon::now(),
+                    // 'keterangan'   => 'Nopal Ganteng'
                 ],
             ]);
             $this->resetFields();
