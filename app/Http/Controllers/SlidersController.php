@@ -5,6 +5,8 @@ use App\Models\Sliders;
 use App\Models\Buttons;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File; 
+
 class SlidersController extends Controller
 {
     /**
@@ -102,6 +104,7 @@ class SlidersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $slider     = Sliders::find($id);
     
         $request->validate([
             'title_one' => 'required|min:2|max:50',
@@ -118,6 +121,10 @@ class SlidersController extends Controller
             $path       = 'sliders/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
             $img->save(public_path($path));
+
+            if(File::exists($slider->image)) {
+                File::delete($slider->image);
+            }
 
             Sliders::where('id',$id)->update([
                 'title_one'  => $request->title_one,
