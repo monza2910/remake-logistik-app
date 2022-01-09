@@ -7,6 +7,7 @@ use App\Models\Articles;
 use App\Models\Category;
 use App\Models\Tags;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File; 
 
 class ArticlesController extends Controller
 {
@@ -155,7 +156,7 @@ class ArticlesController extends Controller
         ]);
 
 
-        $article    = Articles::findorFail($id);
+        $article    = Articles::find($id);
         
         if ($request->has('thumbnail')) {
             $img        = \Image::make($request->thumbnail)->encode('jpg');  
@@ -164,6 +165,10 @@ class ArticlesController extends Controller
             $uploadName = '/'.$path;
             $img->save(public_path($path));
             
+            if(File::exists($article->thumbnail)) {
+                File::delete($article->thumbnail);
+            }
+
             if ($request->slug != null) {
                 $slug = Str::slug($request->slug);
                 $articles = [
