@@ -49,7 +49,7 @@
                         <tr>
                             <td>{{$index + 1}}</td> 
                             <td>
-                                <img src="/images/thumbnail/{{$article->thumbnail}}"  class="img-fluid" height="50px" width="100px" alt="Preview image">
+                                <img src="{{$article->thumbnail}}"  class="img-fluid" height="200px" width="200px" alt="Preview image">
                             </td>
                             <td>{{$article->title}}</td>
                             <td>{{$article->slug}}</td>

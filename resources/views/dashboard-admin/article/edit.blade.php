@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label for="">Old Thumbnail</label>
                     <br>
-                    <img src="/images/thumbnail/{{$article->thumbnail}}"  class="img-fluid" width="500px" >
+                    <img src="{{$article->thumbnail}}"  class="img-fluid" width="500px" >
                 </div>
 
                 <div class="form-group">

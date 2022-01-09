@@ -71,17 +71,17 @@ class ArticlesController extends Controller
             'status' => 'required',       
         ]);
 
-        
+        $img        = \Image::make($request->thumbnail)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'images/thumbnail/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
 
-        $image = time().'.'.$request->thumbnail->extension();  
-        $imageName = md5($image).'.'.$request->thumbnail->extension();
-     
-        $request->thumbnail->move(public_path('images/thumbnail'), $imageName);
         if ($request->slug != null) {
             $slug = Str::slug($request->slug);
             $articles = Articles::create([
                 'title'         => $request->title,
-                'thumbnail'     => $imageName,
+                'thumbnail'     => $uploadName,
                 'category_id'   => $request->category_id,
                 'user_id'       => $userid,
                 'status'        => $request->status,
@@ -96,7 +96,7 @@ class ArticlesController extends Controller
             $slug = Str::slug($request->title);
             $articles = Articles::create([
                 'title'         => $request->title,
-                'thumbnail'     => $imageName,
+                'thumbnail'     => $uploadName,
                 'category_id'   => $request->category_id,
                 'user_id'       => $userid,
                 'status'        => $request->status,
@@ -158,16 +158,17 @@ class ArticlesController extends Controller
         $article    = Articles::findorFail($id);
         
         if ($request->has('thumbnail')) {
-            $image = time().'.'.$request->thumbnail->extension();  
-            $imageName = md5($image).'.'.$request->thumbnail->extension();
-         
-            $request->thumbnail->move(public_path('images/thumbnail'), $imageName);
+            $img        = \Image::make($request->thumbnail)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'images/thumbnail/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
             
             if ($request->slug != null) {
                 $slug = Str::slug($request->slug);
                 $articles = [
                     'title'         => $request->title,
-                    'thumbnail'     => $imageName,
+                    'thumbnail'     => $uploadName,
                     'category_id'   => $request->category_id,
                     'user_id'       => $userid,
                     'status'        => $request->status,
