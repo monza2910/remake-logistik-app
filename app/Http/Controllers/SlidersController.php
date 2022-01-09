@@ -45,15 +45,18 @@ class SlidersController extends Controller
             'button_id' => 'integer',
             'status' => 'integer',
         ]);
-        $image = time().'.'.$request->image->extension();  
-        $imageName = md5($image).'.'.$request->image->extension();
-     
-        $request->image->move(public_path('sliders'), $imageName);
+
+
+        $img        = \Image::make($request->image)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'sliders/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
         Sliders::create([
             'title_one'  => $request->title_one,
             'title_two'  => $request->title_two,
             'description'  => $request->description,
-            'image'  => $imageName,
+            'image'  => $uploadName,
             'button_id'  => $request->button_id,
             'status'  => $request->status
         ]);
@@ -110,16 +113,17 @@ class SlidersController extends Controller
         ]);
 
         if ($request->image != "") {
-           
-            $image = time().'.'.$request->image->extension();  
-            $imageName = md5($image).'.'.$request->image->extension();
-    
-            $request->image->move(public_path('sliders'), $imageName);
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'sliders/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
+
             Sliders::where('id',$id)->update([
                 'title_one'  => $request->title_one,
                 'title_two'  => $request->title_two,
                 'description'  => $request->description,
-                'image'  => $imageName,
+                'image'  => $uploadName,
                 'button_id'  => $request->button_id,
                 'status'  => $request->status
             ]);

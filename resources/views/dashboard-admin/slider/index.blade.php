@@ -46,7 +46,7 @@
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>     
-                                <img src="/sliders/{{$slider->image}}"  class="img-fluid" width="200px" alt="Preview image">
+                                <img src="{{$slider->image}}"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
                             <td>{{$slider->title_one.''.$slider->title_two}}</td>
                             <td>{{$slider->description}}</td>

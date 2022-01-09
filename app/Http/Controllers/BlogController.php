@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 class BlogController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      *

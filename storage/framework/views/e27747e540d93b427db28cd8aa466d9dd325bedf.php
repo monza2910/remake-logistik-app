@@ -24,7 +24,7 @@
                 <li class="splide__slide">
                     <!-- ========================== -->
                     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                    <img id="splide__image" src="/sliders/<?php echo e($slider->image); ?>" alt="sliderbackground" />
+                    <img id="splide__image" src="<?php echo e($slider->image); ?>" alt="sliderbackground" />
                     <div class="splide__content">
                     <span><?php echo e($slider->title_one); ?></span>
                     <h1><?php echo e($slider->title_two); ?></h1>

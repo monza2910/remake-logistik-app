@@ -24,7 +24,7 @@
                 <li class="splide__slide">
                     <!-- ========================== -->
                     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                    <img id="splide__image" src="/sliders/{{$slider->image}}" alt="sliderbackground" />
+                    <img id="splide__image" src="{{$slider->image}}" alt="sliderbackground" />
                     <div class="splide__content">
                     <span>{{$slider->title_one }}</span>
                     <h1>{{$slider->title_two}}</h1>

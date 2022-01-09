@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="image" >Image</label>
                     <br>
-                    <img src="/sliders/{{$slider->image}}"  class="img-fluid" width="500px" alt="Preview image">
+                    <img src="{{$slider->image}}"  class="img-fluid" width="500px" alt="Preview image">
                 </div>
                 <div class="form-group">
                     <label for="image" >New Image(Optional)</label>

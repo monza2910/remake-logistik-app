@@ -63,7 +63,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label for="image" >Image</label>
                     <br>
-                    <img src="/sliders/<?php echo e($slider->image); ?>"  class="img-fluid" width="500px" alt="Preview image">
+                    <img src="<?php echo e($slider->image); ?>"  class="img-fluid" width="500px" alt="Preview image">
                 </div>
                 <div class="form-group">
                     <label for="image" >New Image(Optional)</label>

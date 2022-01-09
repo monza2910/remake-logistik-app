@@ -46,7 +46,7 @@
                         <tr>
                             <td><?php echo e($index + 1); ?></td>
                             <td>     
-                                <img src="/sliders/<?php echo e($slider->image); ?>"  class="img-fluid" width="200px" alt="Preview image">
+                                <img src="<?php echo e($slider->image); ?>"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
                             <td><?php echo e($slider->title_one.''.$slider->title_two); ?></td>
                             <td><?php echo e($slider->description); ?></td>
