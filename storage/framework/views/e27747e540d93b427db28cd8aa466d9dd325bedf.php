@@ -414,7 +414,7 @@
         
         <div class="card card-news">
           <!-- Thumbnail Berita/Artikel -->
-          <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>" alt="thumbnailberita" class="news" />
+          <img src="<?php echo e($article->thumbnail); ?>" alt="thumbnailberita" class="news" />
           <div class="news-content">
             <!-- Judul Artikel -->
             <span class="card-title"><?php echo e($article->title); ?></span>
@@ -424,7 +424,7 @@
             <?php else: ?>
             <p></p>
             <?php endif; ?>
-            <a href="post.html">BACA SELENGKAPNYA</a>
+            <a href="<?php echo e(route('blog.openarticle',$article->slug)); ?>">BACA SELENGKAPNYA</a>
           </div>
         </div>
 

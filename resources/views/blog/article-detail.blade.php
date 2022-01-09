@@ -31,7 +31,7 @@
     
     <!-- ARTICLE HEADER -->
     <div class="article-header">
-      <img src="/images/thumbnail/{{$article->thumbnail}}" alt="" />
+      <img src="{{$article->thumbnail}}" alt="" />
       <div class="article-content">
         <span class="date">{{$article->created_at->format('d M Y')}}</span>
         <h1>{{$article->title}}</h1>
@@ -52,7 +52,7 @@
         @foreach ($listarticles as $list)
             
         <div class="card card-news">
-          <img src="/images/thumbnail/{{$list->thumbnail}}" alt="thumbnailArtikel" class="news" />
+          <img src="{{$list->thumbnail}}" alt="thumbnailArtikel" class="news" />
           <div class="news-content">
             <span class="card-title">{{$list->title}}</span>
             <p>{{$list->category->name}}</p>

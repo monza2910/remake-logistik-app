@@ -31,7 +31,7 @@
     
     <!-- ARTICLE HEADER -->
     <div class="article-header">
-      <img src="/images/thumbnail/<?php echo e($article->thumbnail); ?>" alt="" />
+      <img src="<?php echo e($article->thumbnail); ?>" alt="" />
       <div class="article-content">
         <span class="date"><?php echo e($article->created_at->format('d M Y')); ?></span>
         <h1><?php echo e($article->title); ?></h1>
@@ -53,7 +53,7 @@
         <?php $__currentLoopData = $listarticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $list): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             
         <div class="card card-news">
-          <img src="/images/thumbnail/<?php echo e($list->thumbnail); ?>" alt="thumbnailArtikel" class="news" />
+          <img src="<?php echo e($list->thumbnail); ?>" alt="thumbnailArtikel" class="news" />
           <div class="news-content">
             <span class="card-title"><?php echo e($list->title); ?></span>
             <p><?php echo e($list->category->name); ?></p>

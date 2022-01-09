@@ -63,7 +63,7 @@
             
         <div class="card card-news">
         <!-- THUMBNAIL ARTIKEL -->
-        <img src="/images/thumbnail/{{$article->thumbnail}}" alt="" class="news" />
+        <img src="{{$article->thumbnail}}" alt="" class="news" />
         <div class="news-content">
             <!-- JUDUL ARTIKEL -->
             <span class="card-title">{{$article->title}}</span>
