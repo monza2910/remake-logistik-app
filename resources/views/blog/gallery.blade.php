@@ -42,7 +42,7 @@
         <div class="gallery-column">
             <figure>
                 <img
-                src="/images/gallery/{{$gallery->image}}"
+                src="{{$gallery->image}}"
                 alt=""
                 />
                 <figcaption>{{$gallery->description}}</figcaption>

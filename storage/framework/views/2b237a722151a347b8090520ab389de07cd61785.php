@@ -44,7 +44,7 @@
                         <tr>
                             <td><?php echo e($index + 1); ?></td>
                             <td>     
-                                <img src="/images/gallery/<?php echo e($gallery->image); ?>"  class="img-fluid" width="200px" alt="Preview image">
+                                <img src="<?php echo e($gallery->image); ?>"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
                             <td>
                                 <?php echo e($gallery->description); ?>

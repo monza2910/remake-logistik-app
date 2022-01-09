@@ -42,7 +42,7 @@
         <div class="gallery-column">
             <figure>
                 <img
-                src="/images/gallery/<?php echo e($gallery->image); ?>"
+                src="<?php echo e($gallery->image); ?>"
                 alt=""
                 />
                 <figcaption><?php echo e($gallery->description); ?></figcaption>

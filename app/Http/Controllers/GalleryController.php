@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Galery;
+use Illuminate\Support\Facades\File; 
 
 class GalleryController extends Controller
 {
@@ -42,13 +43,16 @@ class GalleryController extends Controller
             'description' => 'required|min:3|max:200',
             'status' => 'integer',
         ]);
-        $image = time().'.'.$request->image->extension();  
-        $imageName = md5($image).'.'.$request->image->extension();
-     
-        $request->image->move(public_path('images/gallery'), $imageName);
+
+        $img        = \Image::make($request->image)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'images/gallery/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
+
         Galery::create([
             'description' => $request->description,
-            'image'  => $imageName,
+            'image'  => $uploadName,
             'status'  => $request->status
         ]);
     
@@ -87,6 +91,8 @@ class GalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $galery     = Galery::find($id);
+
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'integer',
@@ -96,12 +102,18 @@ class GalleryController extends Controller
 
         if ($request->image != "") {
            
-            $image = time().'.'.$request->image->extension();  
-            $imageName = md5($image).'.'.$request->image->extension();
-    
-            $request->image->move(public_path('images/gallery'), $imageName);
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'images/gallery/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
+
+            if(File::exists($galery->image)) {
+                File::delete($galery->image);
+            }
+
             Galery::where('id',$id)->update([
-                'image'  => $imageName, 
+                'image'  => $uploadName, 
                 'description' => $request->description,
                 'status'  => $request->status,
                 

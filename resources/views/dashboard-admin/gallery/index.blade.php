@@ -44,7 +44,7 @@
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>     
-                                <img src="/images/gallery/{{$gallery->image}}"  class="img-fluid" width="200px" alt="Preview image">
+                                <img src="{{$gallery->image}}"  class="img-fluid" width="200px" alt="Preview image">
                             </td>
                             <td>
                                 {{$gallery->description}}
