@@ -143,6 +143,9 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         $gallery = Galery::findorFail($id);
+        if(File::exists($galery->image)) {
+            File::delete($galery->image);
+        }
         $gallery->delete();
 
         return redirect()->route('gallery.index')->with('success','photo Was deleted.');
