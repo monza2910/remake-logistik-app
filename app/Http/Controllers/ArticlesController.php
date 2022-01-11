@@ -269,6 +269,9 @@ class ArticlesController extends Controller
     public function kill($id)
     {
         $article = Articles::withTrashed()->where('id',$id)->first();
+        if(File::exists($article->thumbnail)) {
+            File::delete($article->thumbnail);
+        }
         $article->forceDelete();
         return redirect()->back()->with('success','Article Was Deleted');
     
