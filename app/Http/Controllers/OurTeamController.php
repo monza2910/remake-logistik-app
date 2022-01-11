@@ -145,6 +145,9 @@ class OurTeamController extends Controller
     public function destroy($id)
     {
         $team = Ourteam::findorFail($id);
+        if(File::exists($team->image)) {
+            File::delete($team->image);
+        }
         $team->delete();
 
         return redirect()->route('team.index')->with('success','You have successfully deleted team.');
