@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label for="">Logo </label>
                     <br>
-                    <img src="/partners/{{$partner->image}}" class="img-fluid" width="200px" alt="Preview image">
+                    <img src="{{$partner->image}}" class="img-fluid" width="200px" alt="Preview image">
                 </div>
                 <div class="form-group">
                     <label for="image" >New Logo(optional)</label>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label>Website</label>
-                    <input type="text" name="website" value="{{$partner->website}}" class="form-control">
+                    <input type="url" placeholder="https://example.com" name="website" value="{{$partner->website}}" class="form-control">
                     @error('website')
                     <small class="text-danger">{{$message}}</small>
                     @enderror

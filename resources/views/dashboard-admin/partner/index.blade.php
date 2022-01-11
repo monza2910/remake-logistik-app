@@ -45,7 +45,7 @@
                             <td>{{$index + 1}}</td>
                             <td>{{$partner->name}}</td>
                             <td>                                
-                                <img src="/partners/{{$partner->image}}"  class="img-fluid " width="100px" alt="Preview image">
+                                <img src="{{$partner->image}}"  class="img-fluid " width="100px" alt="Preview image">
                             </td>
                             <td>{{$partner->website}}</td>
                             <td >

@@ -342,7 +342,7 @@
           @foreach ($partners as $partner)
         
           <a href="{{$partner->website}}">
-              <img src="/partners/{{$partner->image}}" alt="perusahaan" />
+              <img src="{{$partner->image}}" alt="perusahaan" />
           </a>
 
           @endforeach

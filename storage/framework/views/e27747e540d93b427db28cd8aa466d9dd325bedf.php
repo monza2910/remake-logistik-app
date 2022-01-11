@@ -343,7 +343,7 @@
           <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         
           <a href="<?php echo e($partner->website); ?>">
-              <img src="/partners/<?php echo e($partner->image); ?>" alt="perusahaan" />
+              <img src="<?php echo e($partner->image); ?>" alt="perusahaan" />
           </a>
 
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

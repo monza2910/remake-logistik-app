@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label>Website</label>
-                    <input type="text" name="website" value="{{old('website')}}" class="form-control">
+                    <input  type="url" placeholder="https://example.com" name="website" value="{{old('website')}}" class="form-control">
                     @error('website')
                     <small class="text-danger">{{$message}}</small>
                     @enderror

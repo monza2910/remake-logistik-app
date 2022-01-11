@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Partners;
+use Illuminate\Support\Facades\File; 
+
 
 class PartnersController extends Controller
 {
@@ -41,17 +43,19 @@ class PartnersController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
-        $image = time().'.'.$request->image->extension();  
-        $imageName = md5($image).'.'.$request->image->extension();
-     
-        $request->image->move(public_path('partners'), $imageName);
+        $img        = \Image::make($request->image)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'images/partners/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
+
 
         if ($request->website != null) {
             
             Partners::create([
                 'name'  => $request->name,
                 'website'  => $request->website,
-                'image'  => $imageName,
+                'image'  => $uploadName,
             ]);
 
             return redirect()->route('partner.index')->with('success','You have successfully added partner.');
@@ -106,6 +110,7 @@ class PartnersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $partner    = Partners::find($id);
         $request->validate([
             'name' => 'required|min:2|max:50',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -114,17 +119,21 @@ class PartnersController extends Controller
         
         if ($request->image != null) {
 
-            $image = time().'.'.$request->image->extension();  
-            $imageName = md5($image).'.'.$request->image->extension();
-     
-            $request->image->move(public_path('partners'), $imageName);
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'images/partners/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
 
+            if(File::exists($partner->image)) {
+                File::delete($partner->image);
+            }
             if ($request->website != null) {
                 
                 Partners::where('id',$id)->update([
                     'name'  => $request->name,
                     'website'  => $request->website,
-                    'image'  => $imageName,
+                    'image'  => $uploadName,
                 ]);
                 
                 return redirect()->route('partner.index')->with('success','You have successfully updated partner.');
