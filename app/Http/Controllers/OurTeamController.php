@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ourteam;
+use Illuminate\Support\Facades\File; 
 
 
 class OurTeamController extends Controller
@@ -43,15 +44,17 @@ class OurTeamController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
-        $image = time().'.'.$request->image->extension();  
-        $imageName = md5($image).'.'.$request->image->extension();
      
         $request->image->move(public_path('images/team'), $imageName);
-            
+        $img        = \Image::make($request->image)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'images/team/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
         Ourteam::create([
             'name'  => $request->name,
             'jabatan'  => $request->position,
-            'image'  => $imageName,
+            'image'  => $uploadName,
         ]);
 
         return redirect()->route('team.index')->with('success','You have successfully added team.');
@@ -91,7 +94,7 @@ class OurTeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        $team   = Ourteam::find($id);
         if ($request->image != null ) {
             $request->validate([
                 'name' => 'required|min:2|max:50',
@@ -99,15 +102,19 @@ class OurTeamController extends Controller
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 
             ]);
-            $image = time().'.'.$request->image->extension();  
-            $imageName = md5($image).'.'.$request->image->extension();
-         
-            $request->image->move(public_path('images/team'), $imageName);
-                
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'images/team/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
+
+            if(File::exists($team->image)) {
+                File::delete($team->image);
+            }
             Ourteam::where('id',$id)->update([
                 'name'  => $request->name,
                 'jabatan'  => $request->position,
-                'image'  => $imageName,
+                'image'  => $uploadName,
             ]);
     
             return redirect()->route('team.index')->with('success','You have successfully updated team.');

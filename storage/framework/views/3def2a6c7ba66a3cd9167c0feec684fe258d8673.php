@@ -45,7 +45,7 @@
                             <td><?php echo e($index + 1); ?></td>
                             <td><?php echo e($team->name); ?></td>
                             <td>                                
-                                <img src="/images/team/<?php echo e($team->image); ?>"  class="img-fluid " width="100px" alt="Preview image">
+                                <img src="<?php echo e($team->image); ?>"  class="img-fluid " width="100px" alt="Preview image">
                             </td>
                             <td><?php echo e($team->jabatan); ?></td>
                             <td >

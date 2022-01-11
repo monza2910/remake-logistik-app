@@ -466,7 +466,7 @@
               
           <div class="team-card">
             <!-- Foto Profil -->
-            <img src="/images/team/<?php echo e($team->image); ?>" alt="" />
+            <img src="<?php echo e($team->image); ?>" alt="" />
             <div>
               <!-- Nama Orang -->
               <span id="name"><?php echo e($team->name); ?></span>

@@ -469,7 +469,7 @@
               
           <div class="team-card">
             <!-- Foto Profil -->
-            <img src="/images/team/{{$team->image}}" alt="" />
+            <img src="{{$team->image}}" alt="" />
             <div>
               <!-- Nama Orang -->
               <span id="name">{{$team->name}}</span>
