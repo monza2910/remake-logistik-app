@@ -48,12 +48,12 @@ class SlidersController extends Controller
             'status' => 'integer',
         ]);
 
-
         $img        = \Image::make($request->image)->encode('jpg');  
         $imageName  = time().md5($img->__toString());
         $path       = 'images/sliders/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
         $img->save(public_path($path));
+        
         Sliders::create([
             'title_one'  => $request->title_one,
             'title_two'  => $request->title_two,

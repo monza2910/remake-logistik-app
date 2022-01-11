@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label for="image" >Image</label>
                     <br>
-                    <img src="/testimonials/{{$testimonial->image}}" id="category-img-tag" class="img-fluid" width="500px" alt="Preview image">
+                    <img src="{{$testimonial->image}}" id="category-img-tag" class="img-fluid" width="500px" alt="Preview image">
                 </div>
                 <div class="form-group">
                     <label for="image" >New Image(Optional)</label>

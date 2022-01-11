@@ -47,7 +47,7 @@
                         <tr>
                             <td><?php echo e($index +1); ?></td>
                             <td>     
-                                <img src="/testimonials/<?php echo e($testimonial->image); ?>"  class="img-fluid" width="100px" alt="Preview image">
+                                <img src="<?php echo e($testimonial->image); ?>"  class="img-fluid" width="100px" alt="Preview image">
                             </td>
                             <td><?php echo e($testimonial->name); ?></td>
                             <td><?php echo e($testimonial->position); ?></td>

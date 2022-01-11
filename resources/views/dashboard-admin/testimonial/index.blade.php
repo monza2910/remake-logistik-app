@@ -47,7 +47,7 @@
                         <tr>
                             <td>{{$index +1}}</td>
                             <td>     
-                                <img src="/testimonials/{{$testimonial->image}}"  class="img-fluid" width="100px" alt="Preview image">
+                                <img src="{{$testimonial->image}}"  class="img-fluid" width="100px" alt="Preview image">
                             </td>
                             <td>{{$testimonial->name}}</td>
                             <td>{{$testimonial->position}}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Testimonials;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; 
 
 class TestimonialsController extends Controller
 {
@@ -43,16 +44,19 @@ class TestimonialsController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'integer',
         ]);
-        $image = time().'.'.$request->image->extension();  
-        $imageName = md5($image).'.'.$request->image->extension();
-     
-        $request->image->move(public_path('testimonials'), $imageName);
+        
+        $img        = \Image::make($request->image)->encode('jpg');  
+        $imageName  = time().md5($img->__toString());
+        $path       = 'images/testimonials/'.$imageName.'.jpg';
+        $uploadName = '/'.$path;
+        $img->save(public_path($path));
+
         Testimonials::create([
             'name'  => $request->name,
             'position'  => $request->position,
             'company'  => $request->company,
             'quote'  => $request->quote,
-            'image'  => $imageName,
+            'image'  => $uploadName,
             'status'  => $request->status
         ]);
     
@@ -95,6 +99,7 @@ class TestimonialsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $testimonial    = Testimonials::find($id);
         $request->validate([
             'name' => 'required|min:2',
             'position' => 'required|min:2',
@@ -106,16 +111,22 @@ class TestimonialsController extends Controller
 
         if ($request->image != "") {
            
-            $image = time().'.'.$request->image->extension();  
-            $imageName = md5($image).'.'.$request->image->extension();
-    
-            $request->image->move(public_path('testimonials'), $imageName);
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $imageName  = time().md5($img->__toString());
+            $path       = 'images/testimonials/'.$imageName.'.jpg';
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
+
+            if(File::exists($testimonial->image)) {
+                File::delete($testimonial->image);
+            }
+
             Testimonials::where('id',$id)->update([
                 'name'  => $request->name,
                 'position'  => $request->position,
                 'company'  => $request->company,
                 'quote'  => $request->quote,
-                'image'  => $imageName,
+                'image'  => $uploadName,
                 'status'  => $request->status
             ]);
         
@@ -145,6 +156,9 @@ class TestimonialsController extends Controller
     public function destroy($id)
     {
         $testi = Testimonials::find($id);
+        if(File::exists($testi->image)) {
+            File::delete($testi->image);
+        }
         $testi->delete();
         return redirect()->route('testimonial.index')->with('success','You have successfully deleted testimonial.');
 
