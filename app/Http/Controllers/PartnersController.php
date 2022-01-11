@@ -180,6 +180,9 @@ class PartnersController extends Controller
     public function destroy($id)
     {
         $partner = Partners::find($id);
+        if(File::exists($partner->image)) {
+            File::delete($partner->image);
+        }
         $partner->delete();
         return redirect()->route('partner.index')->with('success','You have successfully deleted partner.');
 
