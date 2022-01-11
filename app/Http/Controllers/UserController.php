@@ -1249,18 +1249,18 @@ class UserController extends Controller
     }
 
     public function updateProfileSetting(Request $request, $id){
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'email' => 'nullable|unique:users,email|min:3',
+            'newpassword' => 'nullable|max:50|min:3',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'phone' => 'nullable|regex:/^[0-9]+$/|min:8|max:15',
+        ]);
+
         if ($request->image != null) {
             if ($request->phone != null) {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-    
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
                 
@@ -1275,13 +1275,7 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-    
+
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
                 
@@ -1298,12 +1292,6 @@ class UserController extends Controller
                     }
                 }else {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1318,11 +1306,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1341,12 +1324,6 @@ class UserController extends Controller
             } else {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1361,11 +1338,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1382,11 +1354,6 @@ class UserController extends Controller
                     }
                 }else {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1400,10 +1367,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
     
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -1424,14 +1387,7 @@ class UserController extends Controller
             if ($request->phone != null) {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-    
-                
+
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
@@ -1441,11 +1397,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
     
                         User::where('id',$id)->update([
                             'name' => $request->name,
@@ -1458,12 +1409,6 @@ class UserController extends Controller
                     }
                 }else {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-    
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'phone' => $request->phone,
@@ -1472,10 +1417,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
     
                         User::where('id',$id)->update([
                             'name' => $request->name,
@@ -1489,11 +1430,6 @@ class UserController extends Controller
             } else {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                        ]);
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
@@ -1502,10 +1438,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                        ]);
     
                         User::where('id',$id)->update([
                             'name' => $request->name,
@@ -1517,10 +1449,6 @@ class UserController extends Controller
                     }
                 }else {
                     if($request->newpassword != null){
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'newpassword' => 'required|max:50|min:3',
-                        ]);
     
                         User::where('id',$id)->update([
                             'name' => $request->name,
