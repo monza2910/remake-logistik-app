@@ -51,7 +51,7 @@ class SlidersController extends Controller
 
         $img        = \Image::make($request->image)->encode('jpg');  
         $imageName  = time().md5($img->__toString());
-        $path       = 'sliders/'.$imageName.'.jpg';
+        $path       = 'images/sliders/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
         $img->save(public_path($path));
         Sliders::create([
@@ -118,7 +118,7 @@ class SlidersController extends Controller
         if ($request->image != "") {
             $img        = \Image::make($request->image)->encode('jpg');  
             $imageName  = time().md5($img->__toString());
-            $path       = 'sliders/'.$imageName.'.jpg';
+            $path       = 'images/sliders/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
             $img->save(public_path($path));
 
@@ -162,6 +162,9 @@ class SlidersController extends Controller
     public function destroy($id)
     {
         $slider = SLiders::find($id);
+        if(File::exists($slider->image)) {
+            File::delete($slider->image);
+        }
         $slider->delete();
         return redirect()->route('slider.index')->with('success','You have successfully deleted slider.');
 
