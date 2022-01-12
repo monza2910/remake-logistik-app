@@ -35,7 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Title</th>
-                            <th>Slug</th>
+                            <th>View</th>
                             <th>Category</th>
                             <th>Tags</th>
                             <th>Status</th>
@@ -52,7 +52,7 @@
                                 <img src="<?php echo e($article->thumbnail); ?>"  class="img-fluid" height="200px" width="200px" alt="Preview image">
                             </td>
                             <td><?php echo e($article->title); ?></td>
-                            <td><?php echo e($article->slug); ?></td>
+                            <td><?php echo e($article->view_count); ?></td>
                             <td>
                                 <?php if($article->category): ?>
                                     <?php echo e($article->category->name); ?> 

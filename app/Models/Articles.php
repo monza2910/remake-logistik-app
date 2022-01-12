@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Articles extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['title','thumbnail','category_id','user_id','status','content','slug','created_at','updated_at'];
+    protected $fillable = ['title','thumbnail','category_id','user_id','status','content','slug','view_count','created_at','updated_at'];
 
     public function user(){
         return $this->belongsTo(User::class);

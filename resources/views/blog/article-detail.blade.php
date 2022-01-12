@@ -26,8 +26,6 @@
       </div>
     </nav>
 
-    @foreach ($articles as $article)
-        
     
     <!-- ARTICLE HEADER -->
     <div class="article-header">
@@ -42,7 +40,6 @@
     <div class="article-text">
       {!! $article->content !!}
     </div>
-    @endforeach
     <!-- ANOTHER LIST -->
     <div class="article-lists section section-wider">
       <h3>ARTIKEL LAIN</h3>

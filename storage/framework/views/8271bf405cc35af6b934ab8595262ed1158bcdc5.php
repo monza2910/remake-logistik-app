@@ -26,8 +26,6 @@
       </div>
     </nav>
 
-    <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        
     
     <!-- ARTICLE HEADER -->
     <div class="article-header">
@@ -43,7 +41,6 @@
       <?php echo $article->content; ?>
 
     </div>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <!-- ANOTHER LIST -->
     <div class="article-lists section section-wider">
       <h3>ARTIKEL LAIN</h3>

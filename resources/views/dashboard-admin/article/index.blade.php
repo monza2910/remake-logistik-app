@@ -35,7 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Title</th>
-                            <th>Slug</th>
+                            <th>View</th>
                             <th>Category</th>
                             <th>Tags</th>
                             <th>Status</th>
@@ -52,7 +52,7 @@
                                 <img src="{{$article->thumbnail}}"  class="img-fluid" height="200px" width="200px" alt="Preview image">
                             </td>
                             <td>{{$article->title}}</td>
-                            <td>{{$article->slug}}</td>
+                            <td>{{$article->view_count}}</td>
                             <td>
                                 @if ($article->category)
                                     {{$article->category->name}} 

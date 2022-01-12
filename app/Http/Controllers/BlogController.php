@@ -124,13 +124,14 @@ class BlogController extends Controller
         }
     }
 
-    public function openArticle($slug){
-        $articles = Articles::where('slug',$slug)->get();
+    public function openArticle(Articles $article){
+        // $articles = Articles::where('slug',$slug)->increment('view_count', 1)->get();
+        $article->increment('view_count', 1);
         $listarticles = Articles::where('status','1')->orderBy('id','DESC')->take(3)->get();
         $logos = GeneralSetting::where('page_name','logo')->get();
         $aboutus = GeneralSetting::where('page_name','about_us')->get();
         $mainaddress = GeneralSetting::where('page_name','main_address')->get();
-        return view('blog.article-detail',compact('articles','listarticles','logos','aboutus','mainaddress'));
+        return view('blog.article-detail',compact('article','listarticles','logos','aboutus','mainaddress'));
     }
   
     public function showArticleByCategory($category){
