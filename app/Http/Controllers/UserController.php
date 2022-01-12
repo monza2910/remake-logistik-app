@@ -50,6 +50,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'email' => 'required|unique:users,email|min:3',
+            'password' => 'required|max:50|min:3',
+            'role_id' => 'required|integer',
+            'outlet_id' =>'nullable|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'phone' => 'nullable|regex:/^[0-9]+$/|min:8|max:15',
+        ]);
 
         if ($request->image != null  ) {
 
@@ -59,16 +68,6 @@ class UserController extends Controller
 
                     if ($request->role_id == 3) {
 
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'outlet_id' =>'integer',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-            
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
                  
@@ -90,15 +89,7 @@ class UserController extends Controller
     
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-            
+                        
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
                  
@@ -123,15 +114,6 @@ class UserController extends Controller
                 if ($request->outlet_id != null ) {
 
                     if ($request->role_id == 3) {
-
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'outlet_id' =>'integer',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
             
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
@@ -154,14 +136,7 @@ class UserController extends Controller
     
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                        ]);
-            
+                        
                         $image = time().'.'.$request->image->extension();  
                         $imageName = md5($image).'.'.$request->image->extension();
                  
@@ -189,18 +164,6 @@ class UserController extends Controller
                 if ($request->outlet_id != null ) {
 
                     if ($request->role_id == 3) {
-
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'outlet_id' =>'integer',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-            
-                 
-                        $request->image->move(public_path('users'), $imageName);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
@@ -218,14 +181,6 @@ class UserController extends Controller
     
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                        ]);
-            
                 
                         User::create([
                             'name' => $request->name,
@@ -247,14 +202,6 @@ class UserController extends Controller
                 if ($request->outlet_id != null ) {
 
                     if ($request->role_id == 3) {
-
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                            'outlet_id' =>'integer',
-                        ]);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
@@ -272,12 +219,6 @@ class UserController extends Controller
     
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                            'email' => 'required|unique:users,email|min:3',
-                            'password' => 'required|max:50|min:3',
-                            'role_id' => 'required|integer',
-                        ]);
             
                         User::create([
                             'name' => $request->name,
@@ -344,22 +285,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'email' => 'nullable|unique:users,email|min:3',
+            'password' => 'nullable|max:50|min:3',
+            'role_id' => 'required|integer',
+            'outlet_id' =>'nullable|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'phone' => 'nullable|regex:/^[0-9]+$/|min:8|max:15',
+        ]);
+
         if ($request->image != null  ) {
             if ($request->email != null ) {
                 if ($request->password != null) {
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -382,15 +323,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
                         
@@ -415,15 +347,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -445,13 +368,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -476,15 +392,6 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -506,13 +413,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -537,14 +437,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -565,12 +457,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -595,15 +481,6 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -625,13 +502,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -656,14 +526,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -684,12 +546,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -713,15 +569,6 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
                         
@@ -741,12 +588,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -770,13 +611,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -796,11 +630,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                                ]);
                     
                                 $image = time().'.'.$request->image->extension();  
                                 $imageName = md5($image).'.'.$request->image->extension();
@@ -827,16 +656,6 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
@@ -853,13 +672,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -880,14 +692,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -904,12 +708,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -929,14 +727,6 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -953,12 +743,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -978,13 +762,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -1000,11 +777,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'email' => 'required|unique:users,email|min:3',
-                                    'role_id' => 'required|integer',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -1025,14 +797,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
 
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
@@ -1048,13 +812,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
@@ -1073,13 +830,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
 
                             if ($request->role_id == 3) {
-
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -1095,12 +845,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'password' => 'required|max:50|min:3',
-                                    'role_id' => 'required|integer',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
@@ -1119,13 +863,6 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
 
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
@@ -1140,11 +877,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'phone' => 'regex:/^[0-9]+$/|min:8|max:15',
-                                ]);
                     
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
@@ -1164,12 +896,6 @@ class UserController extends Controller
 
                             if ($request->role_id == 3) {
 
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                    'outlet_id' =>'integer',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
@@ -1183,11 +909,6 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $request->validate([
-                                    'name' => 'required|max:100|min:3',
-                                    'role_id' => 'required|integer',
-                                ]);
-                    
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
