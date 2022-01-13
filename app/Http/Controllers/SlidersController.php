@@ -6,6 +6,7 @@ use App\Models\Buttons;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File; 
+use Image;
 
 class SlidersController extends Controller
 {
@@ -48,11 +49,12 @@ class SlidersController extends Controller
             'status' => 'integer',
         ]);
 
-        $img        = \Image::make($request->image)->encode('jpg');  
+        $extension  = $request->image->extension();
+        $img        = Image::make($request->image);  
         $imageName  = time().md5($img->__toString());
-        $path       = 'images/sliders/'.$imageName.'.jpg';
+        $path       = 'images/sliders/'.$imageName.'.'.$extension;
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
         
         Sliders::create([
             'title_one'  => $request->title_one,
@@ -120,7 +122,8 @@ class SlidersController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/sliders/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
+
 
             if(File::exists($slider->image)) {
                 File::delete($slider->image);

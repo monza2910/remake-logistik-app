@@ -47,7 +47,7 @@ class PartnersController extends Controller
         $imageName  = time().md5($img->__toString());
         $path       = 'images/partners/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
 
 
         if ($request->website != null) {
@@ -123,7 +123,7 @@ class PartnersController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/partners/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
 
             if(File::exists($partner->image)) {
                 File::delete($partner->image);

@@ -50,7 +50,7 @@ class OurTeamController extends Controller
         $imageName  = time().md5($img->__toString());
         $path       = 'images/team/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
         Ourteam::create([
             'name'  => $request->name,
             'jabatan'  => $request->position,
@@ -106,7 +106,7 @@ class OurTeamController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/team/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
 
             if(File::exists($team->image)) {
                 File::delete($team->image);

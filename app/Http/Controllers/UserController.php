@@ -66,7 +66,7 @@ class UserController extends Controller
             $uploadName = time().md5($img->__toString());
             $path       = 'images/users/'.$uploadName.'.'.$extension;
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
 
             if ($request->phone != null) {
 
@@ -291,7 +291,7 @@ class UserController extends Controller
             $uploadName = time().md5($img->__toString());
             $path       = 'images/users/'.$uploadName.'.'.$extension;
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
             if ($request->email != null ) {
                 if ($request->password != null) {
                     if ($request->phone != null) {
@@ -916,7 +916,7 @@ class UserController extends Controller
             $uploadName = time().md5($img->__toString());
             $path       = 'images/users/'.$uploadName.'.'.$extension;
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
             if ($request->phone != null) {
                 if ($request->email != null) {
                     if($request->newpassword != null){

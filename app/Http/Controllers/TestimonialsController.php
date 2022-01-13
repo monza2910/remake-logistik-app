@@ -49,7 +49,7 @@ class TestimonialsController extends Controller
         $imageName  = time().md5($img->__toString());
         $path       = 'images/testimonials/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
 
         Testimonials::create([
             'name'  => $request->name,
@@ -115,7 +115,7 @@ class TestimonialsController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/testimonials/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
 
             if(File::exists($testimonial->image)) {
                 File::delete($testimonial->image);

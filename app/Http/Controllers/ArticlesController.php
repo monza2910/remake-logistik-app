@@ -76,7 +76,7 @@ class ArticlesController extends Controller
         $imageName  = time().md5($img->__toString());
         $path       = 'images/thumbnail/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
 
         if ($request->slug != null) {
             $slug = Str::slug($request->slug);
@@ -163,7 +163,7 @@ class ArticlesController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/thumbnail/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
             
             if(File::exists($article->thumbnail)) {
                 File::delete($article->thumbnail);

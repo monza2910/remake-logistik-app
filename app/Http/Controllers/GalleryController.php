@@ -48,7 +48,7 @@ class GalleryController extends Controller
         $imageName  = time().md5($img->__toString());
         $path       = 'images/gallery/'.$imageName.'.jpg';
         $uploadName = '/'.$path;
-        $img->save(public_path($path));
+        $img->save(public_path($path),10);
 
         Galery::create([
             'description' => $request->description,
@@ -106,7 +106,7 @@ class GalleryController extends Controller
             $imageName  = time().md5($img->__toString());
             $path       = 'images/gallery/'.$imageName.'.jpg';
             $uploadName = '/'.$path;
-            $img->save(public_path($path));
+            $img->save(public_path($path),10);
 
             if(File::exists($galery->image)) {
                 File::delete($galery->image);
