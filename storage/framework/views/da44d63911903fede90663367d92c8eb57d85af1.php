@@ -48,7 +48,7 @@
                             <td><?php echo e($index + 1); ?></td>
                             <td>     
                                 <?php if($user->image != null): ?>
-                                    <img src="/users/<?php echo e($user->image); ?>"  class="img-fluid" width="75px">
+                                    <img src="<?php echo e($user->image); ?>"  class="img-fluid" width="75px">
                                 <?php else: ?>
                                     Image Not Found
                                 <?php endif; ?>

@@ -14,7 +14,7 @@
         
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
           <?php if(auth()->user()->image): ?>
-          <img alt="image" src="/users/<?php echo e(auth()->user()->image); ?>" class="rounded-circle mr-1">
+          <img alt="image" src="<?php echo e(auth()->user()->image); ?>" class="rounded-circle mr-1">
           <?php else: ?>
           <i class="fas fa-user"></i>
           <?php endif; ?>

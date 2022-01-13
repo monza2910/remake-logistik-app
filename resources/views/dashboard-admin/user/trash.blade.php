@@ -47,7 +47,7 @@
                             <td>{{$index + 1}}</td>
                             <td>     
                                 @if ($user->image != null)
-                                    <img src="/users/{{$user->image}}"  class="img-fluid" width="75px">
+                                    <img src="{{$user->image}}"  class="img-fluid" width="75px">
                                 @else
                                     Image Not Found
                                 @endif

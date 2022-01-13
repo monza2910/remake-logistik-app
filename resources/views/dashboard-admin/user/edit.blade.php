@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="image" >Image</label>
                     <br>
-                    <img src="/users/{{$user->image}}"  class="img-fluid" width="100px" alt="Preview image">
+                    <img src="{{$user->image}}"  class="img-fluid" width="100px" alt="Preview image">
                 </div>
                 <div class="form-group">
                     <label for="image" >New Image Profile(Optional)</label>

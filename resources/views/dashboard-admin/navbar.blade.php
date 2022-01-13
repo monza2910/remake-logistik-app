@@ -14,7 +14,7 @@
         
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
           @if(auth()->user()->image)
-          <img alt="image" src="/users/{{auth()->user()->image}}" class="rounded-circle mr-1">
+          <img alt="image" src="{{auth()->user()->image}}" class="rounded-circle mr-1">
           @else
           <i class="fas fa-user"></i>
           @endif

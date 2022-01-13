@@ -61,6 +61,12 @@ class UserController extends Controller
         ]);
 
         if ($request->image != null  ) {
+            $extension  = $request->image->extension();
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $uploadName = time().md5($img->__toString());
+            $path       = 'images/users/'.$uploadName.'.'.$extension;
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
 
             if ($request->phone != null) {
 
@@ -68,17 +74,13 @@ class UserController extends Controller
 
                     if ($request->role_id == 3) {
 
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                 
-                        $request->image->move(public_path('users'), $imageName);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
                             'password' => Hash::make($request->password),
                             'role_id' => $request->role_id,
                             'outlet_id' => $request->outlet_id ,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                         ]);
                         return redirect()->route('user.index')->with('success','User Was Addes');
@@ -90,17 +92,13 @@ class UserController extends Controller
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
                         
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                 
-                        $request->image->move(public_path('users'), $imageName);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
                             'password' => Hash::make($request->password),
                             'role_id' => $request->role_id,
                             'outlet_id' => null ,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                         ]);
                         return redirect()->route('user.index')->with('success','User Was Addes');
@@ -115,17 +113,13 @@ class UserController extends Controller
 
                     if ($request->role_id == 3) {
             
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                 
-                        $request->image->move(public_path('users'), $imageName);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
                             'password' => Hash::make($request->password),
                             'role_id' => $request->role_id,
                             'outlet_id' => $request->outlet_id ,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => null,
                         ]);
                         return redirect()->route('user.index')->with('success','User Was Addes');
@@ -137,17 +131,13 @@ class UserController extends Controller
                 }elseif ($request->outlet_id == null) {
                     if ($request->role_id != 3) {
                         
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                 
-                        $request->image->move(public_path('users'), $imageName);
                         User::create([
                             'name' => $request->name,
                             'email' => $request->email,
                             'password' => Hash::make($request->password),
                             'role_id' => $request->role_id,
                             'outlet_id' => null ,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => null,
                         ]);
                         return redirect()->route('user.index')->with('success','User Was Addes');
@@ -296,23 +286,25 @@ class UserController extends Controller
         ]);
 
         if ($request->image != null  ) {
+            $extension  = $request->image->extension();
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $uploadName = time().md5($img->__toString());
+            $path       = 'images/users/'.$uploadName.'.'.$extension;
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
             if ($request->email != null ) {
                 if ($request->password != null) {
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-                    
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
+                
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Addes');
@@ -323,17 +315,13 @@ class UserController extends Controller
             
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => null ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
@@ -348,17 +336,13 @@ class UserController extends Controller
 
                             if ($request->role_id == 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
             
@@ -369,16 +353,12 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
                             }else {
@@ -392,17 +372,12 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-                    
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Addes');
@@ -414,16 +389,12 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => null ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
@@ -438,16 +409,12 @@ class UserController extends Controller
 
                             if ($request->role_id == 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
             
@@ -458,15 +425,11 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'email' => $request->email,
                                     'role_id' => $request->role_id,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
                             }else {
@@ -482,16 +445,12 @@ class UserController extends Controller
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Addes');
@@ -503,16 +462,12 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => null ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
@@ -527,16 +482,12 @@ class UserController extends Controller
 
                             if ($request->role_id == 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
             
@@ -547,15 +498,11 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'password' => Hash::make($request->password),
                                     'role_id' => $request->role_id,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
                             }else {
@@ -569,15 +516,11 @@ class UserController extends Controller
                     if ($request->phone != null) {
                         if ($request->outlet_id != null ) {
                             if ($request->role_id == 3) {
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Addes');
@@ -589,15 +532,11 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => null ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                     'phone' => $request->phone,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
@@ -612,15 +551,11 @@ class UserController extends Controller
 
                             if ($request->role_id == 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
                                     'outlet_id' => $request->outlet_id ,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
             
@@ -631,14 +566,10 @@ class UserController extends Controller
                         }elseif ($request->outlet_id == null) {
                             if ($request->role_id != 3) {
                     
-                                $image = time().'.'.$request->image->extension();  
-                                $imageName = md5($image).'.'.$request->image->extension();
-                        
-                                $request->image->move(public_path('users'), $imageName);
                                 User::where('id',$id)->update([
                                     'name' => $request->name,
                                     'role_id' => $request->role_id,
-                                    'image' => $imageName,
+                                    'image' => $uploadName,
                                 ]);
                                 return redirect()->route('user.index')->with('success','User Was Updated');
                             }else {
@@ -962,7 +893,8 @@ class UserController extends Controller
     
     }
 
-    public function profileSetting(){
+    public function profileSetting()
+    {
         $userid     = Auth::user()->id;
         $user       = User::findorFail($userid);
 
@@ -979,32 +911,29 @@ class UserController extends Controller
         ]);
 
         if ($request->image != null) {
+            $extension  = $request->image->extension();
+            $img        = \Image::make($request->image)->encode('jpg');  
+            $uploadName = time().md5($img->__toString());
+            $path       = 'images/users/'.$uploadName.'.'.$extension;
+            $uploadName = '/'.$path;
+            $img->save(public_path($path));
             if ($request->phone != null) {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                             'password' => bcrypt($request->newpassword),
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                         ]);
                 
@@ -1014,27 +943,18 @@ class UserController extends Controller
                 }else {
                     if($request->newpassword != null){
     
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                             'password' => bcrypt($request->newpassword),
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-    
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'phone' => $request->phone,
                         ]);
                 
@@ -1045,29 +965,20 @@ class UserController extends Controller
             } else {
                 if ($request->email != null) {
                     if($request->newpassword != null){
-    
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'password' => bcrypt($request->newpassword),
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
     
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
@@ -1075,27 +986,17 @@ class UserController extends Controller
                     }
                 }else {
                     if($request->newpassword != null){
-    
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                             'password' => bcrypt($request->newpassword),
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-    
-                        $image = time().'.'.$request->image->extension();  
-                        $imageName = md5($image).'.'.$request->image->extension();
-                
-                        $request->image->move(public_path('users'), $imageName);
                         User::where('id',$id)->update([
                             'name' => $request->name,
-                            'image' => $imageName,
+                            'image' => $uploadName,
                         ]);
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
@@ -1178,10 +1079,6 @@ class UserController extends Controller
                 
                         return redirect()->back()->with('success','Profile updated successfully');;
                     }else {
-                        $request->validate([
-                            'name' => 'required|max:100|min:3',
-                        ]);
-    
                         User::where('id',$id)->update([
                             'name' => $request->name,
                         ]);
