@@ -2,6 +2,8 @@
 
 namespace Livewire;
 
+use Illuminate\Support\Str;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\View;
 use Illuminate\Testing\TestView;
 use Illuminate\Testing\TestResponse;
@@ -49,6 +51,16 @@ use Livewire\HydrationMiddleware\{
 
 class LivewireServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Specify Blade directives that should never be overwritten.
+     *
+     * @var string[][]
+     */
+    protected $bladeDirectivesToRegisterIfMissing = [
+        'js' => [LivewireBladeDirectives::class, 'js'],
+    ];
+
     public function register()
     {
         $this->registerConfig();
@@ -62,13 +74,14 @@ class LivewireServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerRoutes();
         $this->registerCommands();
-        $this->registerRenameMes();
+        $this->registerFeatures();
         $this->registerViewMacros();
         $this->registerTagCompiler();
         $this->registerPublishables();
         $this->registerBladeDirectives();
         $this->registerViewCompilerEngine();
         $this->registerHydrationMiddleware();
+        $this->registerDisableBrowserCacheMiddleware();
 
         // Bypass specific middlewares during Livewire requests.
         // These are usually helpful during a typical request, but
@@ -131,6 +144,10 @@ class LivewireServiceProvider extends ServiceProvider
     {
         RouteFacade::post('/livewire/message/{name}', HttpConnectionHandler::class)
             ->name('livewire.message')
+            ->middleware(config('livewire.middleware_group', ''));
+
+        RouteFacade::post('/{locale}/livewire/message/{name}', HttpConnectionHandler::class)
+            ->name('livewire.message-localized')
             ->middleware(config('livewire.middleware_group', ''));
 
         RouteFacade::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])
@@ -242,7 +259,7 @@ class LivewireServiceProvider extends ServiceProvider
         // Early versions of Laravel 7.x don't have this method.
         if (method_exists(ComponentAttributeBag::class, 'macro')) {
             ComponentAttributeBag::macro('wire', function ($name) {
-                $entries = head($this->whereStartsWith('wire:'.$name));
+                $entries = head((array) $this->whereStartsWith('wire:'.$name));
 
                 $directive = head(array_keys($entries));
                 $value = head(array_values($entries));
@@ -280,11 +297,24 @@ class LivewireServiceProvider extends ServiceProvider
 
     protected function registerBladeDirectives()
     {
+        foreach ($this->bladeDirectivesToRegisterIfMissing as $name => $callable) {
+            $this->registerBladeDirectiveIfNotRegistered($name, $callable);
+        }
+
         Blade::directive('this', [LivewireBladeDirectives::class, 'this']);
         Blade::directive('entangle', [LivewireBladeDirectives::class, 'entangle']);
         Blade::directive('livewire', [LivewireBladeDirectives::class, 'livewire']);
         Blade::directive('livewireStyles', [LivewireBladeDirectives::class, 'livewireStyles']);
         Blade::directive('livewireScripts', [LivewireBladeDirectives::class, 'livewireScripts']);
+
+        // Uncomment to get @stacks working in Livewire.
+        // Blade::directive('stack', [LivewireBladeDirectives::class, 'stack']);
+        // Blade::directive('once', [LivewireBladeDirectives::class, 'once']);
+        // Blade::directive('endonce', [LivewireBladeDirectives::class, 'endonce']);
+        // Blade::directive('push', [LivewireBladeDirectives::class, 'push']);
+        // Blade::directive('endpush', [LivewireBladeDirectives::class, 'endpush']);
+        // Blade::directive('prepend', [LivewireBladeDirectives::class, 'prepend']);
+        // Blade::directive('endprepend', [LivewireBladeDirectives::class, 'endprepend']);
     }
 
     protected function registerViewCompilerEngine()
@@ -305,19 +335,23 @@ class LivewireServiceProvider extends ServiceProvider
         });
     }
 
-    protected function registerRenameMes()
+    protected function registerFeatures()
     {
-        RenameMe\SupportEvents::init();
-        RenameMe\SupportLocales::init();
-        RenameMe\SupportChildren::init();
-        RenameMe\SupportRedirects::init();
-        RenameMe\SupportValidation::init();
-        RenameMe\SupportFileUploads::init();
-        RenameMe\OptimizeRenderedDom::init();
-        RenameMe\SupportFileDownloads::init();
-        RenameMe\SupportActionReturns::init();
-        RenameMe\SupportBrowserHistory::init();
-        RenameMe\SupportComponentTraits::init();
+        Features\SupportEvents::init();
+        Features\SupportStacks::init();
+        Features\SupportLocales::init();
+        Features\SupportChildren::init();
+        Features\SupportRedirects::init();
+        Features\SupportValidation::init();
+        Features\SupportBootMethod::init();
+        Features\SupportFileUploads::init();
+        Features\OptimizeRenderedDom::init();
+        Features\SupportFileDownloads::init();
+        Features\SupportActionReturns::init();
+        Features\SupportBrowserHistory::init();
+        Features\SupportComponentTraits::init();
+        Features\SupportRootElementTracking::init();
+        Features\SupportPostDeploymentInvalidation::init();
     }
 
     protected function registerHydrationMiddleware()
@@ -371,6 +405,17 @@ class LivewireServiceProvider extends ServiceProvider
         ]);
     }
 
+    protected function registerDisableBrowserCacheMiddleware()
+    {
+        $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
+
+        if ($kernel->hasMiddleware(DisableBrowserCache::class)) {
+            return;
+        }
+
+        $kernel->pushMiddleware(DisableBrowserCache::class);
+    }
+
     protected function attemptToBypassRequestModifyingMiddlewareViaCallbacks()
     {
         if (method_exists(TrimStrings::class, 'skipWhen') &&
@@ -395,11 +440,10 @@ class LivewireServiceProvider extends ServiceProvider
 
         $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
 
-        $openKernel = new ObjectPrybar($kernel);
-
-        $middleware = $openKernel->getProperty('middleware');
-
-        $openKernel->setProperty('middleware', array_diff($middleware, $middlewareToExclude));
+        invade($kernel)->middleware = array_diff(
+            invade($kernel)->middleware,
+            $middlewareToExclude
+        );
     }
 
     protected function publishesToGroups(array $paths, $groups = null)
@@ -413,5 +457,26 @@ class LivewireServiceProvider extends ServiceProvider
         foreach ((array) $groups as $group) {
             $this->publishes($paths, $group);
         }
+    }
+
+    protected function registerBladeDirectiveIfNotRegistered(string $name, Callable $callable)
+    {
+        if (! $this->bladeDirectiveAlreadyRegistered($name)) {
+            Blade::directive($name, $callable);
+        }
+    }
+
+    protected function bladeDirectiveAlreadyRegistered(string $name): bool
+    {
+        if (method_exists(BladeCompiler::class, Str::start($name, 'compile')))
+        {
+            return true;
+        }
+
+        if (array_key_exists($name, Blade::getCustomDirectives())) {
+            return true;
+        }
+
+        return false;
     }
 }
