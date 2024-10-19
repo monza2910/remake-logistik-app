@@ -63,8 +63,7 @@ class PartnersController extends Controller
 
             Partners::create([
                 'name'  => $request->name,
-                'website'  => '#',
-                'image'  => $imageName,
+                'image'  => $uploadName,
             ]);
 
             return redirect()->route('partner.index')->with('success','You have successfully added partner.');
@@ -141,8 +140,7 @@ class PartnersController extends Controller
                 
                 Partners::where('id',$id)->update([
                     'name'  => $request->name,
-                    'website'  => '#',
-                    'image'  => $imageName,
+                    'image'  => $uploadName,
                 ]);
                 
                 return redirect()->route('partner.index')->with('success','You have successfully updated partner.');

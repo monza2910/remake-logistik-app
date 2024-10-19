@@ -41,11 +41,11 @@ class OurTeamController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:50',
             'position' => 'required|min:2|max:50',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5096',
             
         ]);
      
-        $request->image->move(public_path('images/team'), $imageName);
+        // $request->image->move(public_path('images/team'), $imageName);
         $img        = \Image::make($request->image)->encode('jpg');  
         $imageName  = time().md5($img->__toString());
         $path       = 'images/team/'.$imageName.'.jpg';
@@ -99,7 +99,7 @@ class OurTeamController extends Controller
             $request->validate([
                 'name' => 'required|min:2|max:50',
                 'position' => 'required|min:2|max:50',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5096',
                 
             ]);
             $img        = \Image::make($request->image)->encode('jpg');  

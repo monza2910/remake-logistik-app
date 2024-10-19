@@ -342,7 +342,7 @@
           @foreach ($partners as $partner)
         
           <a href="{{$partner->website}}">
-              <img src="{{$partner->image}}" alt="perusahaan" />
+              <img src="http://127.0.0.1:8000{{$partner->image}}" alt="perusahaan" />
           </a>
 
           @endforeach
@@ -364,7 +364,7 @@
                 <div class="testy-grid">
                     <div>
                         <!-- Foto Orang -->
-                  <img src="/testimonials/{{$testi->image}}" alt="fotocogan:v" />
+                  <img src="http://127.0.0.1:8000{{$testi->image}}" alt="fotocogan:v" />
                   <!-- Foto Orang -->
                 </div>
                 <div class="flex flex-left">

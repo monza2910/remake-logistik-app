@@ -44,7 +44,7 @@ class SlidersController extends Controller
             'title_one' => 'required|min:2|max:50',
             'title_two' => 'required|min:2|max:50',
             'description' => 'required|min:5',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5096',
             'button_id' => 'integer',
             'status' => 'integer',
         ]);
@@ -112,7 +112,7 @@ class SlidersController extends Controller
             'title_one' => 'required|min:2|max:50',
             'title_two' => 'required|min:2|max:50',
             'description' => 'required|min:5',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5096',
             'button_id' => 'integer',
             'status' => 'integer',
         ]);

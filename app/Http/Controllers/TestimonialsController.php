@@ -41,7 +41,7 @@ class TestimonialsController extends Controller
             'position' => 'required|min:2',
             'company' => 'required|min:2',
             'quote' => 'required|min:5',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5096',
             'status' => 'integer',
         ]);
         
@@ -105,7 +105,7 @@ class TestimonialsController extends Controller
             'position' => 'required|min:2',
             'company' => 'required|min:2',
             'quote' => 'required|min:5',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5096',
             'status' => 'integer',
         ]);
 
